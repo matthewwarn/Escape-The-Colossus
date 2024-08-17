@@ -1,0 +1,19 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EscapeTheColossus", "EscapeTheColossus.csproj", "{B1EC4875-51B8-4054-8FAB-C33CFD1D8BFA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	Debug|Any CPU = Debug|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B1EC4875-51B8-4054-8FAB-C33CFD1D8BFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1EC4875-51B8-4054-8FAB-C33CFD1D8BFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1EC4875-51B8-4054-8FAB-C33CFD1D8BFA}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{B1EC4875-51B8-4054-8FAB-C33CFD1D8BFA}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{B1EC4875-51B8-4054-8FAB-C33CFD1D8BFA}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{B1EC4875-51B8-4054-8FAB-C33CFD1D8BFA}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+EndGlobal
