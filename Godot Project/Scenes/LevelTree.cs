@@ -1,4 +1,7 @@
-﻿namespace EscapeTheColossus.Scenes;
+﻿using System;
+using System.Collections.Generic;
+
+namespace EscapeTheColossus.Scenes;
 
 public class LevelTree
 {
@@ -17,31 +20,32 @@ public class LevelTree
 
     /// <summary>
     /// Move to the current level's parent level if a parent level exists.
+    /// If this is the root node then the scene will not change.
     /// </summary>
-    /// <returns>True if there was a parent to move to. False otherwise.</returns>
-    public bool TraverseUp()
+    /// <returns>Newly selected scene path.</returns>
+    public string TraverseUp()
     {
-        if (_currentScene.Parent == null)
-            return false;
-        _currentScene = _currentScene.Parent;
-        return true;
+        if (_currentScene.Parent != null)
+            _currentScene = _currentScene.Parent;
+        else
+            Console.WriteLine("No parent exists.");
+        return CurrentScenePath;
     }
 
     /// <summary>
-    /// Moves to current scene's left child if left child exists.
+    /// Switch the current scene to a child of the current scene.
+    /// Throws IndexOutOfBoundsException if requested child does not exist.
     /// </summary>
-    /// <returns>True if moved, false otherwise.</returns>
-    public bool TraverseLeft()
+    /// <param name="childIndex">Index of child scene.</param>
+    /// <returns>Path to newly selected scene.</returns>
+    public string TraverseToChild(int childIndex)
     {
-        // ?? operator returns the left argument is not null, otherwise returns the right argument.
-        _currentScene = (_currentScene.LeftChild ?? _currentScene);
-        return _currentScene.LeftChild != null;
-    }
-
-    public bool TraverseRight()
-    {
-        _currentScene = (_currentScene.RightChild ?? _currentScene);
-        return _currentScene.LeftChild != null;
+        // Check requested child exists.
+        if (_currentScene.Children.Count < childIndex - 1)
+            throw new IndexOutOfRangeException();
+        // Switch to requested child node.
+        _currentScene = _currentScene.Children[childIndex];
+        return CurrentScenePath;
     }
 }
 
@@ -49,6 +53,5 @@ internal class PathNode(string path, PathNode parent)
 {
     public string ScenePath { get; } = path;
     public PathNode Parent { get; } = parent;
-    public PathNode LeftChild { get; set; } = null;
-    public PathNode RightChild { get; set; } = null;
+    public List<PathNode> Children { get; set; }
 }
