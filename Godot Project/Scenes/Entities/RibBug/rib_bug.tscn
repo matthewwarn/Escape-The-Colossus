@@ -1,0 +1,63 @@
+[gd_scene load_steps=10 format=3 uid="uid://b4gjkiteju2ea"]
+
+[ext_resource type="Texture2D" uid="uid://4krpsc4cin1j" path="res://Scenes/Entities/EntityAssets/Ribbug Sheet.png" id="1_a34pl"]
+[ext_resource type="PackedScene" uid="uid://b31oekchnss6y" path="res://Scenes/Levels/LevelComponents/killzone.tscn" id="2_nou70"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t4e4h"]
+atlas = ExtResource("1_a34pl")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3nx0c"]
+atlas = ExtResource("1_a34pl")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r05jw"]
+atlas = ExtResource("1_a34pl")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5qxd3"]
+atlas = ExtResource("1_a34pl")
+region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hhuaa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t4e4h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3nx0c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r05jw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5qxd3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_03c64"]
+radius = 16.0312
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ovni"]
+radius = 3.99961
+height = 17.9982
+
+[node name="RibBug" type="CharacterBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_hhuaa")
+
+[node name="Killzone" parent="." instance=ExtResource("2_nou70")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(0, 5)
+shape = SubResource("CircleShape2D_03c64")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 11)
+rotation = 1.55683
+shape = SubResource("CapsuleShape2D_4ovni")
