@@ -30,7 +30,7 @@ script = ExtResource("5_wc4ix")
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(4, 4)
 
-[node name="CoyoteTimer" type="Timer" parent="Player"]
+[node name="CoyoteTim" type="Timer" parent="Player"]
 wait_time = 0.08
 one_shot = true
 
