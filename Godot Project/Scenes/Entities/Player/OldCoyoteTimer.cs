@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class CoyoteTimer : Timer
+public partial class OldCoyoteTimer : Timer
 {
 	private bool Used = false;
 	
