@@ -6,4 +6,7 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <LangVersion>12</LangVersion>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Include="Scenes\level_links.dat" />
+  </ItemGroup>
 </Project>
