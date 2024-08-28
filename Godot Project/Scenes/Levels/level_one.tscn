@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bgncwurbkl1d7"]
+[gd_scene load_steps=11 format=3 uid="uid://bgncwurbkl1d7"]
 
 [ext_resource type="PackedScene" uid="uid://by7l0vw1421mx" path="res://Scenes/Levels/LevelComponents/gore_background.tscn" id="1_fgtpu"]
 [ext_resource type="Script" path="res://Scenes/Levels/level_one.gd" id="1_vn6js"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b31oekchnss6y" path="res://Scenes/Levels/LevelComponents/killzone.tscn" id="4_ba2ap"]
 [ext_resource type="Script" path="res://Scenes/Entities/Player/player.gd" id="5_wc4ix"]
 [ext_resource type="PackedScene" uid="uid://bl43hqysx2aen" path="res://Scenes/Levels/LevelComponents/level_transition.tscn" id="6_cfvl4"]
+[ext_resource type="PackedScene" uid="uid://b4gjkiteju2ea" path="res://Scenes/Entities/RibBug/rib_bug.tscn" id="8_jghfq"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8ttge"]
 
@@ -41,6 +42,9 @@ shape = SubResource("WorldBoundaryShape2D_8ttge")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelTransition"]
 position = Vector2(454, 160)
 shape = SubResource("RectangleShape2D_4f7qi")
+
+[node name="RibBug" parent="." instance=ExtResource("8_jghfq")]
+position = Vector2(215, 160)
 
 [connection signal="player_died" from="Killzone" to="." method="_on_player_died"]
 [connection signal="level_transition_reached" from="LevelTransition" to="." method="_on_level_transition_reached"]
