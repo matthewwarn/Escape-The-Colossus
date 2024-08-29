@@ -211,25 +211,28 @@ radius = 3.99961
 height = 17.9982
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0unf1"]
-radius = 17.0
-height = 250.0
+radius = 21.0
+height = 176.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nn26i"]
-height = 40.0
+radius = 10.0
+height = 44.0
 
 [node name="RibBug" type="CharacterBody2D"]
+position = Vector2(0, -9)
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_g8m6j")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -10)
 sprite_frames = SubResource("SpriteFrames_hhuaa")
 animation = &"Spawn"
 frame = 6
 frame_progress = 0.943444
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-2, 11)
+position = Vector2(-2, 1)
 rotation = 1.55683
 shape = SubResource("CapsuleShape2D_4ovni")
 
@@ -238,14 +241,14 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detection"]
-position = Vector2(1, -1)
+visible = false
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_0unf1")
 
 [node name="hit_box" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hit_box"]
-position = Vector2(0, 6)
+position = Vector2(0, 1)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_nn26i")
 
@@ -257,5 +260,11 @@ collide_with_areas = true
 target_position = Vector2(-19, 0)
 collide_with_areas = true
 
+[node name="take_damage_cooldown" type="Timer" parent="."]
+wait_time = 2.0
+
 [connection signal="body_entered" from="detection" to="." method="_on_detection_body_entered"]
 [connection signal="body_exited" from="detection" to="." method="_on_detection_body_exited"]
+[connection signal="body_entered" from="hit_box" to="." method="_on_hit_box_body_entered"]
+[connection signal="body_exited" from="hit_box" to="." method="_on_hit_box_body_exited"]
+[connection signal="timeout" from="take_damage_cooldown" to="." method="_on_take_damage_cooldown_timeout"]

@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 @onready var animated_sprite = $AnimatedSprite2D
 
+@onready var deal_attack_timer = $deal_attack_timer
+
 const SPEED = 160.0
 const JUMP_VELOCITY = -300.0
 const FALL_GRAVITY = 1100
@@ -17,6 +19,11 @@ var is_dash_cooling_down: bool = false
 var dash_timer = 0.0
 var dash_cooldown_timer = 0.0
 
+var attack_cooldown = true
+var enemy_inattack_range = false
+var health = 3
+var attack_ip = false
+
 # Get the default gravity from project settings. Which is 980.
 var GRAVITY = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -28,6 +35,9 @@ func return_gravity(velocity: Vector2):
 
 
 func _physics_process(delta):
+	enemy_attack()
+	attack()
+	
 	# Add the gravity when player isn't dashing.
 	if not is_on_floor() and not is_dashing:
 		velocity.y += return_gravity(velocity) * delta
@@ -86,5 +96,48 @@ func _physics_process(delta):
 		dash_cooldown_timer -= delta
 		if dash_cooldown_timer <= 0 && is_on_floor():
 			is_dash_cooling_down = false;
-
 	move_and_slide()
+	
+func player():
+	pass
+	
+func _on_palyer_hitbox_body_entered(body):
+	if body.has_method("enemy"):
+		enemy_inattack_range = true 
+		
+func _on_palyer_hitbox_body_exited(body):
+	if body.has_method("enemy"):
+		enemy_inattack_range = false
+		
+func enemy_attack():	
+	if enemy_inattack_range and attack_cooldown == true:
+		health = health - 1
+		attack_cooldown = false 
+		attack_cooldown.start()
+		print(health)
+
+func _on_attack_cooldown_timeout():
+	attack_cooldown = true
+	
+func attack():
+	var dir = facing
+	
+	if Input.is_action_just_pressed("attack"):
+		globall.player_current_attack = true
+		attack_ip = true
+		if dir == 1:
+			animated_sprite.flip_h = true
+			animated_sprite.play("Attack")
+			deal_attack_timer.start()
+		if dir == -1:
+			animated_sprite.flip_h = false
+			animated_sprite.play("Attack")
+			deal_attack_timer.start()
+	else:
+		attack_ip = false
+
+func _on_deal_attack_timer_timeout():
+	deal_attack_timer.stop()
+	globall.player_current_attack = false 
+	attack_ip = false 
+	
