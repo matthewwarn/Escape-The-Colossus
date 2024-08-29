@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bffllo437822"]
+[gd_scene load_steps=24 format=3 uid="uid://bffllo437822"]
 
 [ext_resource type="Script" path="res://Scenes/Entities/Player/player.cs" id="1_o7jb2"]
 [ext_resource type="Texture2D" uid="uid://bpg2w8c4bs586" path="res://Scenes/Entities/Player/filthy-drawings-mushy-sheet.png" id="1_r0o52"]
@@ -157,10 +157,6 @@ animations = [{
 radius = 5.0
 height = 14.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2y1ey"]
-radius = 28.0
-height = 56.0
-
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_o7jb2")
@@ -177,18 +173,3 @@ shape = SubResource("CapsuleShape2D_1uc2o")
 
 [node name="CoyoteTimer" type="Timer" parent="."]
 script = ExtResource("3_ekylv")
-
-[node name="attack_cooldown" type="Timer" parent="."]
-wait_time = 5.0
-
-[node name="player_hitbox" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="player_hitbox"]
-position = Vector2(0, -9)
-shape = SubResource("CapsuleShape2D_2y1ey")
-
-[node name="deal_attack_timer" type="Timer" parent="."]
-
-[connection signal="timeout" from="attack_cooldown" to="." method="_on_attack_cooldown_timeout"]
-[connection signal="body_entered" from="player_hitbox" to="." method="_on_player_hitbox_body_entered"]
-[connection signal="body_exited" from="player_hitbox" to="." method="_on_player_hitbox_body_exited"]
