@@ -2,13 +2,7 @@ using Godot;
 
 public partial class game_manager : Node
 {
-	// Put paths to all the game levels here.
-	// Currently they are loaded one after another when level transitions are reached.
-	// I will be implementing a tree system to allow levels with multiple exits.
-	private string[] level_paths = {"res://Scenes/Levels/level_one.tscn"};
-	
-	// Keeps track of which level should currently be loaded.
-	private int current_level_index = 0;
+	private LevelTree _levelTree; 
 	
 	// Reference to current level root node.
 	private Node current_level;
@@ -16,12 +10,13 @@ public partial class game_manager : Node
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		_levelTree = new LinkedLevelTree("Scenes/level_links.dat");
 		current_level = GetNode<Control>("Main Menu");
 	}
 
 	public void start_game()
 	{
-		LoadLevel(level_paths[0]);
+		LoadLevel(_levelTree.RootScenePath);
 	}
 
 	/// <summary>
@@ -59,7 +54,7 @@ public partial class game_manager : Node
 	public void ReloadCurrentLevel()
 	{
 		GD.Print("death received");
-		LoadLevel(level_paths[current_level_index]);
+		LoadLevel(_levelTree.CurrentScenePath);
 	}
 
 	/// <summary>
@@ -69,13 +64,6 @@ public partial class game_manager : Node
 	/// </summary>
 	public void LoadNextLevel()
 	{
-		current_level_index++;
-		if (current_level_index > level_paths.Length - 1)
-		{
-			current_level_index--;
-			GD.Print("No further levels to load. Add next level to level_paths in GameManager.");
-			return;
-		}
-		LoadLevel(level_paths[current_level_index]);
+		LoadLevel(_levelTree.TraverseToChild(0));
 	}
 }
