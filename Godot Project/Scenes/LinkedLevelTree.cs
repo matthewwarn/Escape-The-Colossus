@@ -69,8 +69,8 @@ public class LinkedLevelTree : LevelTree
     public string TraverseToChild(int childIndex)
     {
         // Check requested child exists.
-        if (_currentScene.Children.Count < childIndex - 1)
-            throw new IndexOutOfRangeException();
+        if (_currentScene.Children.Count > childIndex - 1)
+            throw new IndexOutOfRangeException("Child " + childIndex + " of \'" + CurrentScenePath + "\' either does not exist or is incorrectly linked.");
         // Switch to requested child node.
         _currentScene = _currentScene.Children[childIndex];
         return CurrentScenePath;
