@@ -9,7 +9,7 @@ const FALL_GRAVITY = 1100
 const DASH_VELOCITY = 500.0
 const DASH_DURATION = 0.15
 const DASH_COOLDOWN = 0.15
-const JUMP_BUFFER_TIME = 0.25
+const JUMP_BUFFER_TIME = 0.07
 
 var facing = 1
 
@@ -28,8 +28,8 @@ var dash_cooldown_timer = 0.0
 var GRAVITY = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 # If player is jumping, normal gravity. If player is falling, fall gravity.
-func return_gravity(velocity: Vector2):
-	if velocity.y < 0:
+func return_gravity(v: Vector2):
+	if v.y < 0:
 		return GRAVITY
 	return FALL_GRAVITY
 

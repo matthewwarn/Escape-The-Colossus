@@ -1,6 +1,6 @@
 [gd_scene load_steps=23 format=3 uid="uid://bffllo437822"]
 
-[ext_resource type="Script" path="res://Scenes/Entities/Player/player.cs" id="1_o7jb2"]
+[ext_resource type="Script" path="res://Scenes/Entities/Player/player.gd" id="1_msad5"]
 [ext_resource type="Texture2D" uid="uid://bpg2w8c4bs586" path="res://Scenes/Entities/Player/filthy-drawings-mushy-sheet.png" id="1_r0o52"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2olao"]
@@ -158,7 +158,7 @@ height = 14.0
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
-script = ExtResource("1_o7jb2")
+script = ExtResource("1_msad5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -11)
