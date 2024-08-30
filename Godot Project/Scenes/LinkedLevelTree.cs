@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
+
 public class LinkedLevelTree : LevelTree
 {
     // Used for formatting in Serialise() and Deserialize()
@@ -32,18 +33,31 @@ public class LinkedLevelTree : LevelTree
     private PathNode _currentScene;
     public string CurrentScenePath => _currentScene.ScenePath;
 
+    private Dictionary<string, PathNode> _levelLookupTable;
+
     /// <summary>
     /// Instantiate a level tree using existing config file.
     /// </summary>
     /// <param name="filePath">Path to config file</param>
     public LinkedLevelTree(string filePath)
     {
+        _levelLookupTable = new Dictionary<string, PathNode>();
         using (StreamReader reader = new StreamReader(filePath))
         {
             _rootScene = Deserialize(reader);
         }
 
         _currentScene = _rootScene;
+    }
+
+    public string JumpToLevel(string path)
+    {
+        if (_levelLookupTable.TryGetValue(path, out PathNode requestedLevel))
+        {
+            _currentScene = requestedLevel;
+            return CurrentScenePath;
+        }
+        throw new KeyNotFoundException("Requested level " + path + " does not exist in level tree.");
     }
 
     /// <summary>
@@ -132,6 +146,7 @@ public class LinkedLevelTree : LevelTree
             if (child == null)
                 break;
             newNode.AddChild(child);
+            _levelLookupTable.Add(child.ScenePath, child);
         }
 
         return newNode;
