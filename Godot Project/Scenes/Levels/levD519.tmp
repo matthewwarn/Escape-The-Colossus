@@ -1,13 +1,12 @@
-
-[gd_scene load_steps=9 format=3 uid="uid://bgncwurbkl1d7"]
+[gd_scene load_steps=10 format=3 uid="uid://bgncwurbkl1d7"]
 
 [ext_resource type="PackedScene" uid="uid://by7l0vw1421mx" path="res://Scenes/Levels/LevelComponents/gore_background.tscn" id="1_fgtpu"]
 [ext_resource type="Script" path="res://Scenes/Levels/level_one.gd" id="1_vn6js"]
 [ext_resource type="PackedScene" uid="uid://bffllo437822" path="res://Scenes/Entities/Player/player.tscn" id="2_6im3n"]
 [ext_resource type="TileSet" uid="uid://d3uaft5ba4k5r" path="res://Scenes/Levels/LevelAssets/gore_tileset.tres" id="2_vn5rm"]
 [ext_resource type="PackedScene" uid="uid://b31oekchnss6y" path="res://Scenes/Levels/LevelComponents/killzone.tscn" id="4_ba2ap"]
+[ext_resource type="Script" path="res://Scenes/Entities/Player/player.gd" id="5_wc4ix"]
 [ext_resource type="PackedScene" uid="uid://bl43hqysx2aen" path="res://Scenes/Levels/LevelComponents/level_transition.tscn" id="6_cfvl4"]
-[ext_resource type="PackedScene" uid="uid://b4gjkiteju2ea" path="res://Scenes/Entities/RibBug/rib_bug.tscn" id="8_jghfq"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8ttge"]
 
@@ -26,11 +25,12 @@ layer_0/tile_data = PackedInt32Array(262145, 131072, 0, 327681, 131072, 1, 39321
 
 [node name="Player" parent="." instance=ExtResource("2_6im3n")]
 position = Vector2(72, 176)
+script = ExtResource("5_wc4ix")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(4, 4)
 
-[node name="CoyoteTimer" type="Timer" parent="Player"]
+[node name="CoyoteTim" type="Timer" parent="Player"]
 wait_time = 0.08
 one_shot = true
 
@@ -45,9 +45,6 @@ shape = SubResource("WorldBoundaryShape2D_8ttge")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelTransition"]
 position = Vector2(454, 160)
 shape = SubResource("RectangleShape2D_4f7qi")
-
-[node name="RibBug" parent="." instance=ExtResource("8_jghfq")]
-position = Vector2(219, 170)
 
 [connection signal="player_died" from="Killzone" to="." method="_on_player_died"]
 [connection signal="level_transition_reached" from="LevelTransition" to="." method="_on_level_transition_reached"]
