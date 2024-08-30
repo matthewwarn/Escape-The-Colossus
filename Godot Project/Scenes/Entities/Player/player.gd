@@ -1,8 +1,13 @@
 extends CharacterBody2D
 
 @onready var animated_sprite = $AnimatedSprite2D
+<<<<<<< Updated upstream
 @onready var coyote_timer = $CoyoteTimer
 
+=======
+@onready var attack_cooldown = $attack_cooldown
+@onready var deal_attack_timer = $deal_attack_timer
+>>>>>>> Stashed changes
 
 const SPEED = 160.0
 const JUMP_VELOCITY = -300.0
@@ -24,6 +29,11 @@ var is_dash_cooling_down: bool = false
 var dash_toggle: bool = true;
 var dash_timer = 0.0
 var dash_cooldown_timer = 0.0
+
+var enemy_attack_cooldown = true
+var enemy_inattack_range = false
+var health = 3
+var attack_ip = false
 
 # Get the default gravity from project settings. Which is 980.
 var GRAVITY = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -53,6 +63,12 @@ func toggle_powerups(powerup: String):
 			print("DOUBLE JUMP DISABLED")
 
 func _physics_process(delta):
+<<<<<<< Updated upstream
+=======
+	enemy_attack()
+	attack()
+	
+>>>>>>> Stashed changes
 	# Add the gravity when player isn't dashing.
 	if not is_on_floor() and not is_dashing:
 		velocity.y += return_gravity(velocity) * delta
@@ -136,6 +152,7 @@ func _physics_process(delta):
 			is_dash_cooling_down = false;
 	move_and_slide()
 	
+<<<<<<< Updated upstream
 	# Start Coyote Timer if just walked off floor.
 	if was_on_floor and not is_on_floor():
 		coyote_timer.start()
@@ -151,3 +168,50 @@ func _physics_process(delta):
 
 func on_jump_buffer_timeout()->void:
 	jump_buffer = false
+=======
+func player():
+	pass
+	
+func _on_palyer_hitbox_body_entered(body):
+	if body.has_method("enemy"):
+		enemy_inattack_range = true 
+		attack_cooldown == true
+		
+func _on_palyer_hitbox_body_exited(body):
+	if body.has_method("enemy"):
+		enemy_inattack_range = false
+		attack_cooldown == true
+		
+func enemy_attack():	
+	if enemy_inattack_range and attack_cooldown == true:
+		health = health - 1
+		enemy_attack_cooldown = false 
+		attack_cooldown.start()
+		print(health)
+
+func _on_attack_cooldown_timeout():
+	attack_cooldown = true
+	
+func attack():
+	var dir = facing
+	
+	if Input.is_action_just_pressed("attack") and enemy_attack_cooldown == true:
+		globall.player_current_attack = true
+		attack_ip = true
+		if dir == 1:
+			animated_sprite.flip_h = true
+			animated_sprite.play("Attack")
+			deal_attack_timer.start()
+		if dir == -1:
+			animated_sprite.flip_h = false
+			animated_sprite.play("Attack")
+			deal_attack_timer.start()
+	else:
+		attack_ip = false
+
+func _on_deal_attack_timer_timeout():
+	deal_attack_timer.stop()
+	globall.player_current_attack = false 
+	attack_ip = false 
+	
+>>>>>>> Stashed changes
