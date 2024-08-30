@@ -1,5 +1,4 @@
-
-[gd_scene load_steps=9 format=3 uid="uid://bgncwurbkl1d7"]
+[gd_scene load_steps=10 format=3 uid="uid://bgncwurbkl1d7"]
 
 [ext_resource type="PackedScene" uid="uid://by7l0vw1421mx" path="res://Scenes/Levels/LevelComponents/gore_background.tscn" id="1_fgtpu"]
 [ext_resource type="Script" path="res://Scenes/Levels/level_one.gd" id="1_vn6js"]

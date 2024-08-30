@@ -53,9 +53,7 @@ func toggle_powerups(powerup: String):
 			print("DOUBLE JUMP DISABLED")
 
 func _physics_process(delta):
-	# Add the gravity when player isn't dashing.
-	if not is_on_floor() and not is_dashing:
-		velocity.y += return_gravity(velocity) * delta
+
 	# Storing if the player just left the floor, for Coyote time.
 	var was_on_floor = is_on_floor()
 	
@@ -134,6 +132,7 @@ func _physics_process(delta):
 		dash_cooldown_timer -= delta
 		if dash_cooldown_timer <= 0 && is_on_floor():
 			is_dash_cooling_down = false;
+	
 	move_and_slide()
 	
 	# Start Coyote Timer if just walked off floor.
