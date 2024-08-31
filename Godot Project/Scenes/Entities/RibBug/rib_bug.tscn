@@ -215,7 +215,6 @@ radius = 21.0
 height = 176.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nn26i"]
-radius = 10.0
 height = 44.0
 
 [node name="RibBug" type="CharacterBody2D"]
@@ -246,6 +245,8 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_0unf1")
 
 [node name="hit_box" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hit_box"]
 position = Vector2(0, 1)
@@ -263,8 +264,11 @@ collide_with_areas = true
 [node name="take_damage_cooldown" type="Timer" parent="."]
 wait_time = 2.0
 
+[node name="attack_cooldown" type="Timer" parent="."]
+
 [connection signal="body_entered" from="detection" to="." method="_on_detection_body_entered"]
 [connection signal="body_exited" from="detection" to="." method="_on_detection_body_exited"]
 [connection signal="body_entered" from="hit_box" to="." method="_on_hit_box_body_entered"]
 [connection signal="body_exited" from="hit_box" to="." method="_on_hit_box_body_exited"]
 [connection signal="timeout" from="take_damage_cooldown" to="." method="_on_take_damage_cooldown_timeout"]
+[connection signal="timeout" from="attack_cooldown" to="." method="_on_attack_cooldown_timeout"]
