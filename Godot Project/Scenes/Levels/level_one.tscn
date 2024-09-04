@@ -48,5 +48,6 @@ shape = SubResource("RectangleShape2D_4f7qi")
 [node name="RibBug" parent="." instance=ExtResource("8_jghfq")]
 position = Vector2(219, 170)
 
+[connection signal="player_died" from="Player" to="." method="_on_player_died"]
 [connection signal="player_died" from="Killzone" to="." method="_on_player_died"]
 [connection signal="level_transition_reached" from="LevelTransition" to="." method="_on_level_transition_reached"]

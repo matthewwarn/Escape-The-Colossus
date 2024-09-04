@@ -5,6 +5,8 @@ extends CharacterBody2D
 @onready var attack_cooldown = $attack_cooldown
 @onready var deal_attack_timer = $deal_attack_timer
 
+signal player_died;
+
 const SPEED: float            = 160.0
 const JUMP_VELOCITY: float    = -300.0
 const FALL_GRAVITY: int       = 1100
@@ -60,6 +62,8 @@ func toggle_powerups(powerup: String):
 			print("DOUBLE JUMP DISABLED")
 
 func _physics_process(delta):
+	if health < 1:
+		player_died.emit();
 
 	# Storing if the player just left the floor, for Coyote time.
 	var was_on_floor: bool = is_on_floor()
