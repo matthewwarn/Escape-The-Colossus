@@ -5,15 +5,15 @@ extends CharacterBody2D
 @onready var attack_cooldown = $attack_cooldown
 @onready var deal_attack_timer = $deal_attack_timer
 
-const SPEED = 160.0
-const JUMP_VELOCITY = -300.0
-const FALL_GRAVITY = 1100
-const DASH_VELOCITY = 500.0
-const DASH_DURATION = 0.15
-const DASH_COOLDOWN = 0.15
-const JUMP_BUFFER_TIME = 0.07
+const SPEED: float            = 160.0
+const JUMP_VELOCITY: float    = -300.0
+const FALL_GRAVITY: int       = 1100
+const DASH_VELOCITY: float    = 500.0
+const DASH_DURATION: float    = 0.15
+const DASH_COOLDOWN: float    = 0.15
+const JUMP_BUFFER_TIME: float = 0.07
 
-var facing = 1
+var facing: int = 1
 
 var jump: bool = false
 var double_jump_available: bool = false
@@ -23,14 +23,14 @@ var jump_buffer: bool = false
 var is_dashing: bool = false
 var is_dash_cooling_down: bool = false
 var dash_toggle: bool = true;
-var dash_timer = 0.0
-var dash_cooldown_timer = 0.0
+var dash_timer: float          = 0.0
+var dash_cooldown_timer: float = 0.0
 
-var enemy_attack_cooldown = true
-var enemy_inattack_range = false
-var health = 3
-var attack_ip = false
-var is_alive = true
+var enemy_attack_cooldown: bool = true
+var enemy_inattack_range: bool  = false
+var health: int                 = 3
+var attack_ip: bool             = false
+var is_alive: bool              = true
 
 # Get the default gravity from project settings. Which is 980.
 var GRAVITY = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -62,7 +62,7 @@ func toggle_powerups(powerup: String):
 func _physics_process(delta):
 
 	# Storing if the player just left the floor, for Coyote time.
-	var was_on_floor = is_on_floor()
+	var was_on_floor: bool = is_on_floor()
 	
 	# DEBUGGING! TOGGLE POWERUPS!
 	if Input.is_action_just_pressed("toggle_dash"): # F1 key
@@ -104,8 +104,8 @@ func _physics_process(delta):
 			get_tree().create_timer(JUMP_BUFFER_TIME).timeout.connect(on_jump_buffer_timeout)
 	
 	# Get the input direction and handle the movement/deceleration.
-	var move_left = Input.is_action_pressed("move_left")
-	var move_right = Input.is_action_pressed("move_right")
+	var move_left: bool  = Input.is_action_pressed("move_left")
+	var move_right: bool = Input.is_action_pressed("move_right")
 	
 	#Handle dash.
 	if Input.is_action_just_pressed("dash") && dash_toggle && not is_dashing && not is_dash_cooling_down:
@@ -172,7 +172,7 @@ func _on_attack_cooldown_timeout():
 	enemy_attack_cooldown = false
 
 func attack():
-	var dir = facing
+	var dir: int = facing
 	
 	if Input.is_action_just_pressed("attack") and enemy_attack_cooldown == true:
 		globall.player_current_attack = true
