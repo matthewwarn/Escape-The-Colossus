@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bffllo437822"]
+[gd_scene load_steps=28 format=3 uid="uid://bffllo437822"]
 
 [ext_resource type="Script" path="res://Scenes/Entities/Player/player.gd" id="1_msad5"]
 [ext_resource type="Texture2D" uid="uid://bpg2w8c4bs586" path="res://Scenes/Entities/Player/filthy-drawings-mushy-sheet.png" id="1_r0o52"]
@@ -30,6 +30,22 @@ region = Rect2(160, 64, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_hxcr8"]
 atlas = ExtResource("1_r0o52")
 region = Rect2(192, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8sve"]
+atlas = ExtResource("1_r0o52")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ctkgf"]
+atlas = ExtResource("1_r0o52")
+region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pbfdo"]
+atlas = ExtResource("1_r0o52")
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_42c28"]
+atlas = ExtResource("1_r0o52")
+region = Rect2(192, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7w1y4"]
 atlas = ExtResource("1_r0o52")
@@ -105,6 +121,23 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_p8sve")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ctkgf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pbfdo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_42c28")
+}],
+"loop": true,
+"name": &"Death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_7w1y4")
 }, {
 "duration": 1.0,
@@ -156,6 +189,10 @@ animations = [{
 radius = 5.0
 height = 14.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f0iub"]
+radius = 15.0
+height = 56.0
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_msad5")
@@ -163,10 +200,30 @@ script = ExtResource("1_msad5")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -11)
 sprite_frames = SubResource("SpriteFrames_23yfs")
+
 animation = &"Jump"
 autoplay = "Idle"
 frame_progress = 0.713014
 
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -7)
 shape = SubResource("CapsuleShape2D_1uc2o")
+
+[node name="attack_cooldown" type="Timer" parent="."]
+
+[node name="deal_attack_timer" type="Timer" parent="."]
+
+[node name="player_hitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_hitbox"]
+position = Vector2(0, -14)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_f0iub")
+
+[connection signal="timeout" from="attack_cooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="timeout" from="deal_attack_timer" to="." method="_on_deal_attack_timer_timeout"]
+[connection signal="body_entered" from="player_hitbox" to="." method="_on_player_hitbox_body_entered"]
+[connection signal="body_exited" from="player_hitbox" to="." method="_on_player_hitbox_body_exited"]
