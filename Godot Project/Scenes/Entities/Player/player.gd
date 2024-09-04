@@ -64,6 +64,8 @@ func toggle_powerups(powerup: String):
 func _physics_process(delta):
 	if health < 1:
 		player_died.emit();
+	else:
+		enemy_attack();
 
 	# Storing if the player just left the floor, for Coyote time.
 	var was_on_floor: bool = is_on_floor()
