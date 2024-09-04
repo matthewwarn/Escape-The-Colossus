@@ -29,7 +29,6 @@ func _physics_process(delta):
 			self.queue_free()
 	
 	if player_chase:
-			
 		if (direction) < 0:
 			animated_sprite.flip_h = false
 		else:
@@ -50,6 +49,7 @@ func _physics_process(delta):
 		animated_sprite.play("Idle")
 	
 	move_and_slide()
+
 func _on_detection_body_entered(body):
 	player = body
 	player_chase = true
@@ -89,6 +89,7 @@ func deal_with_damage():
 		
 func _on_take_damage_cooldown_timeout():
 	can_take_damage = true
+
 
 func _on_attack_cooldown_timeout():
 	can_attack = true
