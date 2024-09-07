@@ -2,16 +2,24 @@ extends CharacterBody2D
 
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var coyote_timer = $CoyoteTimer
+@onready var attack_cooldown = $attack_cooldown
+@onready var deal_attack_timer = $deal_attack_timer
 
-const SPEED = 160.0
-const JUMP_VELOCITY = -300.0
-const FALL_GRAVITY = 1100
-const DASH_VELOCITY = 500.0
-const DASH_DURATION = 0.15
-const DASH_COOLDOWN = 0.15
-const JUMP_BUFFER_TIME = 0.07
+var full_heart_texture = preload("res://Scenes/Entities/Player/Health/Heart.png")
+var damaged_heart_texture = preload("res://Scenes/Entities/Player/Health/DamagedHeart.png")
+var empty_heart_texture = preload("res://Scenes/Entities/Player/Health/EmptyHeart.png")
 
-var facing = 1
+signal player_died;
+
+const SPEED: float            = 160.0
+const JUMP_VELOCITY: float    = -300.0
+const FALL_GRAVITY: int       = 1100
+const DASH_VELOCITY: float    = 500.0
+const DASH_DURATION: float    = 0.15
+const DASH_COOLDOWN: float    = 0.15
+const JUMP_BUFFER_TIME: float = 0.07
+
+var facing: int = 1
 
 var jump: bool = false
 var double_jump_available: bool = false
@@ -21,11 +29,27 @@ var jump_buffer: bool = false
 var is_dashing: bool = false
 var is_dash_cooling_down: bool = false
 var dash_toggle: bool = true;
-var dash_timer = 0.0
-var dash_cooldown_timer = 0.0
+var dash_timer: float          = 0.0
+var dash_cooldown_timer: float = 0.0
+
+var enemy_attack_cooldown: bool = true
+var enemy_inattack_range: bool  = false
+var health: int                 = 3
+var attack_ip: bool             = false
+var is_alive: bool              = true
+
+# The hearts get initialised in _ready()
+var heart1
+var heart2
+var heart3
 
 # Get the default gravity from project settings. Which is 980.
 var GRAVITY = ProjectSettings.get_setting("physics/2d/default_gravity")
+
+func _ready():
+	heart1 = get_node("CanvasLayer/Heart1")
+	heart2 = get_node("CanvasLayer/Heart2")
+	heart3 = get_node("CanvasLayer/Heart3")
 
 # If player is jumping, normal gravity. If player is falling, fall gravity.
 func return_gravity(v: Vector2):
@@ -52,8 +76,13 @@ func toggle_powerups(powerup: String):
 			print("DOUBLE JUMP DISABLED")
 
 func _physics_process(delta):
+	if health < 1:
+		player_died.emit();
+	else:
+		enemy_attack();
+
 	# Storing if the player just left the floor, for Coyote time.
-	var was_on_floor = is_on_floor()
+	var was_on_floor: bool = is_on_floor()
 	
 	# DEBUGGING! TOGGLE POWERUPS!
 	if Input.is_action_just_pressed("toggle_dash"): # F1 key
@@ -95,8 +124,8 @@ func _physics_process(delta):
 			get_tree().create_timer(JUMP_BUFFER_TIME).timeout.connect(on_jump_buffer_timeout)
 	
 	# Get the input direction and handle the movement/deceleration.
-	var move_left = Input.is_action_pressed("move_left")
-	var move_right = Input.is_action_pressed("move_right")
+	var move_left: bool  = Input.is_action_pressed("move_left")
+	var move_right: bool = Input.is_action_pressed("move_right")
 	
 	#Handle dash.
 	if Input.is_action_just_pressed("dash") && dash_toggle && not is_dashing && not is_dash_cooling_down:
@@ -130,7 +159,7 @@ func _physics_process(delta):
 		dash_cooldown_timer -= delta
 		if dash_cooldown_timer <= 0 && is_on_floor():
 			is_dash_cooling_down = false;
-
+	
 	move_and_slide()
 	
 	# Start Coyote Timer if just walked off floor.
@@ -148,3 +177,59 @@ func _physics_process(delta):
 
 func on_jump_buffer_timeout()->void:
 	jump_buffer = false
+
+func player():
+	pass
+
+func enemy_attack():	
+	if enemy_inattack_range and enemy_attack_cooldown == false:
+		update_hearts(health)
+		health = health - 1
+		enemy_attack_cooldown = true
+		attack_cooldown.start()
+		
+
+func _on_attack_cooldown_timeout():
+	enemy_attack_cooldown = false
+
+func attack():
+	var dir: int = facing
+	
+	if Input.is_action_just_pressed("attack") and enemy_attack_cooldown == true:
+		globall.player_current_attack = true
+		attack_ip = true
+		if dir == 1:
+			animated_sprite.flip_h = true
+			animated_sprite.play("Attack")
+			deal_attack_timer.start()
+		if dir == -1:
+			animated_sprite.flip_h = false
+			animated_sprite.play("Attack")
+			deal_attack_timer.start()
+	else:
+		attack_ip = false
+
+# Takes the health the player had right BEFORE getting hit
+func update_hearts(health):
+	match health:
+		1:
+			heart1.texture = empty_heart_texture
+		2:
+			heart2.texture = empty_heart_texture
+		3:
+			heart3.texture = empty_heart_texture
+
+func _on_deal_attack_timer_timeout():
+	deal_attack_timer.stop()
+	globall.player_current_attack = false 
+	attack_ip = false 
+
+func _on_player_hitbox_body_entered(body):
+	if body.has_method("enemy"):
+		enemy_inattack_range = true 
+		enemy_attack_cooldown = false
+
+func _on_player_hitbox_body_exited(body):
+	if body.has_method("enemy"):
+		enemy_inattack_range = false
+		enemy_attack_cooldown = true
