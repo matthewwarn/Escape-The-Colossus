@@ -139,6 +139,7 @@ public class LinkedLevelTree : LevelTree
 
         // Create a node from this path and recursively add its children.
         PathNode newNode = new PathNode(path, parent);
+        _levelLookupTable.Add(newNode.ScenePath, newNode);
         while (true)
         {
             PathNode child = Deserialize(inputStream, newNode);
@@ -146,7 +147,6 @@ public class LinkedLevelTree : LevelTree
             if (child == null)
                 break;
             newNode.AddChild(child);
-            _levelLookupTable.Add(child.ScenePath, child);
         }
 
         return newNode;

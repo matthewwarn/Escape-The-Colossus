@@ -20,9 +20,21 @@ public partial class game_manager : Node
 		current_level = GetNode<Control>("Main Menu");
 	}
 
+	/// <summary>
+	/// Start the game from the root level ignoring existing saves.
+	/// </summary>
 	public void start_game()
 	{
 		LoadLevel(_levelTree.RootScenePath);
+	}
+
+	/// <summary>
+	/// Load previous game state, then start game.
+	/// </summary>
+	public void ResumeGame()
+	{
+		ReadSave();
+		LoadLevel(_levelTree.CurrentScenePath);
 	}
 
 	/// <summary>
@@ -40,6 +52,22 @@ public partial class game_manager : Node
 			saveFile.WriteLine(_bossOneDefeated);
 			saveFile.WriteLine(_bossTwoDefeated);
 		}
+	}
+
+	public void ReadSave()
+	{
+		if (!File.Exists(GAME_SAVE_PATH))
+		{
+			GD.Print("Save data not found, falling back to default values.");
+			return;
+		}
+
+		using (StreamReader saveFile = new StreamReader(GAME_SAVE_PATH))
+		{
+			_levelTree.JumpToLevel(saveFile.ReadLine());
+			_bossOneDefeated = saveFile.ReadLine() == "True";
+			_bossTwoDefeated = saveFile.ReadLine() == "True";
+		}	
 	}
 
 	/// <summary>
@@ -77,7 +105,6 @@ public partial class game_manager : Node
 	/// </summary>
 	public void ReloadCurrentLevel()
 	{
-		GD.Print("death received");
 		LoadLevel(_levelTree.CurrentScenePath);
 	}
 
