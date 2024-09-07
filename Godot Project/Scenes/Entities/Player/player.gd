@@ -5,6 +5,10 @@ extends CharacterBody2D
 @onready var attack_cooldown = $attack_cooldown
 @onready var deal_attack_timer = $deal_attack_timer
 
+var full_heart_texture = preload("res://Scenes/Entities/Player/Health/Heart.png")
+var damaged_heart_texture = preload("res://Scenes/Entities/Player/Health/DamagedHeart.png")
+var empty_heart_texture = preload("res://Scenes/Entities/Player/Health/EmptyHeart.png")
+
 signal player_died;
 
 const SPEED: float            = 160.0
@@ -34,8 +38,18 @@ var health: int                 = 3
 var attack_ip: bool             = false
 var is_alive: bool              = true
 
+# The hearts get initialised in _ready()
+var heart1
+var heart2
+var heart3
+
 # Get the default gravity from project settings. Which is 980.
 var GRAVITY = ProjectSettings.get_setting("physics/2d/default_gravity")
+
+func _ready():
+	heart1 = get_node("CanvasLayer/Heart1")
+	heart2 = get_node("CanvasLayer/Heart2")
+	heart3 = get_node("CanvasLayer/Heart3")
 
 # If player is jumping, normal gravity. If player is falling, fall gravity.
 func return_gravity(v: Vector2):
@@ -169,10 +183,11 @@ func player():
 
 func enemy_attack():	
 	if enemy_inattack_range and enemy_attack_cooldown == false:
+		update_hearts(health)
 		health = health - 1
 		enemy_attack_cooldown = true
 		attack_cooldown.start()
-		print("player health: " + str(health))
+		
 
 func _on_attack_cooldown_timeout():
 	enemy_attack_cooldown = false
@@ -193,6 +208,16 @@ func attack():
 			deal_attack_timer.start()
 	else:
 		attack_ip = false
+
+# Takes the health the player had right BEFORE getting hit
+func update_hearts(health):
+	match health:
+		1:
+			heart1.texture = empty_heart_texture
+		2:
+			heart2.texture = empty_heart_texture
+		3:
+			heart3.texture = empty_heart_texture
 
 func _on_deal_attack_timer_timeout():
 	deal_attack_timer.stop()

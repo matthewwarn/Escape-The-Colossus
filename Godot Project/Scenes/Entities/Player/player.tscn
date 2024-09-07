@@ -1,7 +1,8 @@
-[gd_scene load_steps=28 format=3 uid="uid://bffllo437822"]
+[gd_scene load_steps=29 format=3 uid="uid://bffllo437822"]
 
 [ext_resource type="Script" path="res://Scenes/Entities/Player/player.gd" id="1_msad5"]
 [ext_resource type="Texture2D" uid="uid://bpg2w8c4bs586" path="res://Scenes/Entities/Player/filthy-drawings-mushy-sheet.png" id="1_r0o52"]
+[ext_resource type="Texture2D" uid="uid://dmar34rhv6vti" path="res://Scenes/Entities/Player/Health/Heart.png" id="2_8ijun"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2olao"]
 atlas = ExtResource("1_r0o52")
@@ -196,6 +197,32 @@ height = 56.0
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_msad5")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Heart1" type="TextureRect" parent="CanvasLayer"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 522.0
+offset_bottom = 522.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_8ijun")
+
+[node name="Heart2" type="TextureRect" parent="CanvasLayer"]
+offset_left = 65.0
+offset_top = 10.0
+offset_right = 577.0
+offset_bottom = 522.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_8ijun")
+
+[node name="Heart3" type="TextureRect" parent="CanvasLayer"]
+offset_left = 120.0
+offset_top = 10.0
+offset_right = 632.0
+offset_bottom = 522.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_8ijun")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -11)
