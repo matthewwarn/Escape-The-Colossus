@@ -1,8 +1,14 @@
+using System.IO;
 using Godot;
 
 public partial class game_manager : Node
 {
-	private LevelTree _levelTree; 
+	private readonly string LEVEL_LINKS_PATH = @"Scenes/level_links.dat";
+	private readonly string GAME_SAVE_PATH   = @"Scenes/save.dat";
+	
+	private LevelTree _levelTree;
+	private bool _bossOneDefeated = false;
+	private bool _bossTwoDefeated = false;
 	
 	// Reference to current level root node.
 	private Node current_level;
@@ -10,13 +16,58 @@ public partial class game_manager : Node
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		_levelTree = new LinkedLevelTree("Scenes/level_links.dat");
+		_levelTree = new LinkedLevelTree(LEVEL_LINKS_PATH);
 		current_level = GetNode<Control>("Main Menu");
 	}
 
+	/// <summary>
+	/// Start the game from the root level ignoring existing saves.
+	/// </summary>
 	public void start_game()
 	{
 		LoadLevel(_levelTree.RootScenePath);
+	}
+
+	/// <summary>
+	/// Load previous game state, then start game.
+	/// </summary>
+	public void ResumeGame()
+	{
+		ReadSave();
+		LoadLevel(_levelTree.CurrentScenePath);
+	}
+
+	/// <summary>
+	/// Write the current game state data out to a file.
+	/// </summary>
+	public void SaveGame()
+	{
+		if (File.Exists(GAME_SAVE_PATH))
+			File.Delete(GAME_SAVE_PATH);
+		
+		// Using statement is important because it closes the streamwrite in the case of exceptons.
+		using (StreamWriter saveFile = new StreamWriter(GAME_SAVE_PATH))
+		{
+			saveFile.WriteLine(_levelTree.CurrentScenePath);
+			saveFile.WriteLine(_bossOneDefeated);
+			saveFile.WriteLine(_bossTwoDefeated);
+		}
+	}
+
+	public void ReadSave()
+	{
+		if (!File.Exists(GAME_SAVE_PATH))
+		{
+			GD.Print("Save data not found, falling back to default values.");
+			return;
+		}
+
+		using (StreamReader saveFile = new StreamReader(GAME_SAVE_PATH))
+		{
+			_levelTree.JumpToLevel(saveFile.ReadLine());
+			_bossOneDefeated = saveFile.ReadLine() == "True";
+			_bossTwoDefeated = saveFile.ReadLine() == "True";
+		}	
 	}
 
 	/// <summary>
@@ -27,6 +78,7 @@ public partial class game_manager : Node
 	public void LoadLevel(string level_path)
 	{
 		CallDeferred(MethodName.DeferredLoadLevel, level_path);
+		SaveGame();
 	}
 
 	public void DeferredLoadLevel(string path)
@@ -53,7 +105,6 @@ public partial class game_manager : Node
 	/// </summary>
 	public void ReloadCurrentLevel()
 	{
-		GD.Print("death received");
 		LoadLevel(_levelTree.CurrentScenePath);
 	}
 

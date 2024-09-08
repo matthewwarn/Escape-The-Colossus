@@ -7,5 +7,6 @@ public interface LevelTree
     
     string TraverseUp();
     string TraverseToChild(int childIndex);
+    string JumpToLevel(string path);
     void Serialise(StreamWriter outputStream);
 }

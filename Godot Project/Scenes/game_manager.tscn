@@ -8,4 +8,5 @@ script = ExtResource("1_arbjg")
 
 [node name="Main Menu" parent="." instance=ExtResource("2_3kwpf")]
 
+[connection signal="game_resume_requested" from="Main Menu" to="." method="ResumeGame"]
 [connection signal="game_start_requested" from="Main Menu" to="." method="start_game"]
