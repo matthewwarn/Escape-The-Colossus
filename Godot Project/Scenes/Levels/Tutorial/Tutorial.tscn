@@ -140,13 +140,13 @@ layer_0/tile_data = PackedInt32Array(1048600, 65536, 3, 1114136, 65536, 4, 11796
 [node name="Player" parent="." instance=ExtResource("3_truxb")]
 position = Vector2(53, 44)
 
+[node name="CoyoteTimer" type="Timer" parent="Player"]
+wait_time = 0.08
+one_shot = true
+
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -54)
 zoom = Vector2(2.5, 2.5)
-
-[node name="CoyoteTimer" type="Timer" parent="Player/Camera2D"]
-wait_time = 0.08
-one_shot = true
 
 [node name="Key instruction(space)" type="Label" parent="Player/Camera2D"]
 offset_left = -73.0
