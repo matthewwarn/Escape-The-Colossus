@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b7fhpcwfcsn0m"]
+[gd_scene load_steps=14 format=3 uid="uid://b7fhpcwfcsn0m"]
 
 [ext_resource type="Script" path="res://Scenes/Levels/Tutorial/tutorial.gd" id="1_qysei"]
 [ext_resource type="PackedScene" uid="uid://by7l0vw1421mx" path="res://Scenes/Levels/LevelComponents/gore_background.tscn" id="1_vjkuh"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bffllo437822" path="res://Scenes/Entities/Player/player.tscn" id="3_truxb"]
 [ext_resource type="FontFile" uid="uid://bdc4hvgih0upu" path="res://Scenes/Levels/LevelAssets/DirtyHarold_Font_1_0/DirtyHarold.otf" id="5_alxee"]
 [ext_resource type="Script" path="res://Scenes/Levels/Tutorial/animation_player.gd" id="6_jseqr"]
+[ext_resource type="PackedScene" uid="uid://b31oekchnss6y" path="res://Scenes/Levels/LevelComponents/killzone.tscn" id="7_o8s86"]
 
 [sub_resource type="Animation" id="Animation_1kxru"]
 length = 0.001
@@ -126,6 +127,8 @@ _data = {
 "fade_space": SubResource("Animation_8nob7")
 }
 
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gdg8s"]
+
 [node name="Tutorial" type="Node"]
 script = ExtResource("1_qysei")
 
@@ -199,6 +202,8 @@ one_shot = true
 wait_time = 4.0
 one_shot = true
 
+[node name="Hazards" type="Node" parent="."]
+
 [node name="Label" type="Label" parent="."]
 offset_left = 3648.0
 offset_top = -65.0
@@ -231,4 +236,11 @@ offset_bottom = 219.0
 text = "Enemy
 "
 
+[node name="Killzone" parent="." instance=ExtResource("7_o8s86")]
+position = Vector2(776, 400)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+shape = SubResource("WorldBoundaryShape2D_gdg8s")
+
 [connection signal="player_died" from="Player" to="." method="_on_player_died"]
+[connection signal="player_died" from="Killzone" to="." method="_on_player_died"]
