@@ -1,0 +1,203 @@
+[gd_scene load_steps=27 format=3 uid="uid://ddk74kjxma2c1"]
+
+[ext_resource type="Script" path="res://Scenes/Entities/Floor Maw/floor_maw.gd" id="1_mmh5f"]
+[ext_resource type="Texture2D" uid="uid://gmrjmwhtvy0k" path="res://Scenes/Entities/EntityAssets/Floor Maw Sheet.png" id="1_vkvyk"]
+[ext_resource type="PackedScene" uid="uid://b31oekchnss6y" path="res://Scenes/Levels/LevelComponents/killzone.tscn" id="2_f6i67"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bjtp2"]
+atlas = ExtResource("1_vkvyk")
+region = Rect2(128, 33, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0db2x"]
+atlas = ExtResource("1_vkvyk")
+region = Rect2(0, 65, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oxqdn"]
+atlas = ExtResource("1_vkvyk")
+region = Rect2(32, 65, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_74o56"]
+atlas = ExtResource("1_vkvyk")
+region = Rect2(64, 65, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ahdh1"]
+atlas = ExtResource("1_vkvyk")
+region = Rect2(96, 65, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kydum"]
+atlas = ExtResource("1_vkvyk")
+region = Rect2(128, 65, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7tfi2"]
+atlas = ExtResource("1_vkvyk")
+region = Rect2(0, 97, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x7t72"]
+atlas = ExtResource("1_vkvyk")
+region = Rect2(32, 97, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r3hdq"]
+atlas = ExtResource("1_vkvyk")
+region = Rect2(64, 97, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4tjn1"]
+atlas = ExtResource("1_vkvyk")
+region = Rect2(96, 97, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5jfh3"]
+atlas = ExtResource("1_vkvyk")
+region = Rect2(0, 1, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7y3nb"]
+atlas = ExtResource("1_vkvyk")
+region = Rect2(32, 1, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lnaim"]
+atlas = ExtResource("1_vkvyk")
+region = Rect2(64, 1, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gs1w8"]
+atlas = ExtResource("1_vkvyk")
+region = Rect2(96, 1, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3wrde"]
+atlas = ExtResource("1_vkvyk")
+region = Rect2(128, 1, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jxn2y"]
+atlas = ExtResource("1_vkvyk")
+region = Rect2(0, 33, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4btkw"]
+atlas = ExtResource("1_vkvyk")
+region = Rect2(32, 33, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f7pjy"]
+atlas = ExtResource("1_vkvyk")
+region = Rect2(64, 33, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c5c4g"]
+atlas = ExtResource("1_vkvyk")
+region = Rect2(0, 1, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ko6pf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bjtp2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0db2x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oxqdn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_74o56")
+}],
+"loop": true,
+"name": &"Active",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahdh1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kydum")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7tfi2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x7t72")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r3hdq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4tjn1")
+}],
+"loop": false,
+"name": &"Death",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5jfh3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7y3nb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lnaim")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gs1w8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3wrde")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jxn2y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4btkw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f7pjy")
+}],
+"loop": false,
+"name": &"Spawn",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c5c4g")
+}],
+"loop": false,
+"name": &"Unspawned",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qtajg"]
+size = Vector2(30, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q4elc"]
+size = Vector2(13, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_76kfy"]
+size = Vector2(300, 105)
+
+[node name="FloorMaw" type="Node2D"]
+script = ExtResource("1_mmh5f")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_ko6pf")
+animation = &"Spawn"
+autoplay = "Unspawned"
+frame = 7
+frame_progress = 1.0
+
+[node name="Killzone" parent="." instance=ExtResource("2_f6i67")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(1, -6)
+shape = SubResource("RectangleShape2D_qtajg")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(0.5, -22)
+shape = SubResource("RectangleShape2D_q4elc")
+
+[node name="Proximity Detector" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Proximity Detector"]
+position = Vector2(0, -52)
+shape = SubResource("RectangleShape2D_76kfy")
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="player_died" from="Killzone" to="." method="_on_killzone_player_died"]
+[connection signal="body_entered" from="Proximity Detector" to="." method="_on_proximity_detector_body_entered"]
+[connection signal="body_exited" from="Proximity Detector" to="." method="_on_proximity_detector_body_exited"]
