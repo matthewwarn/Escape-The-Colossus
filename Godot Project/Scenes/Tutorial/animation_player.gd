@@ -10,7 +10,7 @@ func _ready():
 	$Timer.connect("timeout", Callable(self, "_on_timer_timeout"))
 	$Timer2.connect("timeout", Callable(self, "_on_timer2_timeout"))
 	
-# Check if user pressed arrow key
+# Check if user pressed arrow key and space bar
 func _input(event):
 	if event.is_action_pressed("ui_right") and not arrow_pressed:
 		$Timer.start()
