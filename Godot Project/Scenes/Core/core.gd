@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 # Signals connected to the game manager to control level loading.
 signal level_reset_requested;

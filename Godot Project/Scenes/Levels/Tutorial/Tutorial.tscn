@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://b7fhpcwfcsn0m"]
+[gd_scene load_steps=12 format=3 uid="uid://b7fhpcwfcsn0m"]
 
+[ext_resource type="Script" path="res://Scenes/Levels/Tutorial/tutorial.gd" id="1_qysei"]
 [ext_resource type="PackedScene" uid="uid://by7l0vw1421mx" path="res://Scenes/Levels/LevelComponents/gore_background.tscn" id="1_vjkuh"]
 [ext_resource type="TileSet" uid="uid://d3uaft5ba4k5r" path="res://Scenes/Levels/LevelAssets/gore_tileset.tres" id="2_qv5s0"]
 [ext_resource type="PackedScene" uid="uid://bffllo437822" path="res://Scenes/Entities/Player/player.tscn" id="3_truxb"]
 [ext_resource type="FontFile" uid="uid://bdc4hvgih0upu" path="res://Scenes/Levels/LevelAssets/DirtyHarold_Font_1_0/DirtyHarold.otf" id="5_alxee"]
-[ext_resource type="Script" path="res://Scenes/Tutorial/animation_player.gd" id="6_jseqr"]
+[ext_resource type="Script" path="res://Scenes/Levels/Tutorial/animation_player.gd" id="6_jseqr"]
 
 [sub_resource type="Animation" id="Animation_1kxru"]
 length = 0.001
@@ -126,6 +127,7 @@ _data = {
 }
 
 [node name="Tutorial" type="Node"]
+script = ExtResource("1_qysei")
 
 [node name="GoreBackground" parent="." instance=ExtResource("1_vjkuh")]
 
@@ -141,6 +143,10 @@ position = Vector2(53, 44)
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -54)
 zoom = Vector2(2.5, 2.5)
+
+[node name="CoyoteTimer" type="Timer" parent="Player/Camera2D"]
+wait_time = 0.08
+one_shot = true
 
 [node name="Key instruction(space)" type="Label" parent="Player/Camera2D"]
 offset_left = -73.0
@@ -224,3 +230,5 @@ offset_right = 2222.0
 offset_bottom = 219.0
 text = "Enemy
 "
+
+[connection signal="player_died" from="Player" to="." method="_on_player_died"]

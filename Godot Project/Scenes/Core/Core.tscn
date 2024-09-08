@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://c5il23kt1a34h"]
+[gd_scene load_steps=10 format=3 uid="uid://c5il23kt1a34h"]
 
 [ext_resource type="PackedScene" uid="uid://by7l0vw1421mx" path="res://Scenes/Levels/LevelComponents/gore_background.tscn" id="1_c7lul"]
+[ext_resource type="Script" path="res://Scenes/Core/core.gd" id="1_iocq5"]
 [ext_resource type="PackedScene" uid="uid://bffllo437822" path="res://Scenes/Entities/Player/player.tscn" id="2_eeh77"]
 [ext_resource type="PackedScene" uid="uid://bl43hqysx2aen" path="res://Scenes/Levels/LevelComponents/level_transition.tscn" id="4_e7sko"]
 [ext_resource type="TileSet" uid="uid://d3uaft5ba4k5r" path="res://Scenes/Levels/LevelAssets/gore_tileset.tres" id="5_c8qim"]
@@ -14,6 +15,7 @@ size = Vector2(33.5, 64)
 shader = ExtResource("6_xe6u6")
 
 [node name="Core" type="Node"]
+script = ExtResource("1_iocq5")
 
 [node name="GoreBackground" parent="." instance=ExtResource("1_c7lul")]
 
@@ -34,6 +36,10 @@ position = Vector2(377, 89)
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -54)
 zoom = Vector2(2.5, 2.5)
+
+[node name="CoyoteTimer" type="Timer" parent="Player"]
+wait_time = 0.08
+one_shot = true
 
 [node name="Label" type="Label" parent="."]
 material = SubResource("ShaderMaterial_puv16")
@@ -56,3 +62,6 @@ scale = Vector2(0.219916, 0.219916)
 theme_override_fonts/font = ExtResource("7_p6mr2")
 theme_override_font_sizes/font_size = 100
 text = "Level 2→"
+
+[connection signal="level_transition_reached" from="LevelTransition" to="." method="_on_level_transition_reached"]
+[connection signal="player_died" from="Player" to="." method="_on_player_died"]
