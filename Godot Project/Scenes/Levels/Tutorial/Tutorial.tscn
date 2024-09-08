@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b7fhpcwfcsn0m"]
+[gd_scene load_steps=19 format=3 uid="uid://b7fhpcwfcsn0m"]
 
 [ext_resource type="Script" path="res://Scenes/Levels/Tutorial/tutorial.gd" id="1_qysei"]
 [ext_resource type="PackedScene" uid="uid://by7l0vw1421mx" path="res://Scenes/Levels/LevelComponents/gore_background.tscn" id="1_vjkuh"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://b31oekchnss6y" path="res://Scenes/Levels/LevelComponents/killzone.tscn" id="7_o8s86"]
 [ext_resource type="PackedScene" uid="uid://ddk74kjxma2c1" path="res://Scenes/Entities/Floor Maw/floor_maw.tscn" id="9_dy1rg"]
 [ext_resource type="PackedScene" uid="uid://b4gjkiteju2ea" path="res://Scenes/Entities/RibBug/rib_bug.tscn" id="9_evh08"]
+[ext_resource type="PackedScene" uid="uid://bl43hqysx2aen" path="res://Scenes/Levels/LevelComponents/level_transition.tscn" id="11_i2htf"]
 
 [sub_resource type="Animation" id="Animation_1kxru"]
 length = 0.001
@@ -132,6 +133,9 @@ _data = {
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gdg8s"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7wxia"]
+size = Vector2(223, 45)
+
 [node name="Tutorial" type="Node"]
 script = ExtResource("1_qysei")
 
@@ -152,7 +156,7 @@ one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -54)
-zoom = Vector2(2.5, 2.5)
+zoom = Vector2(3, 3)
 
 [node name="Key instruction(space)" type="Label" parent="Player/Camera2D"]
 offset_left = -73.0
@@ -219,22 +223,22 @@ position = Vector2(1813, 192)
 [node name="RibBug" parent="Hazards" instance=ExtResource("9_evh08")]
 position = Vector2(2246, 218)
 
-[node name="Label" type="Label" parent="."]
-offset_left = 3648.0
-offset_top = -65.0
-offset_right = 3851.0
-offset_bottom = -42.0
-text = "Navigating system to Core
-"
-
 [node name="Killzone" parent="." instance=ExtResource("7_o8s86")]
 position = Vector2(776, 400)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
 shape = SubResource("WorldBoundaryShape2D_gdg8s")
 
+[node name="LevelTransition" parent="." instance=ExtResource("11_i2htf")]
+position = Vector2(3569, -55)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelTransition"]
+position = Vector2(57.5, -0.5)
+shape = SubResource("RectangleShape2D_7wxia")
+
 [connection signal="player_died" from="Player" to="." method="_on_player_died"]
 [connection signal="spike_trap_player_died" from="Hazards/SpikeTrap2" to="." method="_on_player_died"]
 [connection signal="spike_trap_player_died" from="Hazards/SpikeTrap" to="." method="_on_player_died"]
 [connection signal="player_died" from="Hazards/FloorMaw" to="." method="_on_player_died"]
 [connection signal="player_died" from="Killzone" to="." method="_on_player_died"]
+[connection signal="level_transition_reached" from="LevelTransition" to="." method="_on_level_transition_reached"]
