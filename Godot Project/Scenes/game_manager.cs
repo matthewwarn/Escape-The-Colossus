@@ -26,7 +26,8 @@ public partial class game_manager : Node
 	/// </summary>
 	public void start_game()
 	{
-		LoadLevel(_levelTree.RootScenePath);
+		_levelTree.Reset();
+		LoadLevel(_levelTree.CurrentScenePath);
 	}
 
 	/// <summary>
