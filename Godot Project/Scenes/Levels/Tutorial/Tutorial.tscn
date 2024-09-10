@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b7fhpcwfcsn0m"]
+[gd_scene load_steps=20 format=3 uid="uid://b7fhpcwfcsn0m"]
 
 [ext_resource type="Script" path="res://Scenes/Levels/Tutorial/tutorial.gd" id="1_qysei"]
 [ext_resource type="PackedScene" uid="uid://by7l0vw1421mx" path="res://Scenes/Levels/LevelComponents/gore_background.tscn" id="1_vjkuh"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://ddk74kjxma2c1" path="res://Scenes/Entities/Floor Maw/floor_maw.tscn" id="9_dy1rg"]
 [ext_resource type="PackedScene" uid="uid://b4gjkiteju2ea" path="res://Scenes/Entities/RibBug/rib_bug.tscn" id="9_evh08"]
 [ext_resource type="PackedScene" uid="uid://bl43hqysx2aen" path="res://Scenes/Levels/LevelComponents/level_transition.tscn" id="11_i2htf"]
+[ext_resource type="PackedScene" uid="uid://b8iebbvcleo7v" path="res://Scenes/Menus/pause_menu_popup.tscn" id="12_1nac3"]
 
 [sub_resource type="Animation" id="Animation_1kxru"]
 length = 0.001
@@ -239,9 +240,12 @@ position = Vector2(3571, -157)
 position = Vector2(57.5, -0.5)
 shape = SubResource("RectangleShape2D_7wxia")
 
+[node name="PauseMenuPopup" parent="." instance=ExtResource("12_1nac3")]
+
 [connection signal="player_died" from="Player" to="." method="_on_player_died"]
 [connection signal="spike_trap_player_died" from="Hazards/SpikeTrap2" to="." method="_on_player_died"]
 [connection signal="spike_trap_player_died" from="Hazards/SpikeTrap" to="." method="_on_player_died"]
 [connection signal="player_died" from="Hazards/FloorMaw" to="." method="_on_player_died"]
 [connection signal="player_died" from="Killzone" to="." method="_on_player_died"]
 [connection signal="level_transition_reached" from="LevelTransition" to="." method="_on_level_transition_reached"]
+[connection signal="main_menu_requested" from="PauseMenuPopup" to="." method="_on_pause_menu_popup_main_menu_requested"]
