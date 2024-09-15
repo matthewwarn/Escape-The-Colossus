@@ -60,6 +60,11 @@ public class LinkedLevelTree : LevelTree
         throw new KeyNotFoundException("Requested level " + path + " does not exist in level tree.");
     }
 
+    public void Reset()
+    {
+        _currentScene = _rootScene;
+    }
+
     /// <summary>
     /// Move to the current level's parent level if a parent level exists.
     /// If this is the root node then the scene will not change.
