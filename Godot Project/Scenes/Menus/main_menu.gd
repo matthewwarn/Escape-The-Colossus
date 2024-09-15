@@ -3,6 +3,9 @@ extends Control
 signal game_start_requested;
 signal game_resume_requested;
 
+func _ready():
+	$MarginContainer/VBoxContainer/ResumeButton.grab_focus()
+
 func _on_play_button_pressed():
 	game_start_requested.emit();
 
