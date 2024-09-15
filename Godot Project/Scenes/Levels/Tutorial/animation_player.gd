@@ -12,10 +12,10 @@ func _ready():
 	
 # Check if user pressed arrow key and space bar
 func _input(event):
-	if event.is_action_pressed("ui_right") and not arrow_pressed:
+	if event.is_action_pressed("move_right") and not arrow_pressed:
 		$Timer.start()
 		arrow_pressed = true
-	if event.is_action_pressed("ui_select") and not space_pressed and message_finished:
+	if event.is_action_pressed("jump") and not space_pressed and message_finished:
 		$Timer2.start()
 		space_pressed = true
 		

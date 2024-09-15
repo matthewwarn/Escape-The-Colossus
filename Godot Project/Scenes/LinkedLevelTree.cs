@@ -60,19 +60,24 @@ public class LinkedLevelTree : LevelTree
 		throw new KeyNotFoundException("Requested level " + path + " does not exist in level tree.");
 	}
 
-	/// <summary>
-	/// Move to the current level's parent level if a parent level exists.
-	/// If this is the root node then the scene will not change.
-	/// </summary>
-	/// <returns>Newly selected scene path.</returns>
-	public string TraverseUp()
-	{
-		if (_currentScene.Parent != null)
-			_currentScene = _currentScene.Parent;
-		else
-			Console.WriteLine("No parent exists.");
-		return CurrentScenePath;
-	}
+    public void Reset()
+    {
+        _currentScene = _rootScene;
+    }
+
+    /// <summary>
+    /// Move to the current level's parent level if a parent level exists.
+    /// If this is the root node then the scene will not change.
+    /// </summary>
+    /// <returns>Newly selected scene path.</returns>
+    public string TraverseUp()
+    {
+        if (_currentScene.Parent != null)
+            _currentScene = _currentScene.Parent;
+        else
+            Console.WriteLine("No parent exists.");
+        return CurrentScenePath;
+    }
 
 	/// <summary>
 	/// Switch the current scene to a child of the current scene.

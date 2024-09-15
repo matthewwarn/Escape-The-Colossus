@@ -5,6 +5,7 @@ public partial class game_manager : Node
 {
 	private readonly string LEVEL_LINKS_PATH = @"Scenes/level_links.dat";
 	private readonly string GAME_SAVE_PATH   = @"Scenes/save.dat";
+	private readonly string MAIN_MENU = @"Scenes/Menus/main_menu.tscn";
 	
 	private LevelTree _levelTree;
 	private bool _bossOneDefeated = false;
@@ -25,7 +26,8 @@ public partial class game_manager : Node
 	/// </summary>
 	public void start_game()
 	{
-		LoadLevel(_levelTree.RootScenePath);
+		_levelTree.Reset();
+		LoadLevel(_levelTree.CurrentScenePath);
 	}
 
 	/// <summary>
@@ -35,6 +37,12 @@ public partial class game_manager : Node
 	{
 		ReadSave();
 		LoadLevel(_levelTree.CurrentScenePath);
+	}
+
+	public void OpenMainMenu()
+	{
+		SaveGame();
+		LoadLevel(MAIN_MENU);
 	}
 
 	/// <summary>
@@ -95,8 +103,18 @@ public partial class game_manager : Node
 		GetTree().CurrentScene = current_level;
 		
 		// Connect Signals
-		current_level.Connect("level_reset_requested", Callable.From(ReloadCurrentLevel));
-		current_level.Connect("next_level_requested", Callable.From(LoadNextLevel));
+		if (path == MAIN_MENU)
+		{
+			current_level.Connect("game_start_requested", Callable.From(start_game));
+			current_level.Connect("game_resume_requested", Callable.From(ResumeGame));
+		}
+		else
+		{
+			current_level.Connect("level_reset_requested", Callable.From(ReloadCurrentLevel));
+			current_level.Connect("next_level_requested", Callable.From(LoadNextLevel));
+			current_level.Connect("main_menu_requested", Callable.From(OpenMainMenu));
+		}
+		
 	}
 
 	/// <summary>
