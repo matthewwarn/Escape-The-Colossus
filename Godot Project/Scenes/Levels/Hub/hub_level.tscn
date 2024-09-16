@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=4 uid="uid://dg0inc6rsa7g2"]
+
+[ext_resource type="PackedScene" uid="uid://djgqihrehhe1h" path="res://Scenes/Levels/template_level.tscn" id="1_w8r22"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_j7r1s"]
+
+[node name="TemplateLevel" instance=ExtResource("1_w8r22")]
+
+[node name="Killzone" parent="." index="1"]
+position = Vector2(208, 400)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone" index="1"]
+shape = SubResource("WorldBoundaryShape2D_j7r1s")
+
+[node name="TileMapLayer" parent="." index="4"]
+tile_map_data = PackedByteArray("AAAAAAAAAAABAAMAAAABAAAAAAABAAMAAAACAAAAAAABAAMAAAADAAAAAAABAAMAAAAEAAAAAAABAAMAAAAFAAAAAAABAAMAAAAGAAAAAAABAAMAAAAHAAAAAAABAAMAAAAIAAAAAAABAAMAAAD//wAAAAABAAMAAAD+/wAAAAABAAMAAAD9/wAAAAABAAMAAAD8/wAAAAABAAMAAAD7/wAAAAABAAMAAAD6/wAAAAABAAMAAAD5/wAAAAABAAMAAAD4/wAAAAABAAMAAAD3/wAAAAABAAMAAAD2/wAAAAABAAQAAAD2////AAABAAQAAAD2//7/AAABAAQAAAD2//3/AAABAAQAAAD2//z/AAABAAQAAAD3//z/AAABAAUAAAD4//z/AAABAAUAAAD5//z/AAABAAUAAAD6//z/AAABAAUAAAD7//z/AAABAAUAAAD8//z/AAABAAUAAAD9//z/AAABAAUAAAD+//z/AAABAAUAAAD///z/AAABAAUAAAAAAPz/AAABAAUAAAABAPz/AAABAAUAAAACAPz/AAABAAUAAAADAPz/AAABAAUAAAAEAPz/AAABAAUAAAAFAPz/AAABAAUAAAAGAPz/AAABAAUAAAAHAPz/AAABAAUAAAAIAPz/AAABAAUAAAA=")
