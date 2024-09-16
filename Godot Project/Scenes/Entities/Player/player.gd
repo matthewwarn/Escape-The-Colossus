@@ -80,6 +80,7 @@ func _physics_process(delta):
 		player_died.emit();
 	else:
 		enemy_attack();
+		attack();
 
 	# Storing if the player just left the floor, for Coyote time.
 	var was_on_floor: bool = is_on_floor()
