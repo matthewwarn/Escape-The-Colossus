@@ -211,7 +211,7 @@ radius = 3.99961
 height = 17.9982
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0unf1"]
-radius = 21.0
+radius = 50.0
 height = 176.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nn26i"]
@@ -231,6 +231,7 @@ frame = 6
 frame_progress = 0.943444
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-2, 1)
 rotation = 1.55683
 shape = SubResource("CapsuleShape2D_4ovni")
@@ -240,7 +241,6 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detection"]
-visible = false
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_0unf1")
 
@@ -254,17 +254,29 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_nn26i")
 
 [node name="RayCastRight" type="RayCast2D" parent="."]
-target_position = Vector2(17, 0)
+position = Vector2(4, 5)
+target_position = Vector2(8, 0)
 collide_with_areas = true
 
 [node name="RayCastLeft" type="RayCast2D" parent="."]
-target_position = Vector2(-19, 0)
+position = Vector2(-4, 5)
+target_position = Vector2(-8, 0)
 collide_with_areas = true
 
 [node name="take_damage_cooldown" type="Timer" parent="."]
 wait_time = 2.0
 
 [node name="attack_cooldown" type="Timer" parent="."]
+
+[node name="RayCastFloor" type="RayCast2D" parent="."]
+position = Vector2(-27, 6)
+target_position = Vector2(0, 32)
+collide_with_areas = true
+
+[node name="RayCastFloor2" type="RayCast2D" parent="."]
+position = Vector2(23, 6)
+target_position = Vector2(0, 32)
+collide_with_areas = true
 
 [connection signal="body_entered" from="detection" to="." method="_on_detection_body_entered"]
 [connection signal="body_exited" from="detection" to="." method="_on_detection_body_exited"]

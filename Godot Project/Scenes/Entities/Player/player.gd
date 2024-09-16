@@ -60,7 +60,7 @@ func toggle_powerups(powerup: String):
 			print("DOUBLE JUMP DISABLED")
 
 func _physics_process(delta):
-
+	attack()
 	# Storing if the player just left the floor, for Coyote time.
 	var was_on_floor = is_on_floor()
 	
