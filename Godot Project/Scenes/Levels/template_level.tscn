@@ -15,7 +15,9 @@ script = ExtResource("1_mtb20")
 
 [node name="Killzone" parent="." instance=ExtResource("3_elbjw")]
 
-[node name="LevelTransition" parent="." instance=ExtResource("4_6k36o")]
+[node name="PrevLevelTransition" parent="." instance=ExtResource("4_6k36o")]
+
+[node name="NextLevelTransition" parent="." instance=ExtResource("4_6k36o")]
 
 [node name="PauseMenuPopup" parent="." instance=ExtResource("5_84lsx")]
 
@@ -29,3 +31,9 @@ zoom = Vector2(4, 4)
 
 [node name="CoyoteTimer" type="Timer" parent="Player"]
 wait_time = 0.4
+
+[node name="EndLocator" type="Node2D" parent="."]
+position = Vector2(131, 0)
+
+[connection signal="level_transition_reached" from="PrevLevelTransition" to="." method="_on_prev_level_transition"]
+[connection signal="level_transition_reached" from="NextLevelTransition" to="." method="_on_level_transition_reached"]

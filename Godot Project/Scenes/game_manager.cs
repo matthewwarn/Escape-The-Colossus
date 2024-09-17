@@ -112,6 +112,7 @@ public partial class game_manager : Node
 		{
 			current_level.Connect("level_reset_requested", Callable.From(ReloadCurrentLevel));
 			current_level.Connect("next_level_requested", Callable.From(LoadNextLevel));
+			current_level.Connect("previous_level_requested", Callable.From(LoadPreviousLevel));
 			current_level.Connect("main_menu_requested", Callable.From(OpenMainMenu));
 		}
 		
@@ -134,5 +135,16 @@ public partial class game_manager : Node
 	public void LoadNextLevel()
 	{
 		LoadLevel(_levelTree.TraverseToChild(0));
+	}
+
+	public void LoadPreviousLevel()
+	{
+		LoadLevel(_levelTree.TraverseUp());
+		CallDeferred(MethodName.JumpPlayerToEnd);
+	}
+
+	private void JumpPlayerToEnd()
+	{
+		current_level.Call("_jump_to_end");
 	}
 }
