@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://ddk74kjxma2c1" path="res://Scenes/Entities/Floor Maw/floor_maw.tscn" id="9_dy1rg"]
 [ext_resource type="PackedScene" uid="uid://b4gjkiteju2ea" path="res://Scenes/Entities/RibBug/rib_bug.tscn" id="9_evh08"]
 [ext_resource type="PackedScene" uid="uid://bl43hqysx2aen" path="res://Scenes/Levels/LevelComponents/level_transition.tscn" id="11_i2htf"]
-[ext_resource type="PackedScene" uid="uid://b8iebbvcleo7v" path="res://Scenes/Menus/pause_menu_popup.tscn" id="12_1nac3"]
+[ext_resource type="PackedScene" path="res://Scenes/Menus/pause_menu_popup.tscn" id="12_1nac3"]
 
 [sub_resource type="Animation" id="Animation_1kxru"]
 length = 0.001
