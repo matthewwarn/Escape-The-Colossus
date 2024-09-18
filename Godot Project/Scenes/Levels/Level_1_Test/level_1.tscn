@@ -1,5 +1,6 @@
-[gd_scene load_steps=21 format=3 uid="uid://bb0x6xmkxt7wd"]
+[gd_scene load_steps=22 format=3 uid="uid://bb0x6xmkxt7wd"]
 
+[ext_resource type="Script" path="res://Scenes/Levels/Level_1_Test/level_1.gd" id="1_dge2t"]
 [ext_resource type="PackedScene" uid="uid://by7l0vw1421mx" path="res://Scenes/Levels/LevelComponents/gore_background.tscn" id="1_elw3n"]
 [ext_resource type="TileSet" uid="uid://d3uaft5ba4k5r" path="res://Scenes/Levels/LevelAssets/gore_tileset.tres" id="2_siq8w"]
 [ext_resource type="PackedScene" uid="uid://bffllo437822" path="res://Scenes/Entities/Player/player.tscn" id="3_aavna"]
@@ -153,6 +154,7 @@ animations = [{
 }]
 
 [node name="Level_1" type="Node"]
+script = ExtResource("1_dge2t")
 
 [node name="GoreBackground" parent="." instance=ExtResource("1_elw3n")]
 
