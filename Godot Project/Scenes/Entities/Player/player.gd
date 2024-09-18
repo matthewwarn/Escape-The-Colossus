@@ -47,6 +47,9 @@ var heart3
 # Get the default gravity from project settings. Which is 980.
 var GRAVITY = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+# Show message once
+var level_one_message_shown = false
+
 func _ready():
 	heart1 = get_node("CanvasLayer/Heart1")
 	heart2 = get_node("CanvasLayer/Heart2")
@@ -237,7 +240,8 @@ func _on_player_hitbox_body_exited(body):
 		enemy_attack_cooldown = true
 		
 func _on_area_2d_body_entered(body):
-	if body.name == "Player":
+	if body.name == "Player" and not level_one_message_shown:
 		print("Entered")
 		double_jump_toggle = true
 		animation_player.play("move_left")
+		level_one_message_shown = true
