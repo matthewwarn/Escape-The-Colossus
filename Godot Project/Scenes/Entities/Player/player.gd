@@ -23,7 +23,7 @@ var facing: int = 1
 
 var jump: bool = false
 var double_jump_available: bool = false
-var double_jump_toggle: bool = true
+var double_jump_toggle: bool = false
 var jump_buffer: bool = false
 
 var is_dashing: bool = false
