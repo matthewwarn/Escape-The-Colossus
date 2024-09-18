@@ -27,6 +27,7 @@ tile_set = ExtResource("6_kfpnu")
 [node name="Player" parent="." instance=ExtResource("7_tph31")]
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(0, -31)
 zoom = Vector2(4, 4)
 
 [node name="CoyoteTimer" type="Timer" parent="Player"]
