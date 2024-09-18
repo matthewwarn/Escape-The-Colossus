@@ -139,6 +139,8 @@ size = Vector2(223, 45)
 
 [node name="Tutorial" type="Node"]
 script = ExtResource("1_qysei")
+metadata/_edit_horizontal_guides_ = [-135.0]
+metadata/_edit_vertical_guides_ = [3460.0]
 
 [node name="GoreBackground" parent="." instance=ExtResource("1_vjkuh")]
 
@@ -241,6 +243,9 @@ position = Vector2(57.5, -0.5)
 shape = SubResource("RectangleShape2D_7wxia")
 
 [node name="PauseMenuPopup" parent="." instance=ExtResource("12_1nac3")]
+
+[node name="EndLocator" type="Node2D" parent="."]
+position = Vector2(3460, -135)
 
 [connection signal="player_died" from="Player" to="." method="_on_player_died"]
 [connection signal="spike_trap_player_died" from="Hazards/SpikeTrap2" to="." method="_on_player_died"]

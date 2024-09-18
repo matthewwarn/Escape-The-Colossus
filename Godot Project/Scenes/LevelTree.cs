@@ -10,4 +10,5 @@ public interface LevelTree
     string JumpToLevel(string path);
     void Reset();
     void Serialise(StreamWriter outputStream);
+    bool IsAtRoot();
 }

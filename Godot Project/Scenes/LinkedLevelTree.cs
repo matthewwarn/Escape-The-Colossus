@@ -65,6 +65,11 @@ public class LinkedLevelTree : LevelTree
         _currentScene = _rootScene;
     }
 
+    public bool IsAtRoot()
+    {
+        return CurrentScenePath.Equals(RootScenePath);
+    }
+
     /// <summary>
     /// Move to the current level's parent level if a parent level exists.
     /// If this is the root node then the scene will not change.

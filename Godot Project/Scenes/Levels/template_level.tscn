@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3 uid="uid://djgqihrehhe1h"]
+
+[ext_resource type="Script" path="res://Scenes/Levels/template_level.gd" id="1_mtb20"]
+[ext_resource type="PackedScene" uid="uid://by7l0vw1421mx" path="res://Scenes/Levels/LevelComponents/gore_background.tscn" id="2_ih1xd"]
+[ext_resource type="PackedScene" uid="uid://b31oekchnss6y" path="res://Scenes/Levels/LevelComponents/killzone.tscn" id="3_elbjw"]
+[ext_resource type="PackedScene" uid="uid://bl43hqysx2aen" path="res://Scenes/Levels/LevelComponents/level_transition.tscn" id="4_6k36o"]
+[ext_resource type="PackedScene" uid="uid://b8iebbvcleo7v" path="res://Scenes/Menus/pause_menu_popup.tscn" id="5_84lsx"]
+[ext_resource type="TileSet" uid="uid://d3uaft5ba4k5r" path="res://Scenes/Levels/LevelAssets/gore_tileset.tres" id="6_kfpnu"]
+[ext_resource type="PackedScene" uid="uid://bffllo437822" path="res://Scenes/Entities/Player/player.tscn" id="7_tph31"]
+
+[node name="TemplateLevel" type="Node2D"]
+script = ExtResource("1_mtb20")
+
+[node name="GoreBackground" parent="." instance=ExtResource("2_ih1xd")]
+
+[node name="Killzone" parent="." instance=ExtResource("3_elbjw")]
+
+[node name="PrevLevelTransition" parent="." instance=ExtResource("4_6k36o")]
+
+[node name="NextLevelTransition" parent="." instance=ExtResource("4_6k36o")]
+
+[node name="PauseMenuPopup" parent="." instance=ExtResource("5_84lsx")]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_set = ExtResource("6_kfpnu")
+
+[node name="Player" parent="." instance=ExtResource("7_tph31")]
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(4, 4)
+
+[node name="CoyoteTimer" type="Timer" parent="Player"]
+wait_time = 0.4
+
+[node name="EndLocator" type="Node2D" parent="."]
+position = Vector2(131, 0)
+
+[connection signal="level_transition_reached" from="PrevLevelTransition" to="." method="_on_prev_level_transition"]
+[connection signal="level_transition_reached" from="NextLevelTransition" to="." method="_on_level_transition_reached"]
+[connection signal="main_menu_requested" from="PauseMenuPopup" to="." method="_on_pause_menu_popup_main_menu_requested"]
