@@ -1,11 +1,13 @@
-extends Node2D
+extends Node
 
 # Signals connected to the game manager to control level loading.
 signal level_reset_requested;
 signal next_level_requested;
 signal main_menu_requested;
 
+@onready var player: CharacterBody2D = $Player
 @onready var pause_menu_popup: Window = $PauseMenuPopup
+@onready var end_locator: Node2D = $EndLocator
 
 # Connect all killzones to this method.
 func _on_player_died() -> void:
@@ -14,8 +16,10 @@ func _on_player_died() -> void:
 
 # Connect the area2d level transition trigger to this method.
 func _on_level_transition_reached() -> void:
-	print("level transition relayed")
 	next_level_requested.emit();
+
+func _jump_to_end() -> void:
+	player.global_position = end_locator.global_position;
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):

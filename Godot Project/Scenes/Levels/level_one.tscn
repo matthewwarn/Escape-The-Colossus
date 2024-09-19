@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bgncwurbkl1d7"]
+[gd_scene load_steps=11 format=3 uid="uid://bgncwurbkl1d7"]
 
 [ext_resource type="PackedScene" uid="uid://by7l0vw1421mx" path="res://Scenes/Levels/LevelComponents/gore_background.tscn" id="1_fgtpu"]
 [ext_resource type="Script" path="res://Scenes/Levels/level_one.gd" id="1_vn6js"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b31oekchnss6y" path="res://Scenes/Levels/LevelComponents/killzone.tscn" id="4_ba2ap"]
 [ext_resource type="PackedScene" uid="uid://bl43hqysx2aen" path="res://Scenes/Levels/LevelComponents/level_transition.tscn" id="6_cfvl4"]
 [ext_resource type="PackedScene" uid="uid://b4gjkiteju2ea" path="res://Scenes/Entities/RibBug/rib_bug.tscn" id="8_jghfq"]
+[ext_resource type="PackedScene" uid="uid://b8iebbvcleo7v" path="res://Scenes/Menus/pause_menu_popup.tscn" id="8_pws3p"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8ttge"]
 
@@ -48,5 +49,9 @@ shape = SubResource("RectangleShape2D_4f7qi")
 [node name="RibBug" parent="." instance=ExtResource("8_jghfq")]
 position = Vector2(107, 170)
 
+[node name="PauseMenuPopup" parent="." instance=ExtResource("8_pws3p")]
+
+[connection signal="player_died" from="Player" to="." method="_on_player_died"]
 [connection signal="player_died" from="Killzone" to="." method="_on_player_died"]
 [connection signal="level_transition_reached" from="LevelTransition" to="." method="_on_level_transition_reached"]
+[connection signal="main_menu_requested" from="PauseMenuPopup" to="." method="_on_pause_menu_popup_main_menu_requested"]
