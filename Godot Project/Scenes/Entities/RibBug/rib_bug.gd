@@ -3,7 +3,7 @@ extends CharacterBody2D
 const SPEED = 50
 var player_chase = false
 var player = null
-var health = 2
+var health = 1
 var direction = -1
 var player_inattack_zone = false 
 var can_take_damage = true
