@@ -3,6 +3,7 @@ extends Control
 signal game_start_requested;
 signal game_resume_requested;
 
+
 @onready var resume_button: Button = $MarginContainer/VBoxContainer/ResumeButton
 
 func _ready() -> void:
