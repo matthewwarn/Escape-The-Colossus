@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SPEED = 50
+const SPEED = 4000
 const JUMP_VELOCITY = -500.0
 const JUMP_BUFFER_TIME = 0.07
 
@@ -10,9 +10,10 @@ var health = 1
 var direction = -1
 var player_inattack_zone = false 
 var can_take_damage = true
-var can_attack = false
+var can_attack = true
 var is_alive = true
 var jump_buffer: bool = false
+var attack_ip = false
 
 @onready var attack_cooldown = $attack_cooldown
 @onready var take_damage_cooldown = $take_damage_cooldown
@@ -25,17 +26,19 @@ var jump_buffer: bool = false
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _physics_process(delta):
+	
+	play_animation()
 	deal_with_damage()
 	attack()
 	enemy()
 	
+
 	if health <= 0:
 		is_alive = false
-		animated_sprite.play("Death ")
-		if is_alive == false:
-			self.queue_free()
+		player_chase = false
 
 	if player_chase:
+		
 		if (direction) < 0:
 			animated_sprite.flip_h = false
 		else:
@@ -66,7 +69,7 @@ func _physics_process(delta):
 					velocity.y = JUMP_VELOCITY
 					jump_buffer = false
 
-			position.x += direction * SPEED * delta 
+			position.x += direction / (SPEED * delta )
 
 		elif ray_cast_floor.is_colliding() == false or ray_cast_floor_2.is_colliding() == false:
 			if (direction) < 0:
@@ -77,16 +80,25 @@ func _physics_process(delta):
 				animated_sprite.flip_h = false
 			
 			position.x += direction * SPEED * delta 
-		
-	else:
-		animated_sprite.play("Idle")
 	
 	move_and_slide()
 
+func play_animation():
+	if player_chase == false and is_alive == true :
+		animated_sprite.play("Idle")
+	elif player_chase == true and is_alive == true and attack_ip == false:
+		animated_sprite.play("Walking")
+	elif player_chase == true and is_alive == true and attack_ip == true:
+		animated_sprite.play("Attack")
+	elif is_alive == false:
+		animated_sprite.play("Death ")
+		#self.queue_free()
+
 func _on_detection_body_entered(body):
-	player = body
-	player_chase = true
-	#direction = (player.position.x - position.x)
+	if body.has_method("player"):
+		player = body
+		player_chase = true
+		direction = (player.position.x - position.x)
 
 func _on_detection_body_exited(body):
 	player = body
@@ -95,7 +107,7 @@ func _on_detection_body_exited(body):
 
 func _on_hit_box_body_entered(body):
 	if body.has_method("player"):
-		player_inattack_zone =true 
+		player_inattack_zone = true 
 
 func _on_hit_box_body_exited(body):
 	if body.has_method("player"):
@@ -104,14 +116,17 @@ func _on_hit_box_body_exited(body):
 func attack():
 	var dir = direction
 	if player_inattack_zone and can_attack:
+		attack_ip = true
 		if dir == 1:
 			animated_sprite.flip_h = true
 			animated_sprite.play("Attack")
 			attack_cooldown.start()
+			attack_ip = false
 		if dir == -1:
 			animated_sprite.flip_h = false
 			animated_sprite.play("Attack")
 			attack_cooldown.start()
+			attack_ip = false
 
 func deal_with_damage():
 	if player_inattack_zone and globall.player_current_attack == true:

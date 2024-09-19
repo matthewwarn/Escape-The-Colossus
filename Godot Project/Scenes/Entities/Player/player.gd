@@ -78,10 +78,12 @@ func toggle_powerups(powerup: String):
 func _physics_process(delta):
 
 	if health < 1:
-		player_died.emit();
-	else:
-		enemy_attack();
-		attack();
+		is_alive == false
+		#player_died.emit();
+	play_animations()
+	enemy_attack();
+	attack();
+	player()
 
 	# Storing if the player just left the floor, for Coyote time.
 	var was_on_floor: bool = is_on_floor()
@@ -168,20 +170,29 @@ func _physics_process(delta):
 	if was_on_floor and not is_on_floor():
 		coyote_timer.start()
 		
-	# Play Animations
-	if is_on_floor():
-			if velocity.x == 0:
-				animated_sprite.animation = "Idle"
-			else:
-				animated_sprite.animation = "Movement"
-	else:
-		animated_sprite.animation = "Jump"
+	
+	
 
 func on_jump_buffer_timeout()->void:
 	jump_buffer = false
 
 func player():
 	pass
+
+# Play Animations
+func play_animations():
+	if is_alive == true:
+		if is_on_floor():
+			if velocity.x == 0 and attack_ip == false:
+				animated_sprite.animation = "Idle"
+			elif attack_ip == true:
+				animated_sprite.animation = "Attack"
+			else:
+				animated_sprite.animation = "Movement"
+		else:
+			animated_sprite.animation = "Jump"
+	else:
+		animated_sprite.play("Death")
 
 func enemy_attack():	
 	if enemy_inattack_range and enemy_attack_cooldown == false:
@@ -202,11 +213,11 @@ func attack():
 		attack_ip = true
 		if dir == 1:
 			animated_sprite.flip_h = true
-			animated_sprite.play("Attack")
+			#animated_sprite.animation = "Attack"
 			deal_attack_timer.start()
 		if dir == -1:
 			animated_sprite.flip_h = false
-			animated_sprite.play("Attack")
+			#animated_sprite.animation = "Attack"
 			deal_attack_timer.start()
 	else:
 		attack_ip = false

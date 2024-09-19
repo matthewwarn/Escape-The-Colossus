@@ -247,6 +247,9 @@ shape = SubResource("RectangleShape2D_7wxia")
 [node name="EndLocator" type="Node2D" parent="."]
 position = Vector2(3460, -135)
 
+[node name="RibBug" parent="." instance=ExtResource("9_evh08")]
+position = Vector2(281, 147)
+
 [connection signal="player_died" from="Player" to="." method="_on_player_died"]
 [connection signal="spike_trap_player_died" from="Hazards/SpikeTrap2" to="." method="_on_player_died"]
 [connection signal="spike_trap_player_died" from="Hazards/SpikeTrap" to="." method="_on_player_died"]
