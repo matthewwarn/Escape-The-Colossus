@@ -46,6 +46,8 @@ var heart3
 # Get the default gravity from project settings. Which is 980.
 var GRAVITY = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+# Show message once
+
 func _ready():
 	heart1 = get_node("CanvasLayer/Heart1")
 	heart2 = get_node("CanvasLayer/Heart2")
