@@ -2,8 +2,8 @@ extends CharacterBody2D
 
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var coyote_timer = $CoyoteTimer
-@onready var attack_cooldown = $attack_cooldown
-@onready var deal_attack_timer = $deal_attack_timer
+@onready var recieve_damage_cooldown= $recieve_damage_cooldown
+@onready var deal_damage_timer = $deal_damage_timer
 
 var full_heart_texture = preload("res://Scenes/Entities/Player/Health/Heart.png")
 var damaged_heart_texture = preload("res://Scenes/Entities/Player/Health/DamagedHeart.png")
@@ -79,11 +79,14 @@ func toggle_powerups(powerup: String):
 			print("DOUBLE JUMP DISABLED")
 
 func _physics_process(delta):
+
 	if health < 1:
-		player_died.emit();
-	else:
-		enemy_attack();
-		attack();
+		is_alive = false
+		
+	play_animations()
+	enemy_attack();
+	attack();
+	player()
 
 	# Storing if the player just left the floor, for Coyote time.
 	var was_on_floor: bool = is_on_floor()
@@ -170,14 +173,7 @@ func _physics_process(delta):
 	if was_on_floor and not is_on_floor():
 		coyote_timer.start()
 		
-	# Play Animations
-	if is_on_floor():
-			if velocity.x == 0:
-				animated_sprite.animation = "Idle"
-			else:
-				animated_sprite.animation = "Movement"
-	else:
-		animated_sprite.animation = "Jump"
+	
 
 func on_jump_buffer_timeout()->void:
 	jump_buffer = false
@@ -185,15 +181,32 @@ func on_jump_buffer_timeout()->void:
 func player():
 	pass
 
+# Play Animations
+func play_animations():
+	if is_alive == true:
+		if is_on_floor():
+			if velocity.x == 0 and attack_ip == false:
+				animated_sprite.animation = "Idle"
+			elif attack_ip == true:
+				animated_sprite.play("Attack")
+			else:
+				animated_sprite.animation = "Movement"
+		else:
+			animated_sprite.animation = "Jump"
+	elif is_alive == false:
+		animated_sprite.animation = "Death"
+
 func enemy_attack():	
 	if enemy_inattack_range and enemy_attack_cooldown == false:
 		update_hearts(health)
 		health = health - 1
 		enemy_attack_cooldown = true
-		attack_cooldown.start()
+		recieve_damage_cooldown.start()
+		print(health)
 		
 
-func _on_attack_cooldown_timeout():
+#immunity cooldown
+func _on_recieve_damage_cooldown_timeout():
 	enemy_attack_cooldown = false
 
 func attack():
@@ -204,14 +217,11 @@ func attack():
 		attack_ip = true
 		if dir == 1:
 			animated_sprite.flip_h = true
-			animated_sprite.play("Attack")
-			deal_attack_timer.start()
+			deal_damage_timer.start()
 		if dir == -1:
 			animated_sprite.flip_h = false
-			animated_sprite.play("Attack")
-			deal_attack_timer.start()
-	else:
-		attack_ip = false
+			deal_damage_timer.start()
+	
 
 # Takes the health the player had right BEFORE getting hit
 func update_hearts(health):
@@ -224,16 +234,23 @@ func update_hearts(health):
 			heart3.texture = empty_heart_texture
 
 func _on_deal_attack_timer_timeout():
-	deal_attack_timer.stop()
+	deal_damage_timer.stop()
 	globall.player_current_attack = false 
 	attack_ip = false 
 
+#enemy enetered area where player can attack or take damage
 func _on_player_hitbox_body_entered(body):
 	if body.has_method("enemy"):
 		enemy_inattack_range = true 
 		enemy_attack_cooldown = false
 
+#enemy left area where player can attack and recieve damage
 func _on_player_hitbox_body_exited(body):
 	if body.has_method("enemy"):
 		enemy_inattack_range = false
 		enemy_attack_cooldown = true
+
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	if animated_sprite.animation == &"Death":
+		player_died.emit();
