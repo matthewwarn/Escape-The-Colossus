@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://ddk74kjxma2c1" path="res://Scenes/Entities/Floor Maw/floor_maw.tscn" id="7_t5k60"]
 [ext_resource type="Script" path="res://Scenes/Levels/Level_1_Test/double_jump_activation.gd" id="8_rldil"]
 [ext_resource type="PackedScene" uid="uid://bm7gnelw71e8p" path="res://Scenes/Entities/Moving Platform/Moving floor.tscn" id="9_0only"]
-[ext_resource type="Script" path="res://Scenes/Entities/Moving Platform/moving_floot.gd" id="10_lwpbh"]
+[ext_resource type="Script" path="res://Scenes/Entities/Moving Platform/moving_floor.gd" id="10_lwpbh"]
 
 [sub_resource type="Animation" id="Animation_ue5tl"]
 length = 0.001

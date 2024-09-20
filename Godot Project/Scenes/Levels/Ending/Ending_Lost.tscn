@@ -1,7 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://ble0rp560a7qf"]
 
 [ext_resource type="FontFile" uid="uid://bdc4hvgih0upu" path="res://Scenes/Levels/LevelAssets/DirtyHarold_Font_1_0/DirtyHarold.otf" id="1_g02tc"]
-[ext_resource type="Script" path="res://Scenes/Ending/Ending_animation.gd" id="2_qg5s4"]
+[ext_resource type="Script" path="res://Scenes/Levels/Ending/Ending_animation.gd" id="2_qg5s4"]
+
 
 [sub_resource type="Animation" id="Animation_86fkn"]
 length = 0.001

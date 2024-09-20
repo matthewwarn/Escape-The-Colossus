@@ -118,87 +118,91 @@ position = Vector2(336, -977)
 
 [node name="Enemies" type="Node" parent="." index="9"]
 
-[node name="RibBug" parent="Enemies" index="0" instance=ExtResource("3_a8spc")]
-position = Vector2(-177, -38)
-
-[node name="RibBug4" parent="Enemies" index="1" instance=ExtResource("3_a8spc")]
-position = Vector2(-71, -86)
-
-[node name="RibBug5" parent="Enemies" index="2" instance=ExtResource("3_a8spc")]
-position = Vector2(217, -86)
-
-[node name="RibBug6" parent="Enemies" index="3" instance=ExtResource("3_a8spc")]
-position = Vector2(73, -182)
-
-[node name="RibBug7" parent="Enemies" index="4" instance=ExtResource("3_a8spc")]
-position = Vector2(12, -230)
-
-[node name="RibBug8" parent="Enemies" index="5" instance=ExtResource("3_a8spc")]
-position = Vector2(73, -230)
-
-[node name="RibBug10" parent="Enemies" index="6" instance=ExtResource("3_a8spc")]
-position = Vector2(-92, -310)
-
-[node name="RibBug11" parent="Enemies" index="7" instance=ExtResource("3_a8spc")]
-position = Vector2(244, -310)
-
-[node name="RibBug9" parent="Enemies" index="8" instance=ExtResource("3_a8spc")]
-position = Vector2(135, -230)
-
-[node name="RibBug3" parent="Enemies" index="9" instance=ExtResource("3_a8spc")]
-position = Vector2(321, -38)
-
-[node name="RibBug2" parent="Enemies" index="10" instance=ExtResource("3_a8spc")]
-position = Vector2(70, 42)
-
-[node name="FloorMaw" parent="Enemies" index="11" instance=ExtResource("4_cexib")]
+[node name="FloorMaw" parent="Enemies" index="0" instance=ExtResource("4_cexib")]
 position = Vector2(72, -32)
 
-[node name="FloorMaw2" parent="Enemies" index="12" instance=ExtResource("4_cexib")]
+[node name="FloorMaw2" parent="Enemies" index="1" instance=ExtResource("4_cexib")]
 position = Vector2(-152, -128)
 
-[node name="FloorMaw3" parent="Enemies" index="13" instance=ExtResource("4_cexib")]
+[node name="FloorMaw3" parent="Enemies" index="2" instance=ExtResource("4_cexib")]
 position = Vector2(296, -128)
 
-[node name="SpikeTrap" parent="Enemies" index="14" instance=ExtResource("5_3xakp")]
+[node name="FloorMaw4" parent="Enemies" index="3" instance=ExtResource("4_cexib")]
+position = Vector2(144, -640)
+
+[node name="FloorMaw5" parent="Enemies" index="4" instance=ExtResource("4_cexib")]
+position = Vector2(0, -736)
+
+[node name="Ribbugs" type="Node" parent="Enemies" index="5"]
+
+[node name="RibBug" parent="Enemies/Ribbugs" index="0" instance=ExtResource("3_a8spc")]
+position = Vector2(-177, -38)
+
+[node name="RibBug4" parent="Enemies/Ribbugs" index="1" instance=ExtResource("3_a8spc")]
+position = Vector2(-71, -86)
+
+[node name="RibBug5" parent="Enemies/Ribbugs" index="2" instance=ExtResource("3_a8spc")]
+position = Vector2(217, -86)
+
+[node name="RibBug6" parent="Enemies/Ribbugs" index="3" instance=ExtResource("3_a8spc")]
+position = Vector2(73, -182)
+
+[node name="RibBug7" parent="Enemies/Ribbugs" index="4" instance=ExtResource("3_a8spc")]
+position = Vector2(12, -230)
+
+[node name="RibBug8" parent="Enemies/Ribbugs" index="5" instance=ExtResource("3_a8spc")]
+position = Vector2(73, -230)
+
+[node name="RibBug10" parent="Enemies/Ribbugs" index="6" instance=ExtResource("3_a8spc")]
+position = Vector2(-92, -310)
+
+[node name="RibBug11" parent="Enemies/Ribbugs" index="7" instance=ExtResource("3_a8spc")]
+position = Vector2(244, -310)
+
+[node name="RibBug9" parent="Enemies/Ribbugs" index="8" instance=ExtResource("3_a8spc")]
+position = Vector2(135, -230)
+
+[node name="RibBug3" parent="Enemies/Ribbugs" index="9" instance=ExtResource("3_a8spc")]
+position = Vector2(321, -38)
+
+[node name="RibBug2" parent="Enemies/Ribbugs" index="10" instance=ExtResource("3_a8spc")]
+position = Vector2(70, 42)
+
+[node name="RibBug12" parent="Enemies/Ribbugs" index="11" instance=ExtResource("3_a8spc")]
+position = Vector2(128, -518)
+
+[node name="RibBug13" parent="Enemies/Ribbugs" index="12" instance=ExtResource("3_a8spc")]
+position = Vector2(15, -614)
+
+[node name="Spike Traps" type="Node" parent="Enemies" index="6"]
+
+[node name="SpikeTrap" parent="Enemies/Spike Traps" index="0" instance=ExtResource("5_3xakp")]
 position = Vector2(-83, -384)
 rotation = 3.14159
 
-[node name="SpikeTrap3" parent="Enemies" index="15" instance=ExtResource("5_3xakp")]
+[node name="SpikeTrap3" parent="Enemies/Spike Traps" index="1" instance=ExtResource("5_3xakp")]
 position = Vector2(160, -474)
 rotation = -1.5708
 
-[node name="SpikeTrap4" parent="Enemies" index="16" instance=ExtResource("5_3xakp")]
+[node name="SpikeTrap4" parent="Enemies/Spike Traps" index="2" instance=ExtResource("5_3xakp")]
 position = Vector2(160, -599)
 rotation = -1.5708
 
-[node name="SpikeTrap5" parent="Enemies" index="17" instance=ExtResource("5_3xakp")]
+[node name="SpikeTrap5" parent="Enemies/Spike Traps" index="3" instance=ExtResource("5_3xakp")]
 position = Vector2(160, -729)
 rotation = -1.5708
 
-[node name="SpikeTrap6" parent="Enemies" index="18" instance=ExtResource("5_3xakp")]
+[node name="SpikeTrap6" parent="Enemies/Spike Traps" index="4" instance=ExtResource("5_3xakp")]
 position = Vector2(-16, -697)
 rotation = 1.5708
 
-[node name="SpikeTrap7" parent="Enemies" index="19" instance=ExtResource("5_3xakp")]
+[node name="SpikeTrap7" parent="Enemies/Spike Traps" index="5" instance=ExtResource("5_3xakp")]
 position = Vector2(-16, -567)
 rotation = 1.5708
 
-[node name="SpikeTrap2" parent="Enemies" index="20" instance=ExtResource("5_3xakp")]
+[node name="SpikeTrap2" parent="Enemies/Spike Traps" index="6" instance=ExtResource("5_3xakp")]
 position = Vector2(227, -384)
 rotation = 3.14159
-
-[node name="RibBug12" parent="Enemies" index="21" instance=ExtResource("3_a8spc")]
-position = Vector2(128, -518)
-
-[node name="RibBug13" parent="Enemies" index="22" instance=ExtResource("3_a8spc")]
-position = Vector2(15, -614)
-
-[node name="FloorMaw4" parent="Enemies" index="23" instance=ExtResource("4_cexib")]
-position = Vector2(144, -640)
-
-[node name="FloorMaw5" parent="Enemies" index="24" instance=ExtResource("4_cexib")]
-position = Vector2(0, -736)
 
 [node name="HeartCore" type="AnimatedSprite2D" parent="." index="10"]
 texture_filter = 1
@@ -211,3 +215,9 @@ autoplay = "pulse"
 position = Vector2(0.999996, 0)
 scale = Vector2(2.03123, 3.04)
 shape = SubResource("RectangleShape2D_7inm1")
+
+[connection signal="player_died" from="Enemies/FloorMaw" to="." method="_on_player_died"]
+[connection signal="player_died" from="Enemies/FloorMaw2" to="." method="_on_player_died"]
+[connection signal="player_died" from="Enemies/FloorMaw3" to="." method="_on_player_died"]
+[connection signal="player_died" from="Enemies/FloorMaw4" to="." method="_on_player_died"]
+[connection signal="player_died" from="Enemies/FloorMaw5" to="." method="_on_player_died"]

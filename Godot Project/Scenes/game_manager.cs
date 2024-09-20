@@ -125,6 +125,7 @@ public partial class game_manager : Node
 	/// </summary>
 	public void ReloadCurrentLevel()
 	{
+		GD.Print("reloading");
 		LoadLevel(_levelTree.CurrentScenePath);
 	}
 
