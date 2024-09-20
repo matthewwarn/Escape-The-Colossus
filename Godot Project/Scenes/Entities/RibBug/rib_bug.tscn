@@ -257,7 +257,7 @@ radius = 50.0
 height = 240.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nn26i"]
-height = 44.0
+height = 46.0
 
 [node name="RibBug" type="CharacterBody2D"]
 position = Vector2(0, -9)
@@ -291,7 +291,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hit_box"]
-position = Vector2(0, 1)
+position = Vector2(0, -1)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_nn26i")
 
@@ -309,17 +309,21 @@ collide_with_areas = true
 wait_time = 2.0
 
 [node name="attack_cooldown" type="Timer" parent="."]
+wait_time = 2.0
 
-[node name="RayCastFloor" type="RayCast2D" parent="."]
-position = Vector2(-27, 6)
-target_position = Vector2(0, 32)
+[node name="RayCastFloorLeft" type="RayCast2D" parent="."]
+position = Vector2(-13, -1)
+target_position = Vector2(0, 7)
+collision_mask = 3
 collide_with_areas = true
 
-[node name="RayCastFloor2" type="RayCast2D" parent="."]
-position = Vector2(23, 6)
-target_position = Vector2(0, 32)
+[node name="RayCastFloorRight" type="RayCast2D" parent="."]
+position = Vector2(13, -1)
+target_position = Vector2(0, 7)
+collision_mask = 3
 collide_with_areas = true
 
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="detection" to="." method="_on_detection_body_entered"]
 [connection signal="body_exited" from="detection" to="." method="_on_detection_body_exited"]
 [connection signal="body_entered" from="hit_box" to="." method="_on_hit_box_body_entered"]
