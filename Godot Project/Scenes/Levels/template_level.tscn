@@ -36,6 +36,7 @@ wait_time = 0.4
 [node name="EndLocator" type="Node2D" parent="."]
 position = Vector2(131, 0)
 
+[connection signal="player_died" from="Killzone" to="." method="_on_player_died"]
 [connection signal="level_transition_reached" from="PrevLevelTransition" to="." method="_on_prev_level_transition"]
 [connection signal="level_transition_reached" from="NextLevelTransition" to="." method="_on_level_transition_reached"]
 [connection signal="main_menu_requested" from="PauseMenuPopup" to="." method="_on_pause_menu_popup_main_menu_requested"]
