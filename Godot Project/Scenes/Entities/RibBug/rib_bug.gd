@@ -33,7 +33,7 @@ func _physics_process(delta):
 	attack()
 	enemy()
 	
-#when RibBug dies set is_alive and player_chase to false 
+	#when RibBug dies set is_alive and player_chase to false 
 	if health <= 0:
 		is_alive = false
 		player_chase = false
