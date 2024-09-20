@@ -1,6 +1,5 @@
 [gd_scene load_steps=19 format=3 uid="uid://bb0x6xmkxt7wd"]
 
-[ext_resource type="Script" path="res://Scenes/Levels/Level_1_Test/level_1.gd" id="1_dge2t"]
 [ext_resource type="PackedScene" uid="uid://by7l0vw1421mx" path="res://Scenes/Levels/LevelComponents/gore_background.tscn" id="1_elw3n"]
 [ext_resource type="TileSet" uid="uid://d3uaft5ba4k5r" path="res://Scenes/Levels/LevelAssets/gore_tileset.tres" id="2_siq8w"]
 [ext_resource type="PackedScene" uid="uid://bffllo437822" path="res://Scenes/Entities/Player/player.tscn" id="3_aavna"]
@@ -8,6 +7,7 @@
 [ext_resource type="Script" path="res://Scenes/Levels/Level_1_Test/animation_player.gd" id="5_a7x6a"]
 [ext_resource type="PackedScene" uid="uid://b4gjkiteju2ea" path="res://Scenes/Entities/RibBug/rib_bug.tscn" id="6_6ji7g"]
 [ext_resource type="PackedScene" uid="uid://ddk74kjxma2c1" path="res://Scenes/Entities/Floor Maw/floor_maw.tscn" id="7_t5k60"]
+[ext_resource type="Script" path="res://Scenes/Levels/Level_1_Test/double_jump_activation.gd" id="8_rldil"]
 [ext_resource type="PackedScene" uid="uid://bm7gnelw71e8p" path="res://Scenes/Entities/Moving floor.tscn" id="9_0only"]
 [ext_resource type="Script" path="res://Scenes/Levels/Level_1_Test/animation_player2.gd" id="10_lwpbh"]
 
@@ -98,11 +98,26 @@ tracks/1/keys = {
 _data = {
 "RESET": SubResource("Animation_ue5tl"),
 "appear_level_one": SubResource("Animation_sju1t"),
-"move_left": SubResource("Animation_y7xk0")
+"doublejump": SubResource("Animation_y7xk0")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_st364"]
-size = Vector2(66.9688, 113)
+size = Vector2(66.9688, 54)
+
+[sub_resource type="Animation" id="Animation_o4lli"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2465, 280)]
+}
 
 [sub_resource type="Animation" id="Animation_3ss0u"]
 resource_name = "move"
@@ -121,21 +136,6 @@ tracks/0/keys = {
 "values": [Vector2(2465, 280), Vector2(2657, 280)]
 }
 
-[sub_resource type="Animation" id="Animation_o4lli"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(2465, 280)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7ykn5"]
 _data = {
 "RESET": SubResource("Animation_o4lli"),
@@ -143,9 +143,6 @@ _data = {
 }
 
 [node name="Level_1" type="Node"]
-script = ExtResource("1_dge2t")
-
-[node name="GoreBackground" parent="." instance=ExtResource("1_elw3n")]
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(-7, 0)
@@ -196,53 +193,12 @@ script = ExtResource("5_a7x6a")
 wait_time = 0.08
 one_shot = true
 
-[node name="RibBug" parent="." instance=ExtResource("6_6ji7g")]
-position = Vector2(385, 276)
+[node name="DoubleJumpActivation" type="Area2D" parent="."]
+collision_mask = 2
+script = ExtResource("8_rldil")
 
-[node name="RibBug2" parent="." instance=ExtResource("6_6ji7g")]
-position = Vector2(596, 279)
-
-[node name="RibBug3" parent="." instance=ExtResource("6_6ji7g")]
-position = Vector2(2803, 310)
-
-[node name="RibBug4" parent="." instance=ExtResource("6_6ji7g")]
-position = Vector2(2852, 310)
-
-[node name="RibBug5" parent="." instance=ExtResource("6_6ji7g")]
-position = Vector2(2904, 311)
-
-[node name="RibBug6" parent="." instance=ExtResource("6_6ji7g")]
-position = Vector2(2953, 311)
-
-[node name="FloorMaw11" parent="." instance=ExtResource("7_t5k60")]
-position = Vector2(1816, 192)
-rotation = 3.14159
-
-[node name="FloorMaw12" parent="." instance=ExtResource("7_t5k60")]
-position = Vector2(1733, 258)
-
-[node name="FloorMaw13" parent="." instance=ExtResource("7_t5k60")]
-position = Vector2(1900, 258)
-
-[node name="FloorMaw14" parent="." instance=ExtResource("7_t5k60")]
-position = Vector2(1985, 192)
-rotation = 3.14159
-
-[node name="RibBug7" parent="." instance=ExtResource("6_6ji7g")]
-position = Vector2(3280, 378)
-
-[node name="FloorMaw15" parent="." instance=ExtResource("7_t5k60")]
-position = Vector2(2067, 258)
-
-[node name="FloorMaw16" parent="." instance=ExtResource("7_t5k60")]
-position = Vector2(2153, 192)
-rotation = 3.14159
-
-[node name="Area2D" type="Area2D" parent="."]
-collision_mask = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(4087, 329)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoubleJumpActivation"]
+position = Vector2(4087, 320)
 shape = SubResource("RectangleShape2D_st364")
 
 [node name="Label" type="Label" parent="."]
@@ -252,80 +208,10 @@ offset_right = 4870.0
 offset_bottom = 356.0
 text = "End. (Navigating System)"
 
-[node name="RibBug8" parent="." instance=ExtResource("6_6ji7g")]
-position = Vector2(178, 279)
-
-[node name="FloorMaw" parent="." instance=ExtResource("7_t5k60")]
-position = Vector2(1450, 336)
-
-[node name="FloorMaw2" parent="." instance=ExtResource("7_t5k60")]
-position = Vector2(1483, 336)
-
-[node name="FloorMaw3" parent="." instance=ExtResource("7_t5k60")]
-position = Vector2(1516, 336)
-
-[node name="FloorMaw17" parent="." instance=ExtResource("7_t5k60")]
-position = Vector2(1550, 336)
-
-[node name="FloorMaw18" parent="." instance=ExtResource("7_t5k60")]
-position = Vector2(1583, 336)
-
-[node name="FloorMaw19" parent="." instance=ExtResource("7_t5k60")]
-position = Vector2(1617, 336)
-
-[node name="FloorMaw20" parent="." instance=ExtResource("7_t5k60")]
-position = Vector2(1651, 336)
-
-[node name="FloorMaw21" parent="." instance=ExtResource("7_t5k60")]
-position = Vector2(1685, 336)
-
-[node name="FloorMaw4" parent="." instance=ExtResource("7_t5k60")]
-position = Vector2(2236, 258)
-
-[node name="FloorMaw5" parent="." instance=ExtResource("7_t5k60")]
-position = Vector2(2322, 192)
-rotation = 3.14159
-
-[node name="RibBug9" parent="." instance=ExtResource("6_6ji7g")]
-position = Vector2(3351, 377)
-
-[node name="RibBug10" parent="." instance=ExtResource("6_6ji7g")]
-position = Vector2(3442, 377)
-
-[node name="RibBug11" parent="." instance=ExtResource("6_6ji7g")]
-position = Vector2(3531, 376)
-
-[node name="RibBug12" parent="." instance=ExtResource("6_6ji7g")]
-position = Vector2(3593, 375)
-
-[node name="FloorMaw6" parent="." instance=ExtResource("7_t5k60")]
-position = Vector2(3268, 257)
-
-[node name="FloorMaw7" parent="." instance=ExtResource("7_t5k60")]
-position = Vector2(3301, 257)
-
-[node name="FloorMaw8" parent="." instance=ExtResource("7_t5k60")]
-position = Vector2(3337, 257)
-
-[node name="FloorMaw9" parent="." instance=ExtResource("7_t5k60")]
-position = Vector2(3269, 191)
-rotation = 3.14159
-
-[node name="FloorMaw10" parent="." instance=ExtResource("7_t5k60")]
-position = Vector2(3302, 191)
-rotation = 3.14159
-
-[node name="FloorMaw22" parent="." instance=ExtResource("7_t5k60")]
-position = Vector2(3335, 191)
-rotation = 3.14159
-
-[node name="RibBug14" parent="." instance=ExtResource("6_6ji7g")]
-position = Vector2(3684, 374)
-
-[node name="AnimatableBody2D" parent="." instance=ExtResource("9_0only")]
+[node name="Moving platform" parent="." instance=ExtResource("9_0only")]
 position = Vector2(2465, 280)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatableBody2D"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Moving platform"]
 libraries = {
 "": SubResource("AnimationLibrary_7ykn5")
 }
@@ -334,4 +220,120 @@ script = ExtResource("10_lwpbh")
 [node name="RibBug13" parent="." instance=ExtResource("6_6ji7g")]
 position = Vector2(3824, 372)
 
-[connection signal="body_entered" from="Area2D" to="Player" method="_on_area_2d_body_entered"]
+[node name="GoreBackground" parent="." instance=ExtResource("1_elw3n")]
+
+[node name="Enemies and Obstacles" type="Node" parent="."]
+
+[node name="RibBug" parent="Enemies and Obstacles" instance=ExtResource("6_6ji7g")]
+position = Vector2(385, 276)
+
+[node name="RibBug2" parent="Enemies and Obstacles" instance=ExtResource("6_6ji7g")]
+position = Vector2(596, 279)
+
+[node name="RibBug3" parent="Enemies and Obstacles" instance=ExtResource("6_6ji7g")]
+position = Vector2(2803, 310)
+
+[node name="RibBug4" parent="Enemies and Obstacles" instance=ExtResource("6_6ji7g")]
+position = Vector2(2852, 310)
+
+[node name="RibBug5" parent="Enemies and Obstacles" instance=ExtResource("6_6ji7g")]
+position = Vector2(2904, 311)
+
+[node name="RibBug6" parent="Enemies and Obstacles" instance=ExtResource("6_6ji7g")]
+position = Vector2(2953, 311)
+
+[node name="FloorMaw11" parent="Enemies and Obstacles" instance=ExtResource("7_t5k60")]
+position = Vector2(1816, 192)
+rotation = 3.14159
+
+[node name="FloorMaw12" parent="Enemies and Obstacles" instance=ExtResource("7_t5k60")]
+position = Vector2(1733, 258)
+
+[node name="FloorMaw13" parent="Enemies and Obstacles" instance=ExtResource("7_t5k60")]
+position = Vector2(1900, 258)
+
+[node name="FloorMaw14" parent="Enemies and Obstacles" instance=ExtResource("7_t5k60")]
+position = Vector2(1985, 192)
+rotation = 3.14159
+
+[node name="RibBug7" parent="Enemies and Obstacles" instance=ExtResource("6_6ji7g")]
+position = Vector2(3280, 378)
+
+[node name="FloorMaw15" parent="Enemies and Obstacles" instance=ExtResource("7_t5k60")]
+position = Vector2(2067, 258)
+
+[node name="FloorMaw16" parent="Enemies and Obstacles" instance=ExtResource("7_t5k60")]
+position = Vector2(2153, 192)
+rotation = 3.14159
+
+[node name="RibBug8" parent="Enemies and Obstacles" instance=ExtResource("6_6ji7g")]
+position = Vector2(178, 279)
+
+[node name="FloorMaw" parent="Enemies and Obstacles" instance=ExtResource("7_t5k60")]
+position = Vector2(1450, 336)
+
+[node name="FloorMaw2" parent="Enemies and Obstacles" instance=ExtResource("7_t5k60")]
+position = Vector2(1483, 336)
+
+[node name="FloorMaw3" parent="Enemies and Obstacles" instance=ExtResource("7_t5k60")]
+position = Vector2(1516, 336)
+
+[node name="FloorMaw17" parent="Enemies and Obstacles" instance=ExtResource("7_t5k60")]
+position = Vector2(1550, 336)
+
+[node name="FloorMaw18" parent="Enemies and Obstacles" instance=ExtResource("7_t5k60")]
+position = Vector2(1583, 336)
+
+[node name="FloorMaw19" parent="Enemies and Obstacles" instance=ExtResource("7_t5k60")]
+position = Vector2(1617, 336)
+
+[node name="FloorMaw20" parent="Enemies and Obstacles" instance=ExtResource("7_t5k60")]
+position = Vector2(1651, 336)
+
+[node name="FloorMaw21" parent="Enemies and Obstacles" instance=ExtResource("7_t5k60")]
+position = Vector2(1685, 336)
+
+[node name="FloorMaw4" parent="Enemies and Obstacles" instance=ExtResource("7_t5k60")]
+position = Vector2(2236, 258)
+
+[node name="FloorMaw5" parent="Enemies and Obstacles" instance=ExtResource("7_t5k60")]
+position = Vector2(2322, 192)
+rotation = 3.14159
+
+[node name="RibBug9" parent="Enemies and Obstacles" instance=ExtResource("6_6ji7g")]
+position = Vector2(3351, 377)
+
+[node name="RibBug10" parent="Enemies and Obstacles" instance=ExtResource("6_6ji7g")]
+position = Vector2(3442, 377)
+
+[node name="RibBug11" parent="Enemies and Obstacles" instance=ExtResource("6_6ji7g")]
+position = Vector2(3531, 376)
+
+[node name="RibBug12" parent="Enemies and Obstacles" instance=ExtResource("6_6ji7g")]
+position = Vector2(3593, 375)
+
+[node name="FloorMaw6" parent="Enemies and Obstacles" instance=ExtResource("7_t5k60")]
+position = Vector2(3268, 257)
+
+[node name="FloorMaw7" parent="Enemies and Obstacles" instance=ExtResource("7_t5k60")]
+position = Vector2(3301, 257)
+
+[node name="FloorMaw8" parent="Enemies and Obstacles" instance=ExtResource("7_t5k60")]
+position = Vector2(3337, 257)
+
+[node name="FloorMaw9" parent="Enemies and Obstacles" instance=ExtResource("7_t5k60")]
+position = Vector2(3269, 191)
+rotation = 3.14159
+
+[node name="FloorMaw10" parent="Enemies and Obstacles" instance=ExtResource("7_t5k60")]
+position = Vector2(3302, 191)
+rotation = 3.14159
+
+[node name="FloorMaw22" parent="Enemies and Obstacles" instance=ExtResource("7_t5k60")]
+position = Vector2(3335, 191)
+rotation = 3.14159
+
+[node name="RibBug14" parent="Enemies and Obstacles" instance=ExtResource("6_6ji7g")]
+position = Vector2(3684, 374)
+
+[connection signal="body_entered" from="DoubleJumpActivation" to="DoubleJumpActivation" method="_on_body_entered"]

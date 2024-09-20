@@ -4,7 +4,6 @@ extends CharacterBody2D
 @onready var coyote_timer = $CoyoteTimer
 @onready var attack_cooldown = $attack_cooldown
 @onready var deal_attack_timer = $deal_attack_timer
-@onready var animation_player = $Camera2D/AnimationPlayer
 
 var full_heart_texture = preload("res://Scenes/Entities/Player/Health/Heart.png")
 var damaged_heart_texture = preload("res://Scenes/Entities/Player/Health/DamagedHeart.png")
@@ -238,10 +237,3 @@ func _on_player_hitbox_body_exited(body):
 	if body.has_method("enemy"):
 		enemy_inattack_range = false
 		enemy_attack_cooldown = true
-		
-func _on_area_2d_body_entered(body):
-	if body.name == "Player" and not level_one_message_shown:
-		print("Entered")
-		double_jump_toggle = true
-		animation_player.play("move_left")
-		level_one_message_shown = true
