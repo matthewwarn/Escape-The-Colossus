@@ -47,7 +47,6 @@ var heart3
 var GRAVITY = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 # Show message once
-var level_one_message_shown = false
 
 func _ready():
 	heart1 = get_node("CanvasLayer/Heart1")
