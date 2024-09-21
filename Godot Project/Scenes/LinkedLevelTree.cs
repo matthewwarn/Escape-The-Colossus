@@ -8,6 +8,7 @@ public class LinkedLevelTree : LevelTree
 	// Used for formatting in Serialise() and Deserialize()
 	private const char LEAF_MARKER = '|';
 	private const char PATH_END_MARKER = ';';
+	private const string LEVEL_ROOT_DIR = "res://Scenes/Levels/";
 	
 	/// <summary>
 	/// Tree node which holds the path to a level's scene file.
@@ -144,9 +145,12 @@ public class LinkedLevelTree : LevelTree
 		// Keep reading characters until we have the entire path for this node.
 		while (val != PATH_END_MARKER)
 		{
-			path += (char)val;
+			if ((char)val != '\n' && (char)val != '\r')
+				path += (char)val;
 			val = inputStream.Read();
 		}
+
+		path = LEVEL_ROOT_DIR + path;
 
 		// Create a node from this path and recursively add its children.
 		PathNode newNode = new PathNode(path, parent);
