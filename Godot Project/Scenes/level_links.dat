@@ -1,1 +1,5 @@
-﻿res://Scenes/Levels/Tutorial/Tutorial.tscn;res://Scenes/Levels/Hub/hub_level.tscn;res://Scenes/Levels/Level One/level_one.tscn;res://Scenes/Levels/integrated_core.tscn;res://Scenes/Levels/Ending/Ending_Clear.tscn;|
+﻿Tutorial/Tutorial.tscn;
+Hub/hub_level.tscn;
+Level One/level_one.tscn;
+integrated_core.tscn;
+Ending/Ending_Clear.tscn;|
