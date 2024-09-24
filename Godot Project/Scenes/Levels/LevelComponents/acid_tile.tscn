@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://d0i1p2gbb4mbj"]
+
+[ext_resource type="Texture2D" uid="uid://b1hbe7fecs0ya" path="res://Scenes/Levels/LevelAssets/Acid-Sheet.png" id="1_jw3lg"]
+[ext_resource type="PackedScene" uid="uid://b31oekchnss6y" path="res://Scenes/Levels/LevelComponents/killzone.tscn" id="2_uwohq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxcko"]
+atlas = ExtResource("1_jw3lg")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3nu4h"]
+atlas = ExtResource("1_jw3lg")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_on3dc"]
+atlas = ExtResource("1_jw3lg")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_55dnb"]
+atlas = ExtResource("1_jw3lg")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mpk80"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cxcko")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3nu4h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_on3dc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_55dnb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8s1vl"]
+size = Vector2(16, 12)
+
+[node name="AcidTile" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_mpk80")
+frame_progress = 0.300088
+
+[node name="Killzone" parent="." instance=ExtResource("2_uwohq")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_8s1vl")
