@@ -97,6 +97,14 @@ texture = ExtResource("1_qoal4")
 10:3/0 = 0
 9:3/0 = 0
 10:2/0 = 0
+9:4/0 = 0
+10:4/0 = 0
+10:5/0 = 0
+9:5/0 = 0
+11:3/0 = 0
+11:2/0 = 0
+11:1/0 = 0
+11:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_eovkn"]
 resource_name = "One-Way Gore Tiles"

@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://d0i1p2gbb4mbj"]
+[gd_scene load_steps=10 format=3 uid="uid://d0i1p2gbb4mbj"]
 
+[ext_resource type="Script" path="res://Scenes/Levels/LevelComponents/acid_tile.gd" id="1_alinb"]
 [ext_resource type="Texture2D" uid="uid://b1hbe7fecs0ya" path="res://Scenes/Levels/LevelAssets/Acid-Sheet.png" id="1_jw3lg"]
 [ext_resource type="PackedScene" uid="uid://b31oekchnss6y" path="res://Scenes/Levels/LevelComponents/killzone.tscn" id="2_uwohq"]
 
@@ -43,6 +44,7 @@ animations = [{
 size = Vector2(16, 12)
 
 [node name="AcidTile" type="Node2D"]
+script = ExtResource("1_alinb")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_mpk80")
@@ -53,3 +55,5 @@ frame_progress = 0.300088
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_8s1vl")
+
+[connection signal="player_died" from="Killzone" to="." method="_on_killzone_player_died"]
