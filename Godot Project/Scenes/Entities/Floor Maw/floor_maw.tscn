@@ -164,7 +164,7 @@ animations = [{
 size = Vector2(30, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q4elc"]
-size = Vector2(13, 20)
+size = Vector2(10, 17)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_76kfy"]
 size = Vector2(300, 105)
@@ -187,7 +187,7 @@ position = Vector2(1, -6)
 shape = SubResource("RectangleShape2D_qtajg")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Killzone"]
-position = Vector2(0.5, -22)
+position = Vector2(0, -20.5)
 shape = SubResource("RectangleShape2D_q4elc")
 
 [node name="Proximity Detector" type="Area2D" parent="."]

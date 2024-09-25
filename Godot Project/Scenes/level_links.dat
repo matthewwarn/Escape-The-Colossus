@@ -1,5 +1,6 @@
 ﻿Tutorial/Tutorial.tscn;
 Hub/hub_level.tscn;
 Level One/level_one.tscn;
+AcidLevel/acid_level.tscn;
 integrated_core.tscn;
 Ending/Ending_Clear.tscn;|

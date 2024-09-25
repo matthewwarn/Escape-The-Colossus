@@ -28,7 +28,9 @@ tile_set = ExtResource("6_kfpnu")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -31)
-zoom = Vector2(4, 4)
+zoom = Vector2(2.5, 2.5)
+position_smoothing_enabled = true
+position_smoothing_speed = 13.0
 
 [node name="CoyoteTimer" type="Timer" parent="Player"]
 wait_time = 0.4
