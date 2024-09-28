@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://d2be2xo822iaj"]
+[gd_scene load_steps=22 format=4 uid="uid://d2be2xo822iaj"]
 
 [ext_resource type="PackedScene" uid="uid://djgqihrehhe1h" path="res://Scenes/Levels/template_level.tscn" id="1_tjl8h"]
 [ext_resource type="TileSet" uid="uid://d3uaft5ba4k5r" path="res://Scenes/Levels/LevelAssets/gore_tileset.tres" id="2_oi6vb"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ddk74kjxma2c1" path="res://Scenes/Entities/Floor Maw/floor_maw.tscn" id="4_cexib"]
 [ext_resource type="PackedScene" uid="uid://dmdvwelqe4h1u" path="res://Scenes/Entities/Spike Trap/spike_trap.tscn" id="5_3xakp"]
 [ext_resource type="Texture2D" uid="uid://crh4qnkw227o0" path="res://Scenes/Levels/LevelAssets/core_animation.png" id="6_djkpx"]
+[ext_resource type="Script" path="res://Scenes/Levels/AcidLevel/dash_turn_off.gd" id="7_sr4h5"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ebeuf"]
 distance = -41.0
@@ -82,6 +83,9 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7inm1"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qs2u5"]
+size = Vector2(197, 169)
+
 [node name="TemplateLevel" instance=ExtResource("1_tjl8h")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone" index="1"]
@@ -112,6 +116,13 @@ tile_set = ExtResource("2_oi6vb")
 
 [node name="Player" parent="." index="7"]
 position = Vector2(329, 285)
+
+[node name="Camera2D" parent="Player" index="6"]
+position_smoothing_enabled = false
+
+[node name="CoyoteTimer" parent="Player" index="7"]
+wait_time = 0.08
+one_shot = true
 
 [node name="EndLocator" parent="." index="8"]
 position = Vector2(336, -977)
@@ -216,8 +227,17 @@ position = Vector2(0.999996, 0)
 scale = Vector2(2.03123, 3.04)
 shape = SubResource("RectangleShape2D_7inm1")
 
+[node name="DashOFF" type="Area2D" parent="." index="11"]
+collision_mask = 2
+script = ExtResource("7_sr4h5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DashOFF" index="0"]
+position = Vector2(321, 255)
+shape = SubResource("RectangleShape2D_qs2u5")
+
 [connection signal="player_died" from="Enemies/FloorMaw" to="." method="_on_player_died"]
 [connection signal="player_died" from="Enemies/FloorMaw2" to="." method="_on_player_died"]
 [connection signal="player_died" from="Enemies/FloorMaw3" to="." method="_on_player_died"]
 [connection signal="player_died" from="Enemies/FloorMaw4" to="." method="_on_player_died"]
 [connection signal="player_died" from="Enemies/FloorMaw5" to="." method="_on_player_died"]
+[connection signal="body_entered" from="DashOFF" to="DashOFF" method="_on_body_entered"]
