@@ -185,15 +185,15 @@ func play_animations():
 	if is_alive == true:
 		if is_on_floor():
 			if velocity.x == 0 and attack_ip == false:
-				animated_sprite.animation = "Idle"
+				animated_sprite.play("Idle")
 			elif attack_ip == true:
 				animated_sprite.play("Attack")
 			else:
-				animated_sprite.animation = "Movement"
+				animated_sprite.play("Movement")
 		else:
-			animated_sprite.animation = "Jump"
+			animated_sprite.play("Jump")
 	elif is_alive == false:
-		animated_sprite.animation = "Death"
+		animated_sprite.play("Death")
 
 func enemy_attack():	
 	if enemy_inattack_range and enemy_attack_cooldown == false:

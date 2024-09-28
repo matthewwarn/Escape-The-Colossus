@@ -4,6 +4,6 @@ extends Area2D
 @onready var animation_player: AnimationPlayer = $"../Player/Camera2D/Popup Text"
 
 func _on_body_entered(body: Node2D) -> void:
-	print("double jump")
+	print("double jump on")
 	player.double_jump_toggle = true;
 	animation_player.play("doublejump");
