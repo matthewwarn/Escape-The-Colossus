@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=4 uid="uid://dxmst7n0dwkc"]
+
+[ext_resource type="PackedScene" uid="uid://djgqihrehhe1h" path="res://Scenes/Levels/template_level.tscn" id="1_so76t"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8ye5g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_444ym"]
+size = Vector2(37, 81)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5vbhb"]
+size = Vector2(37, 80)
+
+[node name="TemplateLevel" instance=ExtResource("1_so76t")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone" index="1"]
+position = Vector2(0, 354)
+shape = SubResource("WorldBoundaryShape2D_8ye5g")
+
+[node name="PrevLevelTransition" parent="." index="2"]
+position = Vector2(-72, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PrevLevelTransition" index="0"]
+position = Vector2(-12.5, -40.5)
+shape = SubResource("RectangleShape2D_444ym")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NextLevelTransition" index="0"]
+position = Vector2(211.5, -40)
+shape = SubResource("RectangleShape2D_5vbhb")
+
+[node name="TileMapLayer" parent="." index="5"]
+tile_map_data = PackedByteArray("AAD5/wAAAAABAAEAAAD6/wAAAAABAAEAAAD7/wAAAAABAAEAAAD8/wAAAAABAAEAAAD9/wAAAAABAAEAAAD+/wAAAAABAAEAAAD//wAAAAABAAEAAAAAAAAAAAABAAEAAAABAAAAAAABAAEAAAACAAAAAAABAAEAAAADAAAAAAABAAEAAAAEAAAAAAABAAEAAAAFAAAAAAABAAEAAAAGAAAAAAABAAEAAAAHAAAAAAABAAEAAAAIAAAAAAABAAEAAAAJAAAAAAABAAEAAAAKAAAAAAABAAEAAAALAAAAAAABAAEAAAAMAAAAAAABAAEAAAANAAAAAAABAAEAAAAOAAAAAAABAAEAAAAPAAAAAAABAAEAAAA=")
+
+[node name="Camera2D" parent="Player" index="6"]
+position_smoothing_enabled = false
+
+[node name="CoyoteTimer" parent="Player" index="7"]
+wait_time = 0.08
+one_shot = true
+
+[node name="EndLocator" parent="." index="7"]
+position = Vector2(169, -12)
