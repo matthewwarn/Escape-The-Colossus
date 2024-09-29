@@ -360,10 +360,6 @@ libraries = {
 }
 script = ExtResource("9_gi1r0")
 
-[node name="CoyoteTimer" parent="Player" index="7"]
-wait_time = 0.08
-one_shot = true
-
 [node name="EndLocator" parent="." index="11"]
 position = Vector2(4660, 349)
 
