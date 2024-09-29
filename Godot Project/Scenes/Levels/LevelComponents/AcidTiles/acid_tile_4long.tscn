@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqpw5paeu62au"]
+
+[ext_resource type="Script" path="res://Scenes/Levels/LevelComponents/AcidTiles/acid_tile_4_long.gd" id="1_ywyph"]
+[ext_resource type="PackedScene" uid="uid://d0i1p2gbb4mbj" path="res://Scenes/Levels/LevelComponents/AcidTiles/acid_tile.tscn" id="2_nls0u"]
+
+[node name="AcidTile4Long" type="Node2D"]
+script = ExtResource("1_ywyph")
+
+[node name="AcidTile4" parent="." instance=ExtResource("2_nls0u")]
+position = Vector2(24, 0)
+
+[node name="AcidTile3" parent="." instance=ExtResource("2_nls0u")]
+position = Vector2(8, 0)
+
+[node name="AcidTile2" parent="." instance=ExtResource("2_nls0u")]
+position = Vector2(-8, 0)
+
+[node name="AcidTile" parent="." instance=ExtResource("2_nls0u")]
+position = Vector2(-24, 0)
+
+[connection signal="player_died" from="AcidTile4" to="." method="_on_acid_tile_player_died"]
+[connection signal="player_died" from="AcidTile3" to="." method="_on_acid_tile_player_died"]
+[connection signal="player_died" from="AcidTile2" to="." method="_on_acid_tile_player_died"]
+[connection signal="player_died" from="AcidTile" to="." method="_on_acid_tile_player_died"]
