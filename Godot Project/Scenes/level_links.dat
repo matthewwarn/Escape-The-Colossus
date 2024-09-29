@@ -1,5 +1,5 @@
-﻿Tutorial/Tutorial.tscn;
-Hub/hub_level.tscn;
-Level One/level_one.tscn;
-integrated_core.tscn;
-Ending/Ending_Clear.tscn;|
+Tutorial/Tutorial.tscn|Tutorial/Tutorial.tscn|Hub/hub_level.tscn
+Hub/hub_level.tscn|Tutorial/Tutorial.tscn|Level One/level_one.tscn
+Level One/level_one.tscn|Hub/hub_level.tscn|integrated_core.tscn
+integrated_core.tscn|Level One/level_one.tscn|Ending/ending_clear.tscn
+Ending/ending_clear.tscn|integrated_core.tscn
