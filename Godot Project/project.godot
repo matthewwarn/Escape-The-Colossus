@@ -21,6 +21,7 @@ globall="*res://scripts/global.gd"
 
 [display]
 
+window/stretch/mode="viewport"
 window/per_pixel_transparency/allowed=true
 
 [dotnet]

@@ -1,6 +1,7 @@
 extends Window
 
 signal main_menu_requested;
+@onready var settings_menu: Control = $SettingsMenu
 
 func open() -> void:
 	get_tree().paused = true;
@@ -23,3 +24,7 @@ func _on_quit_button_pressed() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
 		close();
+
+
+func _on_settings_button_pressed() -> void:
+	settings_menu.show();

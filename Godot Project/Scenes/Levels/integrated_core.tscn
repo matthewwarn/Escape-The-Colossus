@@ -117,13 +117,6 @@ tile_set = ExtResource("2_oi6vb")
 [node name="Player" parent="." index="7"]
 position = Vector2(329, 285)
 
-[node name="Camera2D" parent="Player" index="6"]
-position_smoothing_enabled = false
-
-[node name="CoyoteTimer" parent="Player" index="7"]
-wait_time = 0.08
-one_shot = true
-
 [node name="EndLocator" parent="." index="8"]
 position = Vector2(336, -977)
 

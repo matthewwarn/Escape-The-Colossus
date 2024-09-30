@@ -6,7 +6,8 @@ public partial class game_manager : Node
 {
 	private readonly string LEVEL_LINKS_PATH = @"Scenes/level_links.dat";
 	private readonly string GAME_SAVE_PATH   = @"Scenes/save.dat";
-	private readonly string MAIN_MENU = @"Scenes/Menus/main_menu.tscn";
+	private readonly string MAIN_MENU        = @"Scenes/Menus/main_menu.tscn";
+	private readonly string SETTINGS_MENU    = @"Scenes/Menus/settings_menu.tscn";
 	
 	private LevelTree _levelTree;
 	private bool _bossOneDefeated = false;
@@ -18,9 +19,8 @@ public partial class game_manager : Node
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		// _levelTree = new LinkedLevelTree(LEVEL_LINKS_PATH);
 		_levelTree = new GraphLevelTree(LEVEL_LINKS_PATH);
-		current_level = GetNode<Control>("Main Menu");
+		LoadLevel(MAIN_MENU);
 	}
 
 	/// <summary>
@@ -94,7 +94,8 @@ public partial class game_manager : Node
 	public void DeferredLoadLevel(string path)
 	{
 		// Remove the current scene
-		current_level.Free();
+		if (current_level != null)
+			current_level.Free();
 
 		// Load in the next scene
 		var nextScene = GD.Load<PackedScene>(path);
