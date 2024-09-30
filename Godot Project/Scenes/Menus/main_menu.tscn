@@ -42,14 +42,12 @@ horizontal_alignment = 1
 
 [node name="ResumeButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-
 focus_next = NodePath("../PlayButton")
 focus_previous = NodePath("../QuitButton")
 text = "Resume"
 
 [node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-
 focus_neighbor_bottom = NodePath("../OptionsButton")
 focus_next = NodePath("../OptionsButton")
 focus_previous = NodePath("../ResumeButton")
@@ -57,14 +55,12 @@ text = "New Game"
 
 [node name="OptionsButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-
 focus_next = NodePath("../QuitButton")
 focus_previous = NodePath("../PlayButton")
 text = "Options"
 
 [node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-
 focus_next = NodePath("../ResumeButton")
 focus_previous = NodePath("../OptionsButton")
 text = "Quit"

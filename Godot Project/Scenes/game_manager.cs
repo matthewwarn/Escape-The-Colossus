@@ -5,7 +5,8 @@ public partial class game_manager : Node
 {
 	private readonly string LEVEL_LINKS_PATH = @"Scenes/level_links.dat";
 	private readonly string GAME_SAVE_PATH   = @"Scenes/save.dat";
-	private readonly string MAIN_MENU = @"Scenes/Menus/main_menu.tscn";
+	private readonly string MAIN_MENU        = @"Scenes/Menus/main_menu.tscn";
+	private readonly string SETTINGS_MENU    = @"Scenes/Menus/settings_menu.tscn";
 	
 	private LevelTree _levelTree;
 	private bool _bossOneDefeated = false;
@@ -18,7 +19,7 @@ public partial class game_manager : Node
 	public override void _Ready()
 	{
 		_levelTree = new LinkedLevelTree(LEVEL_LINKS_PATH);
-		current_level = GetNode<Control>("Main Menu");
+		LoadLevel(MAIN_MENU);
 	}
 
 	/// <summary>
@@ -42,6 +43,16 @@ public partial class game_manager : Node
 	public void OpenMainMenu()
 	{
 		SaveGame();
+		LoadLevel(MAIN_MENU);
+	}
+
+	public void OpenSettingsMenu()
+	{
+		LoadLevel(SETTINGS_MENU);
+	}
+
+	public void ReturnFromSettings()
+	{
 		LoadLevel(MAIN_MENU);
 	}
 
@@ -92,7 +103,8 @@ public partial class game_manager : Node
 	public void DeferredLoadLevel(string path)
 	{
 		// Remove the current scene
-		current_level.Free();
+		if (current_level != null)
+			current_level.Free();
 
 		// Load in the next scene
 		var nextScene = GD.Load<PackedScene>(path);
@@ -107,6 +119,11 @@ public partial class game_manager : Node
 		{
 			current_level.Connect("game_start_requested", Callable.From(start_game));
 			current_level.Connect("game_resume_requested", Callable.From(ResumeGame));
+			current_level.Connect("settings_menu_requested", Callable.From(OpenSettingsMenu));
+		}
+		else if (path == SETTINGS_MENU)
+		{
+			current_level.Connect("return_to_main", Callable.From(ReturnFromSettings));
 		}
 		else
 		{
