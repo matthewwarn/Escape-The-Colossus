@@ -46,16 +46,6 @@ public partial class game_manager : Node
 		LoadLevel(MAIN_MENU);
 	}
 
-	public void OpenSettingsMenu()
-	{
-		LoadLevel(SETTINGS_MENU);
-	}
-
-	public void ReturnFromSettings()
-	{
-		LoadLevel(MAIN_MENU);
-	}
-
 	/// <summary>
 	/// Write the current game state data out to a file.
 	/// </summary>
@@ -119,11 +109,6 @@ public partial class game_manager : Node
 		{
 			current_level.Connect("game_start_requested", Callable.From(start_game));
 			current_level.Connect("game_resume_requested", Callable.From(ResumeGame));
-			current_level.Connect("settings_menu_requested", Callable.From(OpenSettingsMenu));
-		}
-		else if (path == SETTINGS_MENU)
-		{
-			current_level.Connect("return_to_main", Callable.From(ReturnFromSettings));
 		}
 		else
 		{

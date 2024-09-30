@@ -21,7 +21,6 @@ globall="*res://scripts/global.gd"
 
 [display]
 
-window/size/mode=3
 window/stretch/mode="viewport"
 window/per_pixel_transparency/allowed=true
 
