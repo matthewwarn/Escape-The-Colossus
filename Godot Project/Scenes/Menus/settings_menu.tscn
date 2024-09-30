@@ -36,6 +36,7 @@ scale = Vector2(3.6, 3.6)
 texture = ExtResource("1_anrnc")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
 offset_left = 452.0
 offset_top = 231.0
 offset_right = 714.0
