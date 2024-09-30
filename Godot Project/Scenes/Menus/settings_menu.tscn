@@ -36,6 +36,7 @@ scale = Vector2(3.6, 3.6)
 texture = ExtResource("1_anrnc")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
 offset_left = 452.0
 offset_top = 231.0
 offset_right = 714.0
@@ -64,6 +65,10 @@ vertical_alignment = 2
 [node name="VolumeSlider" type="HSlider" parent="MarginContainer/VBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
+focus_neighbor_top = NodePath("../../ReturnButton")
+focus_neighbor_bottom = NodePath("../../FullscreenButton")
+focus_next = NodePath("../../FullscreenButton")
+focus_previous = NodePath("../../ReturnButton")
 max_value = 1.0
 step = 0.05
 tick_count = 11
@@ -79,11 +84,19 @@ horizontal_alignment = 3
 
 [node name="FullscreenButton" type="CheckButton" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../VBoxContainer/VolumeSlider")
+focus_neighbor_bottom = NodePath("../ReturnButton")
+focus_next = NodePath("../ReturnButton")
+focus_previous = NodePath("../VBoxContainer/VolumeSlider")
 text = "Fullscreen"
 script = ExtResource("4_s6qnc")
 
 [node name="ReturnButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../FullscreenButton")
+focus_neighbor_bottom = NodePath("../VBoxContainer/VolumeSlider")
+focus_next = NodePath("../VBoxContainer/VolumeSlider")
+focus_previous = NodePath("../FullscreenButton")
 text = "Back"
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
