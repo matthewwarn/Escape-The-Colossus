@@ -88,7 +88,8 @@ public partial class game_manager : Node
 	public void LoadLevel(string level_path)
 	{
 		CallDeferred(MethodName.DeferredLoadLevel, level_path);
-		SaveGame();
+		if (level_path != MAIN_MENU)
+			SaveGame();
 	}
 
 	public void DeferredLoadLevel(string path)

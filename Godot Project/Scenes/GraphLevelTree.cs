@@ -53,6 +53,7 @@ public class GraphLevelTree : LevelTree
 
 	public string JumpToLevel(string path)
 	{
+		GD.Print(path);
 		if (_levelLookupTable.TryGetValue(path, out PathNode requestedLevel))
 		{
 			_currentScene = requestedLevel;
