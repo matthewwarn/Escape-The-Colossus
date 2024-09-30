@@ -1,4 +1,5 @@
 using System.IO;
+using EscapeTheColossus.Scenes;
 using Godot;
 
 public partial class game_manager : Node
@@ -17,7 +18,8 @@ public partial class game_manager : Node
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		_levelTree = new LinkedLevelTree(LEVEL_LINKS_PATH);
+		// _levelTree = new LinkedLevelTree(LEVEL_LINKS_PATH);
+		_levelTree = new GraphLevelTree(LEVEL_LINKS_PATH);
 		current_level = GetNode<Control>("Main Menu");
 	}
 
