@@ -14,7 +14,7 @@ size = Vector2(20, 42)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3kfna"]
 size = Vector2(206, 62)
 
-[node name="TemplateLevel" instance=ExtResource("1_w8r22")]
+[node name="TemplateLevel2" instance=ExtResource("1_w8r22")]
 
 [node name="Killzone" parent="." index="1"]
 position = Vector2(208, 400)
