@@ -30,6 +30,7 @@ grow_vertical = 2
 script = ExtResource("1_558px")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
 position = Vector2(576, 324)
 scale = Vector2(3.6, 3.6)
 texture = ExtResource("1_anrnc")
@@ -83,7 +84,7 @@ script = ExtResource("4_s6qnc")
 
 [node name="ReturnButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "<---   Return to Menu"
+text = "Back"
 
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/VBoxContainer/VolumeSlider" to="MarginContainer/VBoxContainer/VBoxContainer/VolumeSlider" method="_on_value_changed"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/FullscreenButton" to="MarginContainer/VBoxContainer/FullscreenButton" method="_on_fullscreen_button_toggled"]
