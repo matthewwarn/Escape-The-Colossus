@@ -1,10 +1,11 @@
-[gd_scene load_steps=20 format=3 uid="uid://b7fhpcwfcsn0m"]
+[gd_scene load_steps=22 format=3 uid="uid://b7fhpcwfcsn0m"]
 
 [ext_resource type="Script" path="res://Scenes/Levels/Tutorial/tutorial.gd" id="1_qysei"]
 [ext_resource type="PackedScene" uid="uid://by7l0vw1421mx" path="res://Scenes/Levels/LevelComponents/gore_background.tscn" id="1_vjkuh"]
 [ext_resource type="TileSet" uid="uid://d3uaft5ba4k5r" path="res://Scenes/Levels/LevelAssets/gore_tileset.tres" id="2_qv5s0"]
 [ext_resource type="PackedScene" uid="uid://bffllo437822" path="res://Scenes/Entities/Player/player.tscn" id="3_truxb"]
 [ext_resource type="FontFile" uid="uid://bdc4hvgih0upu" path="res://Scenes/Levels/LevelAssets/DirtyHarold_Font_1_0/DirtyHarold.otf" id="5_alxee"]
+[ext_resource type="Script" path="res://Scenes/Levels/Level One/powerup_turn_off.gd" id="5_vyumx"]
 [ext_resource type="Script" path="res://Scenes/Levels/Tutorial/animation_player.gd" id="6_jseqr"]
 [ext_resource type="PackedScene" uid="uid://dmdvwelqe4h1u" path="res://Scenes/Entities/Spike Trap/spike_trap.tscn" id="7_76xxb"]
 [ext_resource type="PackedScene" uid="uid://b31oekchnss6y" path="res://Scenes/Levels/LevelComponents/killzone.tscn" id="7_o8s86"]
@@ -137,6 +138,9 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7wxia"]
 size = Vector2(223, 45)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pa0el"]
+size = Vector2(239, 141)
+
 [node name="Tutorial" type="Node"]
 script = ExtResource("1_qysei")
 metadata/_edit_horizontal_guides_ = [-135.0]
@@ -250,6 +254,14 @@ position = Vector2(3460, -135)
 [node name="RibBug" parent="." instance=ExtResource("9_evh08")]
 position = Vector2(281, 148)
 
+[node name="PowerupOFF" type="Area2D" parent="."]
+collision_mask = 2
+script = ExtResource("5_vyumx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PowerupOFF"]
+position = Vector2(63.5, 83.5)
+shape = SubResource("RectangleShape2D_pa0el")
+
 [connection signal="player_died" from="Player" to="." method="_on_player_died"]
 [connection signal="spike_trap_player_died" from="Hazards/SpikeTrap2" to="." method="_on_player_died"]
 [connection signal="spike_trap_player_died" from="Hazards/SpikeTrap" to="." method="_on_player_died"]
@@ -257,3 +269,4 @@ position = Vector2(281, 148)
 [connection signal="player_died" from="Killzone" to="." method="_on_player_died"]
 [connection signal="level_transition_reached" from="LevelTransition" to="." method="_on_level_transition_reached"]
 [connection signal="main_menu_requested" from="PauseMenuPopup" to="." method="_on_pause_menu_popup_main_menu_requested"]
+[connection signal="body_entered" from="PowerupOFF" to="PowerupOFF" method="_on_body_entered"]

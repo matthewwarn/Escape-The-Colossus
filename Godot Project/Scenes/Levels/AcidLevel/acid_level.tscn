@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://c5vh424eokept"]
+[gd_scene load_steps=13 format=4 uid="uid://c5vh424eokept"]
 
 [ext_resource type="PackedScene" uid="uid://djgqihrehhe1h" path="res://Scenes/Levels/template_level.tscn" id="1_25ldr"]
 [ext_resource type="SpriteFrames" uid="uid://k4dc5itrd64r" path="res://Scenes/Levels/AcidLevel/waterfall_animation.tres" id="2_8u0o3"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dqpw5paeu62au" path="res://Scenes/Levels/LevelComponents/AcidTiles/acid_tile_4long.tscn" id="4_sewor"]
 [ext_resource type="PackedScene" uid="uid://dmdvwelqe4h1u" path="res://Scenes/Entities/Spike Trap/spike_trap.tscn" id="6_gx5x2"]
 [ext_resource type="PackedScene" uid="uid://ddk74kjxma2c1" path="res://Scenes/Entities/Floor Maw/floor_maw.tscn" id="7_80h0a"]
+[ext_resource type="Script" path="res://Scenes/Levels/AcidLevel/dash_turn_off.gd" id="8_mursj"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8co8e"]
 
@@ -15,6 +16,9 @@ size = Vector2(20, 94)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_53fac"]
 size = Vector2(20, 303)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ebixy"]
+size = Vector2(197, 169)
 
 [node name="TemplateLevel" instance=ExtResource("1_25ldr")]
 
@@ -227,6 +231,14 @@ rotation = -1.57079
 [node name="FloorMaw3" parent="." index="15" instance=ExtResource("7_80h0a")]
 position = Vector2(409, -273)
 
+[node name="DashOFF" type="Area2D" parent="." index="16"]
+collision_mask = 2
+script = ExtResource("8_mursj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DashOFF" index="0"]
+position = Vector2(-77.5, -53.5)
+shape = SubResource("RectangleShape2D_ebixy")
+
 [connection signal="player_died" from="AcidTiles/AcidTile" to="." method="_on_player_died"]
 [connection signal="player_died" from="AcidTiles/AcidTile2" to="." method="_on_player_died"]
 [connection signal="player_died" from="AcidTiles/AcidTile3" to="." method="_on_player_died"]
@@ -244,7 +256,13 @@ position = Vector2(409, -273)
 [connection signal="player_died" from="AcidTiles/AcidTile4Long/AcidTile4Long3" to="." method="_on_player_died"]
 [connection signal="player_died" from="AcidTiles/AcidTile4Long/AcidTile4Long3/AcidTile4Long" to="." method="_on_player_died"]
 [connection signal="player_died" from="AcidTiles/AcidTile4Long/AcidTile4Long3/AcidTile4Long/AcidTile4Long" to="." method="_on_player_died"]
+[connection signal="player_died" from="AcidTiles/AcidTile4Long2" to="." method="_on_player_died"]
+[connection signal="player_died" from="AcidTiles/AcidTile4Long2/AcidTile4Long3" to="." method="_on_player_died"]
+[connection signal="player_died" from="AcidTiles/AcidTile4Long2/AcidTile4Long3/AcidTile4Long4" to="." method="_on_player_died"]
+[connection signal="player_died" from="AcidTiles/AcidTile4Long2/AcidTile4Long3/AcidTile4Long4/AcidTile4Long3" to="." method="_on_player_died"]
+[connection signal="spike_trap_player_died" from="SpikeTrap2" to="." method="_on_player_died"]
 [connection signal="spike_trap_player_died" from="SpikeTrap" to="." method="_on_player_died"]
 [connection signal="player_died" from="FloorMaw" to="." method="_on_player_died"]
 [connection signal="player_died" from="FloorMaw2" to="." method="_on_player_died"]
 [connection signal="player_died" from="FloorMaw3" to="." method="_on_player_died"]
+[connection signal="body_entered" from="DashOFF" to="DashOFF" method="_on_body_entered"]

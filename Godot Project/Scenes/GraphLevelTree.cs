@@ -1,24 +1,26 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
+using Godot;
 
+namespace EscapeTheColossus.Scenes;
 
-public class LinkedLevelTree : LevelTree
+public class GraphLevelTree : LevelTree
 {
-	// Used for formatting in Serialise() and Deserialize()
-	private const char LEAF_MARKER = '|';
-	private const char PATH_END_MARKER = ';';
-	private const string LEVEL_ROOT_DIR = "res://Scenes/Levels/";
+    // Used for formatting in Deserialize()
+	private const char PATH_END_MARKER = '|';						// Marks the end of a path in a line.
+	private const string LEVEL_ROOT_DIR = "res://Scenes/Levels/";	// Levels in level_links.dat are given relative to this dir.
 	
 	/// <summary>
 	/// Tree node which holds the path to a level's scene file.
 	/// </summary>
 	/// <param name="path">Path to scene</param>
 	/// <param name="parent">Used internally to link child nodes to parents.</param>
-	class PathNode(string path, PathNode? parent = null)
+	class PathNode(string path)
 	{
 		public string ScenePath { get; } = path;
-		public PathNode? Parent { get; } = parent;
+		public PathNode Parent { get; set; }
 		public List<PathNode> Children { get; } = new List<PathNode>(3);
 
 		public void AddChild(PathNode childNode)
@@ -34,19 +36,17 @@ public class LinkedLevelTree : LevelTree
 	private PathNode _currentScene;
 	public string CurrentScenePath => _currentScene.ScenePath;
 
+	// Stores references to all levels nodes by their paths.
 	private Dictionary<string, PathNode> _levelLookupTable;
-
+	
 	/// <summary>
 	/// Instantiate a level tree using existing config file.
 	/// </summary>
 	/// <param name="filePath">Path to config file</param>
-	public LinkedLevelTree(string filePath)
+	public GraphLevelTree(string filePath)
 	{
 		_levelLookupTable = new Dictionary<string, PathNode>();
-		using (StreamReader reader = new StreamReader(filePath))
-		{
-			_rootScene = Deserialize(reader);
-		}
+		_rootScene = Deserialize(filePath);
 
 		_currentScene = _rootScene;
 	}
@@ -60,8 +60,7 @@ public class LinkedLevelTree : LevelTree
 		}
 		throw new KeyNotFoundException("Requested level " + path + " does not exist in level tree.");
 	}
-
-
+	
 	public void Reset()
 	{
 		_currentScene = _rootScene;
@@ -102,68 +101,73 @@ public class LinkedLevelTree : LevelTree
 		return CurrentScenePath;
 	}
 
-	/// <summary>
-	/// Saves the configuration of this tree to a file.
-	/// Each nodes path is saved and terminated with PATH_END_MARKER
-	/// Each leaf node is terminated with LEAF_MARKER
-	/// For example:
-	/// root;One;OneA;|OneB;||Two;TwoA;|||
-	/// </summary>
-	/// <param name="outputStream">Output file stream.</param>
-	public void Serialise(StreamWriter outputStream)
-	{
-		Serialise(_rootScene, outputStream);
-	}
-	
-	private void Serialise(PathNode root, StreamWriter outputStream)
-	{
-		outputStream.Write(root.ScenePath + PATH_END_MARKER);
-		foreach (PathNode child in root.Children)
-		{
-			Serialise(child, outputStream);
-		}
-		outputStream.Write(LEAF_MARKER + "");
-	}
 
 	/// <summary>
-	/// Load a saved tree configuration from file.
-	/// Expects the formatting from LinkedLevelTree.Serialise()
-	/// Ie: root;One;OneA;|OneB;||Two;TwoA;|||
+	/// Take the links as written in the given file and load them as a graph.
 	/// </summary>
-	/// <param name="inputStream">Input file stream.</param>
-	/// <param name="parent">Parameter used by recursive calls to add child nodes.</param>
-	/// <returns>Root node of resulting tree.</returns>
-	private PathNode Deserialize(StreamReader inputStream, PathNode? parent = null)
+	/// <param name="filePath">File containing level links.</param>
+	/// <returns>Node of first level in game.</returns>
+	/// <exception cref="KeyNotFoundException">Child node specified in links file does not exist. Probably a typo.</exception>
+	private PathNode Deserialize(string filePath)
 	{
-		int val = inputStream.Read();
-		// Have we found either the end of the file or the end of a leaf node?
-		if (val == -1 || val == LEAF_MARKER)
-			return null;
-		
-		string path = "";
-		
-		// Keep reading characters until we have the entire path for this node.
-		while (val != PATH_END_MARKER)
+		// Read all lines in the level links file
+		List<string[]> splitLines = new List<string[]>();
+		using (StreamReader reader = new StreamReader(filePath))
 		{
-			if ((char)val != '\n' && (char)val != '\r')
-				path += (char)val;
-			val = inputStream.Read();
+			string line = reader.ReadLine();
+			while (line != null)
+			{
+				GD.Print(line);
+				string[] linePaths = line.Split(PATH_END_MARKER);
+				splitLines.Add(linePaths);
+				line = reader.ReadLine();
+			}
+		}
+		GD.Print("Lines done!");
+
+		// Prepend root directory to all level paths
+		foreach (string[] line in splitLines)
+		{
+			for (int pathIndex = 0; pathIndex < line.Length; pathIndex++)
+			{
+				line[pathIndex] = LEVEL_ROOT_DIR + line[pathIndex];
+			}
 		}
 
-		path = LEVEL_ROOT_DIR + path;
-
-		// Create a node from this path and recursively add its children.
-		PathNode newNode = new PathNode(path, parent);
-		_levelLookupTable.Add(newNode.ScenePath, newNode);
-		while (true)
+		// Create unlinked nodes from the file lines
+		_levelLookupTable = new Dictionary<string, PathNode>(20);
+		foreach (string[] line in splitLines)
 		{
-			PathNode child = Deserialize(inputStream, newNode);
-			// null is returned whenever the end of a leaf it encountered.
-			if (child == null)
-				break;
-			newNode.AddChild(child);
+			string path = line[0];
+			PathNode node = new PathNode(path);
+			_levelLookupTable.Add(path, node);
 		}
+		GD.Print("Unlinked nodes done");
 
-		return newNode;
+		// Link nodes to their children
+		foreach (string[] line in splitLines)
+		{
+			if (_levelLookupTable.TryGetValue(line[0], out PathNode node))
+			{
+				for (int i = 1; i < line.Length; i++)
+				{
+					if (_levelLookupTable.TryGetValue(line[i], out PathNode childNode))
+					{
+						if (i == 1)
+							node.Parent = childNode;
+						else
+							node.AddChild(childNode);
+					}
+					else
+						throw new KeyNotFoundException("Child node " + line[i] + "does not exist in levels!");
+				}
+			}
+		}
+		GD.Print("Linking complete");
+
+		// Get and return the first level.
+		if (_levelLookupTable.TryGetValue(splitLines[0][0], out PathNode rootNode))
+			return rootNode;
+		throw new Exception("Root node not found.");
 	}
 }
