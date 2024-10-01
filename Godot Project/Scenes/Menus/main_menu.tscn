@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dhfaqj3ym85c"]
+[gd_scene load_steps=6 format=3 uid="uid://dhfaqj3ym85c"]
 
 [ext_resource type="Script" path="res://Scenes/Menus/main_menu.gd" id="1_33roq"]
 [ext_resource type="Texture2D" uid="uid://bfn7jame6o23c" path="res://Scenes/Levels/LevelAssets/Gore Background.png" id="2_xra3f"]
 [ext_resource type="FontFile" uid="uid://bdc4hvgih0upu" path="res://Scenes/Levels/LevelAssets/DirtyHarold_Font_1_0/DirtyHarold.otf" id="3_oxgcf"]
+[ext_resource type="PackedScene" uid="uid://citiopmrbgvso" path="res://Scenes/Menus/settings_menu.tscn" id="4_tr8pf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_68t43"]
 font = ExtResource("3_oxgcf")
@@ -19,57 +20,63 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_33roq")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="MainMenuParent" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Sprite2D" type="Sprite2D" parent="MainMenuParent"]
 position = Vector2(576, 324)
 scale = Vector2(3.6, 3.6)
 texture = ExtResource("2_xra3f")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="MainMenuParent"]
 layout_mode = 0
 offset_left = 452.0
 offset_top = 231.0
 offset_right = 714.0
 offset_bottom = 414.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuParent/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="MainMenuParent/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Escape the Colossus"
 label_settings = SubResource("LabelSettings_68t43")
 horizontal_alignment = 1
 
-[node name="ResumeButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="ResumeButton" type="Button" parent="MainMenuParent/MarginContainer/VBoxContainer"]
 layout_mode = 2
-
 focus_next = NodePath("../PlayButton")
 focus_previous = NodePath("../QuitButton")
 text = "Resume"
 
-[node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="PlayButton" type="Button" parent="MainMenuParent/MarginContainer/VBoxContainer"]
 layout_mode = 2
-
 focus_neighbor_bottom = NodePath("../OptionsButton")
 focus_next = NodePath("../OptionsButton")
 focus_previous = NodePath("../ResumeButton")
 text = "New Game"
 
-[node name="OptionsButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="OptionsButton" type="Button" parent="MainMenuParent/MarginContainer/VBoxContainer"]
 layout_mode = 2
-
 focus_next = NodePath("../QuitButton")
 focus_previous = NodePath("../PlayButton")
 text = "Options"
 
-[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="QuitButton" type="Button" parent="MainMenuParent/MarginContainer/VBoxContainer"]
 layout_mode = 2
-
 focus_next = NodePath("../ResumeButton")
 focus_previous = NodePath("../OptionsButton")
 text = "Quit"
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[node name="SettingsMenu" parent="." instance=ExtResource("4_tr8pf")]
+visible = false
+layout_mode = 1
+
+[connection signal="pressed" from="MainMenuParent/MarginContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="MainMenuParent/MarginContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="MainMenuParent/MarginContainer/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="MainMenuParent/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="hidden" from="SettingsMenu" to="." method="_on_settings_menu_hidden"]

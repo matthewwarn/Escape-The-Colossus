@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=4 uid="uid://dg0inc6rsa7g2"]
+[gd_scene load_steps=7 format=4 uid="uid://dg0inc6rsa7g2"]
 
 [ext_resource type="PackedScene" uid="uid://djgqihrehhe1h" path="res://Scenes/Levels/template_level.tscn" id="1_w8r22"]
+[ext_resource type="Script" path="res://Scenes/Levels/Level One/powerup_turn_off.gd" id="2_83631"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_j7r1s"]
 
@@ -9,6 +10,9 @@ size = Vector2(20, 41)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pu1vi"]
 size = Vector2(20, 42)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3kfna"]
+size = Vector2(206, 62)
 
 [node name="TemplateLevel" instance=ExtResource("1_w8r22")]
 
@@ -36,3 +40,13 @@ tile_map_data = PackedByteArray("AAAAAAAAAAABAAMAAAABAAAAAAABAAMAAAACAAAAAAABAAM
 
 [node name="EndLocator" parent="." index="7"]
 position = Vector2(216, -193)
+
+[node name="PowerupOFF" type="Area2D" parent="." index="8"]
+collision_mask = 2
+script = ExtResource("2_83631")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PowerupOFF" index="0"]
+position = Vector2(23, -22)
+shape = SubResource("RectangleShape2D_3kfna")
+
+[connection signal="body_entered" from="PowerupOFF" to="PowerupOFF" method="_on_body_entered"]

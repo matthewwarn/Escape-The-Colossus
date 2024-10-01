@@ -22,6 +22,8 @@ func _jump_to_end() -> void:
 	player.global_position = end_locator.global_position;
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("fullscreen"):
+		SettingsManager.toggle_fullscreen();
 	if event.is_action_pressed("pause"):
 		pause_menu_popup.open();
 
