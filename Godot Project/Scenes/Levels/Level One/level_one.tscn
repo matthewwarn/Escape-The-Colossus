@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://bq106pqli3x4w"]
+[gd_scene load_steps=21 format=4 uid="uid://bq106pqli3x4w"]
 
 [ext_resource type="PackedScene" uid="uid://djgqihrehhe1h" path="res://Scenes/Levels/template_level.tscn" id="1_txbta"]
 [ext_resource type="Script" path="res://Scenes/Levels/Level One/double_jump_activation.gd" id="2_3b4qy"]
@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://ddk74kjxma2c1" path="res://Scenes/Entities/Floor Maw/floor_maw.tscn" id="7_0jw5s"]
 [ext_resource type="FontFile" uid="uid://bdc4hvgih0upu" path="res://Scenes/Levels/LevelAssets/DirtyHarold_Font_1_0/DirtyHarold.otf" id="8_g2r0q"]
 [ext_resource type="Script" path="res://Scenes/Levels/Level One/popup_text.gd" id="9_gi1r0"]
-[ext_resource type="Script" path="res://Scenes/Levels/Level One/powerup_turn_off.gd" id="10_47w8u"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_42ohx"]
 
@@ -20,7 +19,7 @@ normal = Vector2(1, 0)
 normal = Vector2(-1, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pivey"]
-size = Vector2(160, 160)
+size = Vector2(66.9688, 54)
 
 [sub_resource type="Animation" id="Animation_o4lli"]
 length = 0.001
@@ -150,9 +149,6 @@ _data = {
 "doublejump": SubResource("Animation_y7xk0")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ffjat"]
-size = Vector2(322, 176)
-
 [node name="TemplateLevel" instance=ExtResource("1_txbta")]
 
 [node name="Killzone" parent="." index="1"]
@@ -178,7 +174,7 @@ collision_mask = 2
 script = ExtResource("2_3b4qy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoubleJumpActivation" index="0"]
-position = Vector2(4150, 320)
+position = Vector2(4087, 320)
 shape = SubResource("RectangleShape2D_pivey")
 
 [node name="Moving platform" parent="." index="5" instance=ExtResource("3_8m0ej")]
@@ -360,14 +356,6 @@ script = ExtResource("9_gi1r0")
 [node name="EndLocator" parent="." index="11"]
 position = Vector2(4660, 349)
 
-[node name="PowerupOFF" type="Area2D" parent="." index="12"]
-collision_mask = 2
-script = ExtResource("10_47w8u")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PowerupOFF" index="0"]
-position = Vector2(-160, 178)
-shape = SubResource("RectangleShape2D_ffjat")
-
 [connection signal="body_entered" from="DoubleJumpActivation" to="DoubleJumpActivation" method="_on_body_entered"]
 [connection signal="player_died" from="Enemies and Obstacles/FloorMaws/FloorMaw11" to="." method="_on_player_died"]
 [connection signal="player_died" from="Enemies and Obstacles/FloorMaws/FloorMaw12" to="." method="_on_player_died"]
@@ -379,4 +367,3 @@ shape = SubResource("RectangleShape2D_ffjat")
 [connection signal="player_died" from="Enemies and Obstacles/FloorMaws/FloorMaw5" to="." method="_on_player_died"]
 [connection signal="player_died" from="Enemies and Obstacles/FloorMaws/FloorMaw6" to="." method="_on_player_died"]
 [connection signal="player_died" from="Enemies and Obstacles/FloorMaws/FloorMaw9" to="." method="_on_player_died"]
-[connection signal="body_entered" from="PowerupOFF" to="PowerupOFF" method="_on_body_entered"]
