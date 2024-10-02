@@ -4,6 +4,7 @@ extends Node2D
 signal level_reset_requested;
 signal level_requested(level_path: String);
 signal main_menu_requested;
+signal request_save;
 
 @onready var pause_menu_popup: Window = $PauseMenuPopup
 @onready var player: CharacterBody2D = $Player
@@ -50,3 +51,7 @@ func _unhandled_input(event: InputEvent) -> void:
 # Relay main menu request from pause menu.
 func _on_pause_menu_popup_main_menu_requested() -> void:
 	main_menu_requested.emit();
+
+
+func _on_pause_menu_request_save() -> void:
+	request_save.emit();

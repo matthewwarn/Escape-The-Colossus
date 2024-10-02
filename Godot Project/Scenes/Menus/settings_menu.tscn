@@ -101,5 +101,6 @@ text = "Back"
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/VBoxContainer/VolumeSlider" to="MarginContainer/VBoxContainer/VBoxContainer/VolumeSlider" method="_on_value_changed"]
+[connection signal="request_save" from="MarginContainer/VBoxContainer/FullscreenButton" to="." method="_on_fullscreen_button_request_save"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/FullscreenButton" to="MarginContainer/VBoxContainer/FullscreenButton" method="_on_fullscreen_button_toggled"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ReturnButton" to="." method="_on_return_button_pressed"]

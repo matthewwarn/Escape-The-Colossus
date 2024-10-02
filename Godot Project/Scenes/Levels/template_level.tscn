@@ -45,4 +45,5 @@ position = Vector2(131, 0)
 [connection signal="level_transition_reached" from="ExitA" to="." method="_on_exit_a_reached"]
 [connection signal="level_transition_reached" from="ExitB" to="." method="_on_exit_b_reached"]
 [connection signal="main_menu_requested" from="PauseMenuPopup" to="." method="_on_pause_menu_popup_main_menu_requested"]
+[connection signal="request_save" from="PauseMenuPopup" to="." method="_on_pause_menu_request_save"]
 [connection signal="player_died" from="Player" to="." method="_on_player_died"]
