@@ -144,13 +144,6 @@ tile_map_data = PackedByteArray("AAAAAAAAAAABAAMAAAD//wAAAAABAAMAAAD+/wAAAAABAAM
 [node name="Player" parent="." index="8"]
 position = Vector2(-56, 0)
 
-[node name="Camera2D" parent="Player" index="6"]
-position_smoothing_enabled = false
-
-[node name="CoyoteTimer" parent="Player" index="7"]
-wait_time = 0.08
-one_shot = true
-
 [node name="EndLocator" parent="." index="9"]
 position = Vector2(-90, -289)
 
@@ -263,6 +256,11 @@ shape = SubResource("RectangleShape2D_ebixy")
 [connection signal="player_died" from="AcidTiles/AcidTile4Long/AcidTile4Long3" to="." method="_on_player_died"]
 [connection signal="player_died" from="AcidTiles/AcidTile4Long/AcidTile4Long3/AcidTile4Long" to="." method="_on_player_died"]
 [connection signal="player_died" from="AcidTiles/AcidTile4Long/AcidTile4Long3/AcidTile4Long/AcidTile4Long" to="." method="_on_player_died"]
+[connection signal="player_died" from="AcidTiles/AcidTile4Long2" to="." method="_on_player_died"]
+[connection signal="player_died" from="AcidTiles/AcidTile4Long2/AcidTile4Long3" to="." method="_on_player_died"]
+[connection signal="player_died" from="AcidTiles/AcidTile4Long2/AcidTile4Long3/AcidTile4Long4" to="." method="_on_player_died"]
+[connection signal="player_died" from="AcidTiles/AcidTile4Long2/AcidTile4Long3/AcidTile4Long4/AcidTile4Long3" to="." method="_on_player_died"]
+[connection signal="spike_trap_player_died" from="SpikeTrap2" to="." method="_on_player_died"]
 [connection signal="spike_trap_player_died" from="SpikeTrap" to="." method="_on_player_died"]
 [connection signal="player_died" from="FloorMaw" to="." method="_on_player_died"]
 [connection signal="player_died" from="FloorMaw2" to="." method="_on_player_died"]

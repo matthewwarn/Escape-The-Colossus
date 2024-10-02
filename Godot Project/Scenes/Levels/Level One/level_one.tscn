@@ -325,9 +325,6 @@ rotation = 3.14159
 [node name="Player" parent="." index="10"]
 position = Vector2(-226, 255)
 
-[node name="Camera2D" parent="Player" index="6"]
-position_smoothing_enabled = false
-
 [node name="Label" type="Label" parent="Player/Camera2D" index="0"]
 offset_left = 238.0
 offset_top = -78.0
@@ -359,10 +356,6 @@ libraries = {
 "": SubResource("AnimationLibrary_ejbty")
 }
 script = ExtResource("9_gi1r0")
-
-[node name="CoyoteTimer" parent="Player" index="7"]
-wait_time = 0.08
-one_shot = true
 
 [node name="EndLocator" parent="." index="11"]
 position = Vector2(4660, 349)

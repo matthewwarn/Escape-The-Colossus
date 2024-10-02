@@ -1,9 +1,13 @@
 extends Window
 
 signal main_menu_requested;
+@onready var settings_menu: Control = $SettingsMenu
+@onready var resume_button: Button = $PauseMenu/MarginContainer/VBoxContainer/ResumeButton
+@onready var settings_button: Button = $PauseMenu/MarginContainer/VBoxContainer/SettingsButton
 
 func open() -> void:
 	get_tree().paused = true;
+	resume_button.grab_focus();
 	show();
 
 func close() -> void:
@@ -23,3 +27,9 @@ func _on_quit_button_pressed() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
 		close();
+
+func _on_settings_button_pressed() -> void:
+	settings_menu.show();
+
+func _on_settings_menu_hidden() -> void:
+	settings_button.grab_focus();
