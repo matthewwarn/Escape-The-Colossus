@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://bq106pqli3x4w"]
+[gd_scene load_steps=24 format=4 uid="uid://bq106pqli3x4w"]
 
 [ext_resource type="PackedScene" uid="uid://djgqihrehhe1h" path="res://Scenes/Levels/template_level.tscn" id="1_txbta"]
 [ext_resource type="Script" path="res://Scenes/Levels/Level One/double_jump_activation.gd" id="2_3b4qy"]
@@ -11,13 +11,13 @@
 [ext_resource type="Script" path="res://Scenes/Levels/Level One/popup_text.gd" id="9_gi1r0"]
 [ext_resource type="Script" path="res://Scenes/Levels/Level One/powerup_turn_off.gd" id="10_47w8u"]
 
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_qd6oi"]
+normal = Vector2(-1, 0)
+
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_42ohx"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_eqeb7"]
 normal = Vector2(1, 0)
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_qd6oi"]
-normal = Vector2(-1, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pivey"]
 size = Vector2(160, 160)
@@ -59,6 +59,12 @@ _data = {
 "RESET": SubResource("Animation_o4lli"),
 "move": SubResource("Animation_3ss0u")
 }
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xcf1b"]
+normal = Vector2(-0.999938, 0.0111104)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ffjat"]
+size = Vector2(322, 176)
 
 [sub_resource type="Animation" id="Animation_ue5tl"]
 length = 0.001
@@ -150,28 +156,24 @@ _data = {
 "doublejump": SubResource("Animation_y7xk0")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ffjat"]
-size = Vector2(322, 176)
-
 [node name="TemplateLevel" instance=ExtResource("1_txbta")]
+previous_level = "Hub/hub_level.tscn"
+exit_a = "AcidLevel/acid_level.tscn"
 
-[node name="Killzone" parent="." index="1"]
+[node name="NextLevelTransition#CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+shape = SubResource("WorldBoundaryShape2D_qd6oi")
+
+[node name="Killzone" parent="." index="2"]
 position = Vector2(2882, 473)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone" index="1"]
 shape = SubResource("WorldBoundaryShape2D_42ohx")
 
-[node name="PrevLevelTransition" parent="." index="2"]
+[node name="PrevLevelTransition" parent="." index="3"]
 position = Vector2(-264, 233)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PrevLevelTransition" index="0"]
 shape = SubResource("WorldBoundaryShape2D_eqeb7")
-
-[node name="NextLevelTransition" parent="." index="3"]
-position = Vector2(4688, 327)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NextLevelTransition" index="0"]
-shape = SubResource("WorldBoundaryShape2D_qd6oi")
 
 [node name="DoubleJumpActivation" type="Area2D" parent="." index="4"]
 collision_mask = 2
@@ -190,7 +192,13 @@ libraries = {
 }
 script = ExtResource("4_4r76m")
 
-[node name="TileMapLayer" parent="." index="7"]
+[node name="ExitA" parent="." index="6"]
+position = Vector2(4701, 329)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitA" index="0"]
+shape = SubResource("WorldBoundaryShape2D_xcf1b")
+
+[node name="ExitB" parent="." index="7"]
 visible = false
 
 [node name="TileMap" type="TileMapLayer" parent="." index="8"]
@@ -322,7 +330,18 @@ position = Vector2(3268, 257)
 position = Vector2(3269, 191)
 rotation = 3.14159
 
-[node name="Player" parent="." index="10"]
+[node name="TileMapLayer" parent="." index="11"]
+visible = false
+
+[node name="PowerupOFF" type="Area2D" parent="." index="12"]
+collision_mask = 2
+script = ExtResource("10_47w8u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PowerupOFF" index="0"]
+position = Vector2(-160, 178)
+shape = SubResource("RectangleShape2D_ffjat")
+
+[node name="Player" parent="." index="13"]
 position = Vector2(-226, 255)
 
 [node name="Label" type="Label" parent="Player/Camera2D" index="0"]
@@ -357,16 +376,8 @@ libraries = {
 }
 script = ExtResource("9_gi1r0")
 
-[node name="EndLocator" parent="." index="11"]
+[node name="EndLocator" parent="." index="14"]
 position = Vector2(4660, 349)
-
-[node name="PowerupOFF" type="Area2D" parent="." index="12"]
-collision_mask = 2
-script = ExtResource("10_47w8u")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PowerupOFF" index="0"]
-position = Vector2(-160, 178)
-shape = SubResource("RectangleShape2D_ffjat")
 
 [connection signal="body_entered" from="DoubleJumpActivation" to="DoubleJumpActivation" method="_on_body_entered"]
 [connection signal="player_died" from="Enemies and Obstacles/FloorMaws/FloorMaw11" to="." method="_on_player_died"]
