@@ -129,7 +129,7 @@ func play_animation():
 	elif player_chase == true and is_alive == true and attack_ip == true:
 		animated_sprite.play("Attack")
 	elif is_alive == false:
-		animated_sprite.play("Death ")
+		animated_sprite.play("Death")
 		
 
 # for when the player enters the engament area thus ribbug starts to chase
@@ -197,5 +197,5 @@ func enemy():
 
 #for when death animation is finnished to remove the instacnce of that ribbug
 func _on_animated_sprite_2d_animation_finished() -> void:
-	if animated_sprite.animation == &"Death ":
+	if animated_sprite.animation == &"Death":
 		self.queue_free()

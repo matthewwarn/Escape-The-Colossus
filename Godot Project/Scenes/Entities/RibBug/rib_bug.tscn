@@ -181,8 +181,8 @@ animations = [{
 "texture": SubResource("AtlasTexture_75iah")
 }],
 "loop": false,
-"name": &"Death ",
-"speed": 5.0
+"name": &"Death",
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -268,10 +268,8 @@ script = ExtResource("1_g8m6j")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -10)
 sprite_frames = SubResource("SpriteFrames_hhuaa")
-animation = &"Walking"
+animation = &"Death"
 autoplay = "Spawn"
-frame = 4
-frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-2, 1)
@@ -306,7 +304,7 @@ target_position = Vector2(-8, 0)
 collide_with_areas = true
 
 [node name="take_damage_cooldown" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 0.5
 
 [node name="attack_cooldown" type="Timer" parent="."]
 wait_time = 2.0

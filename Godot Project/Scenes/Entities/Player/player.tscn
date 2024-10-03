@@ -118,7 +118,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"Attack",
-"speed": 6.0
+"speed": 14.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -238,7 +238,7 @@ shape = SubResource("CapsuleShape2D_1uc2o")
 wait_time = 2.0
 
 [node name="deal_damage_timer" type="Timer" parent="."]
-wait_time = 1.2
+wait_time = 0.5
 
 [node name="player_hitbox" type="Area2D" parent="."]
 collision_layer = 2
