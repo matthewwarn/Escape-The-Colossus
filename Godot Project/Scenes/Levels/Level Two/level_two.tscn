@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://cqy330tk2r5fh"]
+[gd_scene load_steps=22 format=4 uid="uid://cqy330tk2r5fh"]
 
 [ext_resource type="PackedScene" uid="uid://by7l0vw1421mx" path="res://Scenes/Levels/LevelComponents/gore_background.tscn" id="1_i7oxo"]
 [ext_resource type="TileSet" uid="uid://d3uaft5ba4k5r" path="res://Scenes/Levels/LevelAssets/gore_tileset.tres" id="2_ltos1"]
@@ -7,7 +7,6 @@
 [ext_resource type="FontFile" uid="uid://bdc4hvgih0upu" path="res://Scenes/Levels/LevelAssets/DirtyHarold_Font_1_0/DirtyHarold.otf" id="4_lhxe2"]
 [ext_resource type="Script" path="res://Scenes/Levels/Level Two/animation_player2.gd" id="5_7wymd"]
 [ext_resource type="Script" path="res://Scenes/Levels/Level Two/fade_in_and_out.gd" id="5_pk8hy"]
-[ext_resource type="PackedScene" uid="uid://ch71tpu7ikmd3" path="res://Scenes/Particle System/blood rain.tscn" id="6_mrmpy"]
 [ext_resource type="PackedScene" uid="uid://ddk74kjxma2c1" path="res://Scenes/Entities/Floor Maw/floor_maw.tscn" id="8_1u2ug"]
 [ext_resource type="PackedScene" uid="uid://b4gjkiteju2ea" path="res://Scenes/Entities/RibBug/rib_bug.tscn" id="9_yws7w"]
 [ext_resource type="Script" path="res://Scenes/Levels/Level Two/area_2d.gd" id="10_d662h"]
@@ -256,8 +255,6 @@ script = ExtResource("5_pk8hy")
 
 [node name="CoyoteTimer" type="Timer" parent="Player"]
 wait_time = 0.4
-
-[node name="Bood rain" parent="Player" instance=ExtResource("6_mrmpy")]
 
 [node name="Moving_platform" type="Node" parent="."]
 
