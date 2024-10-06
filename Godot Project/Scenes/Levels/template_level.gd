@@ -6,9 +6,12 @@ signal level_requested(level_path: String);
 signal main_menu_requested;
 signal request_save;
 
+const SMOOTHING_SPEED: int = 15;
+
 @onready var pause_menu_popup: Window = $PauseMenuPopup
 @onready var player: CharacterBody2D = $Player
 @onready var end_locator: Node2D = $EndLocator
+@onready var camera: Camera2D = $Player/Camera2D
 
 ## Paths to adjacent game levels.
 ## Give paths relative to res://Scenes/Levels and include .tscn
@@ -18,6 +21,10 @@ var previous_level: String;
 var exit_a: String;
 @export
 var exit_b: String;
+
+func _ready() -> void:
+	camera.position_smoothing_enabled = SettingsManager.camera_smoothing;
+	camera.position_smoothing_speed = SMOOTHING_SPEED;
 
 # Connect all killzones to this method.
 func _on_player_died() -> void:
