@@ -102,3 +102,4 @@ visible = false
 [connection signal="pressed" from="PauseMenu/MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="PauseMenu/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="hidden" from="SettingsMenu" to="." method="_on_settings_menu_hidden"]
+[connection signal="request_save" from="SettingsMenu" to="." method="_on_settings_menu_request_save"]

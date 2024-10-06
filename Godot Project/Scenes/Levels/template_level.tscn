@@ -17,7 +17,9 @@ script = ExtResource("1_mtb20")
 
 [node name="PrevLevelTransition" parent="." instance=ExtResource("4_6k36o")]
 
-[node name="NextLevelTransition" parent="." instance=ExtResource("4_6k36o")]
+[node name="ExitA" parent="." instance=ExtResource("4_6k36o")]
+
+[node name="ExitB" parent="." instance=ExtResource("4_6k36o")]
 
 [node name="PauseMenuPopup" parent="." instance=ExtResource("5_84lsx")]
 
@@ -40,6 +42,8 @@ position = Vector2(131, 0)
 
 [connection signal="player_died" from="Killzone" to="." method="_on_player_died"]
 [connection signal="level_transition_reached" from="PrevLevelTransition" to="." method="_on_prev_level_transition"]
-[connection signal="level_transition_reached" from="NextLevelTransition" to="." method="_on_level_transition_reached"]
+[connection signal="level_transition_reached" from="ExitA" to="." method="_on_exit_a_reached"]
+[connection signal="level_transition_reached" from="ExitB" to="." method="_on_exit_b_reached"]
 [connection signal="main_menu_requested" from="PauseMenuPopup" to="." method="_on_pause_menu_popup_main_menu_requested"]
+[connection signal="request_save" from="PauseMenuPopup" to="." method="_on_pause_menu_request_save"]
 [connection signal="player_died" from="Player" to="." method="_on_player_died"]
