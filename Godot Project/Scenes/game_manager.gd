@@ -1,6 +1,6 @@
 extends Node
 
-const GAME_SAVE_PATH: String = "Scenes/save.dat";
+const GAME_SAVE_PATH: String = "res://Scenes/save.json";
 const MAIN_MENU: String      = "Scenes/Menus/main_menu.tscn";
 const SETTINGS_MENU: String  = "Scenes/Menus/settings_menu.tscn";
 
