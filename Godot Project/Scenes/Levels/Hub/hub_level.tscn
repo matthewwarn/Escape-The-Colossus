@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=4 uid="uid://dg0inc6rsa7g2"]
+[gd_scene load_steps=8 format=4 uid="uid://dg0inc6rsa7g2"]
 
 [ext_resource type="PackedScene" uid="uid://djgqihrehhe1h" path="res://Scenes/Levels/template_level.tscn" id="1_w8r22"]
 [ext_resource type="Script" path="res://Scenes/Levels/Level One/powerup_turn_off.gd" id="2_83631"]
+[ext_resource type="AudioStream" uid="uid://da84ipv4fccu5" path="res://Scenes/Audio/Music/Start and Area 1.ogg" id="2_hrdhi"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_j7r1s"]
 
@@ -17,6 +18,7 @@ size = Vector2(206, 62)
 [node name="TemplateLevel" instance=ExtResource("1_w8r22")]
 previous_level = "Tutorial/integrated_tutorial.tscn"
 exit_a = "Level One/level_one.tscn"
+level_music = ExtResource("2_hrdhi")
 
 [node name="Killzone" parent="." index="1"]
 position = Vector2(208, 400)

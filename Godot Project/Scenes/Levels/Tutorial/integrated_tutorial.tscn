@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=4 uid="uid://c8vkhgot11xyo"]
+[gd_scene load_steps=18 format=4 uid="uid://c8vkhgot11xyo"]
 
 [ext_resource type="PackedScene" uid="uid://djgqihrehhe1h" path="res://Scenes/Levels/template_level.tscn" id="1_acwfr"]
+[ext_resource type="AudioStream" uid="uid://da84ipv4fccu5" path="res://Scenes/Audio/Music/Start and Area 1.ogg" id="2_4vad2"]
 [ext_resource type="TileSet" uid="uid://d3uaft5ba4k5r" path="res://Scenes/Levels/LevelAssets/gore_tileset.tres" id="2_xj5iw"]
 [ext_resource type="FontFile" uid="uid://bdc4hvgih0upu" path="res://Scenes/Levels/LevelAssets/DirtyHarold_Font_1_0/DirtyHarold.otf" id="3_6ivar"]
 [ext_resource type="Script" path="res://Scenes/Levels/Tutorial/animation_player.gd" id="4_67lyk"]
@@ -138,6 +139,7 @@ size = Vector2(239, 141)
 
 [node name="TemplateLevel" instance=ExtResource("1_acwfr")]
 exit_a = "Hub/hub_level.tscn"
+level_music = ExtResource("2_4vad2")
 
 [node name="Killzone" parent="." index="1"]
 position = Vector2(777, 214)

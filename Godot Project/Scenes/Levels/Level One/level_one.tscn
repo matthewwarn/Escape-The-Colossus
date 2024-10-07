@@ -1,8 +1,9 @@
-[gd_scene load_steps=24 format=4 uid="uid://bq106pqli3x4w"]
+[gd_scene load_steps=25 format=4 uid="uid://bq106pqli3x4w"]
 
 [ext_resource type="PackedScene" uid="uid://djgqihrehhe1h" path="res://Scenes/Levels/template_level.tscn" id="1_txbta"]
 [ext_resource type="Script" path="res://Scenes/Levels/Level One/double_jump_activation.gd" id="2_3b4qy"]
 [ext_resource type="TileSet" uid="uid://d3uaft5ba4k5r" path="res://Scenes/Levels/LevelAssets/gore_tileset.tres" id="2_fa61b"]
+[ext_resource type="AudioStream" uid="uid://da84ipv4fccu5" path="res://Scenes/Audio/Music/Start and Area 1.ogg" id="2_gk0yu"]
 [ext_resource type="PackedScene" uid="uid://bm7gnelw71e8p" path="res://Scenes/Entities/Moving Platform/Moving floor.tscn" id="3_8m0ej"]
 [ext_resource type="Script" path="res://Scenes/Entities/Moving Platform/moving_floor.gd" id="4_4r76m"]
 [ext_resource type="PackedScene" uid="uid://b4gjkiteju2ea" path="res://Scenes/Entities/RibBug/rib_bug.tscn" id="6_4ne71"]
@@ -159,6 +160,7 @@ _data = {
 [node name="TemplateLevel" instance=ExtResource("1_txbta")]
 previous_level = "Hub/hub_level.tscn"
 exit_a = "AcidLevel/acid_level.tscn"
+level_music = ExtResource("2_gk0yu")
 
 [node name="NextLevelTransition#CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
 shape = SubResource("WorldBoundaryShape2D_qd6oi")
