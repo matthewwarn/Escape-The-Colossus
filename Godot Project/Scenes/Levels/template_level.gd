@@ -13,6 +13,7 @@ const SMOOTHING_SPEED: int = 15;
 @onready var end_locator: Node2D = $EndLocator
 @onready var camera: Camera2D = $Player/Camera2D
 
+
 ## Paths to adjacent game levels.
 ## Give paths relative to res://Scenes/Levels and include .tscn
 @export
@@ -21,6 +22,8 @@ var previous_level: String;
 var exit_a: String;
 @export
 var exit_b: String;
+@export
+var level_music : AudioStream;
 
 func _ready() -> void:
 	camera.position_smoothing_enabled = SettingsManager.camera_smoothing;
@@ -59,6 +62,8 @@ func _unhandled_input(event: InputEvent) -> void:
 func _on_pause_menu_popup_main_menu_requested() -> void:
 	main_menu_requested.emit();
 
-
 func _on_pause_menu_request_save() -> void:
 	request_save.emit();
+
+func get_level_music() -> AudioStream:
+	return level_music
