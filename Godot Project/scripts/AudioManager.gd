@@ -2,7 +2,7 @@ extends Node
 
 class_name AudioManager
 
-@onready var audio_player: AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var audio_player: AudioStreamPlayer = $AudioStreamPlayer
 
 var current_music: AudioStream = null
 
