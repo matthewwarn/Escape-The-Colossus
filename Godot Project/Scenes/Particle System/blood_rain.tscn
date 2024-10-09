@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://ch71tpu7ikmd3"]
+
+[sub_resource type="Curve" id="Curve_236xk"]
+_data = [Vector2(0.0114504, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Bood rain" type="Node"]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+visible = false
+position = Vector2(-1, 2)
+amount = 6000
+emission_shape = 3
+emission_rect_extents = Vector2(10000, 0)
+gravity = Vector2(-250, 1000)
+scale_amount_min = 2.0
+scale_amount_max = 3.0
+color = Color(0.764706, 0, 0, 1)
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="."]
+amount = 60
+explosiveness = 1.0
+lifetime_randomness = 0.5
+spread = 180.0
+initial_velocity_min = 250.0
+initial_velocity_max = 500.0
+scale_amount_min = 3.0
+scale_amount_max = 9.0
+scale_amount_curve = SubResource("Curve_236xk")
+color = Color(1, 0, 0, 1)

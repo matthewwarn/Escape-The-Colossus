@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://cl5mdr542gn8t"]
+
+[sub_resource type="Curve" id="Curve_k67pb"]
+_data = [Vector2(0.0114504, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Blood splash" type="Node"]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 60
+explosiveness = 1.0
+lifetime_randomness = 0.5
+spread = 180.0
+initial_velocity_min = 250.0
+initial_velocity_max = 500.0
+scale_amount_min = 3.0
+scale_amount_max = 9.0
+scale_amount_curve = SubResource("Curve_k67pb")
+color = Color(1, 0, 0, 1)
