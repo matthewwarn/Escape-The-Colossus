@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scenes/Entities/Player/player.gd" id="1_msad5"]
 [ext_resource type="Texture2D" uid="uid://bpg2w8c4bs586" path="res://Scenes/Entities/Player/filthy-drawings-mushy-sheet.png" id="1_r0o52"]
 [ext_resource type="Texture2D" uid="uid://dmar34rhv6vti" path="res://Scenes/Entities/Player/Health/Heart.png" id="2_8ijun"]
-[ext_resource type="PackedScene" uid="uid://b335bqrrgfxa1" path="res://Scenes/speedrun.tscn" id="4_dbof1"]
+[ext_resource type="PackedScene" uid="uid://oe1d3avjdk7a" path="res://Scenes/speedrun.tscn" id="4_dbof1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2olao"]
 atlas = ExtResource("1_r0o52")
