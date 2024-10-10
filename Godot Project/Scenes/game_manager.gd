@@ -42,7 +42,9 @@ func save_game() -> void:
 	var save_data = {
 		"current_level": current_level_path,
 		"fullscreen": SettingsManager.is_fullscreen(),
-		"camera smoothing": SettingsManager.camera_smoothing
+		"camera smoothing": SettingsManager.camera_smoothing,
+		"double jump": Abilities.double_jump_enabled,
+		"dash": Abilities.dash_enabled,
 	}
 	var serialised_data = JSON.stringify(save_data);
 	var file = FileAccess.open(GAME_SAVE_PATH, FileAccess.WRITE);
@@ -66,6 +68,8 @@ func read_save() -> String:
 		if (typeof(save_data) == TYPE_DICTIONARY):
 			SettingsManager.set_fullscreen(save_data["fullscreen"])
 			SettingsManager.camera_smoothing = save_data["camera smoothing"];
+			Abilities.double_jump_enabled = save_data["double jump"];
+			Abilities.dash_enabled = save_data["dash"];
 			return save_data["current_level"];
 		else:
 			print("save data corrupt.");

@@ -28,6 +28,8 @@ var level_music : AudioStream;
 func _ready() -> void:
 	camera.position_smoothing_enabled = SettingsManager.camera_smoothing;
 	camera.position_smoothing_speed = SMOOTHING_SPEED;
+	player.double_jump_toggle = Abilities.double_jump_enabled;
+	player.dash_toggle = Abilities.dash_enabled;
 
 # Connect all killzones to this method.
 func _on_player_died() -> void:

@@ -19,7 +19,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 globall="*res://scripts/global.gd"
-SettingsManager="*res://settings_manager.gd"
+SettingsManager="*res://scripts/settings_manager.gd"
+Abilities="*res://scripts/abilities.gd"
 
 [display]
 

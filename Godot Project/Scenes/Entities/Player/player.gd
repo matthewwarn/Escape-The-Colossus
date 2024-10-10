@@ -23,11 +23,13 @@ var facing: int = 1
 
 var jump: bool = false
 var double_jump_available: bool = false
+## Whether or not the player has unlocked this ability
 var double_jump_toggle: bool = true
 var jump_buffer: bool = false
 
 var is_dashing: bool = false
 var is_dash_cooling_down: bool = false
+## Whether or not the player has unlocked this ability
 var dash_toggle: bool = true;
 var dash_timer: float          = 0.0
 var dash_cooldown_timer: float = 0.0
