@@ -1,8 +1,9 @@
-[gd_scene load_steps=29 format=3 uid="uid://bffllo437822"]
+[gd_scene load_steps=30 format=3 uid="uid://bffllo437822"]
 
 [ext_resource type="Script" path="res://Scenes/Entities/Player/player.gd" id="1_msad5"]
 [ext_resource type="Texture2D" uid="uid://bpg2w8c4bs586" path="res://Scenes/Entities/Player/filthy-drawings-mushy-sheet.png" id="1_r0o52"]
 [ext_resource type="Texture2D" uid="uid://dmar34rhv6vti" path="res://Scenes/Entities/Player/Health/Heart.png" id="2_8ijun"]
+[ext_resource type="PackedScene" uid="uid://b335bqrrgfxa1" path="res://Scenes/speedrun.tscn" id="4_dbof1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2olao"]
 atlas = ExtResource("1_r0o52")
@@ -118,7 +119,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"Attack",
-"speed": 14.0
+"speed": 6.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -227,7 +228,7 @@ texture = ExtResource("2_8ijun")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -11)
 sprite_frames = SubResource("SpriteFrames_23yfs")
-animation = &"Attack"
+animation = &"Idle"
 autoplay = "Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -238,7 +239,7 @@ shape = SubResource("CapsuleShape2D_1uc2o")
 wait_time = 2.0
 
 [node name="deal_damage_timer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 1.2
 
 [node name="player_hitbox" type="Area2D" parent="."]
 collision_layer = 2
@@ -247,6 +248,8 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_hitbox"]
 position = Vector2(0, -12)
 shape = SubResource("CapsuleShape2D_f0iub")
+
+[node name="Speedrun Timer" parent="." instance=ExtResource("4_dbof1")]
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="timeout" from="recieve_damage_cooldown" to="." method="_on_attack_cooldown_timeout"]

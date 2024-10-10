@@ -214,7 +214,7 @@ func attack():
 	
 	if Input.is_action_just_pressed("attack") and enemy_attack_cooldown == true:
 		emit_signal("attack_made")
-		globall.player_current_attack = true
+		Global.player_current_attack = true
 		attack_ip = true
 		if dir == 1:
 			animated_sprite.flip_h = true
@@ -236,7 +236,7 @@ func update_hearts(health):
 
 func _on_deal_attack_timer_timeout():
 	deal_damage_timer.stop()
-	globall.player_current_attack = false 
+	Global.player_current_attack = false 
 	attack_ip = false 
 
 #enemy enetered area where player can attack or take damage

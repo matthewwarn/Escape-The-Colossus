@@ -175,7 +175,7 @@ func attack():
 
 #this function is how to deal with damage taken
 func deal_with_damage():
-	if player_inattack_zone and globall.player_current_attack == true:
+	if player_inattack_zone and Global.player_current_attack == true:
 		if can_take_damage == true:
 			health = health - 1
 			take_damage_cooldown.start()

@@ -10,10 +10,23 @@ signal main_menu_requested;
 @onready var player: CharacterBody2D = $Player
 @onready var end_locator: Node2D = $EndLocator
 
+func _ready() -> void:
+	#Reset checkpoint state at start of level
+	Global.checkpoint_reached = false
+	Global.checkpoint_position = Vector2()
+
+	print("reset checkpoint_reached = ")
+	print(Global.checkpoint_reached)
+	print("reset checkpoint_position = ")
+	print(Global.checkpoint_position)
+
 # Connect all killzones to this method.
 func _on_player_died() -> void:
 	print("death relayed")
 	level_reset_requested.emit();
+	
+	if Global.checkpoint_reached:
+		player.global_position = Global.checkpoint_position
 
 # Connect the area2d level transition trigger to this method.
 func _on_level_transition_reached() -> void:

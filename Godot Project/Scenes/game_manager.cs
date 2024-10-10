@@ -13,6 +13,8 @@ public partial class game_manager : Node
 	private bool _bossOneDefeated = false;
 	private bool _bossTwoDefeated = false;
 	
+	private Vector2 lastCheckpointPosition = new Vector2();
+	
 	// Reference to current level root node.
 	private Node current_level;
 	
@@ -61,6 +63,9 @@ public partial class game_manager : Node
 			saveFile.WriteLine(_levelTree.CurrentScenePath);
 			saveFile.WriteLine(_bossOneDefeated);
 			saveFile.WriteLine(_bossTwoDefeated);
+			
+			//saveFile.WriteLine(lastCheckpointPosition.x);
+			//saveFile.WriteLine(lastCheckpointPosition.y);
 		}
 	}
 
@@ -77,6 +82,9 @@ public partial class game_manager : Node
 			_levelTree.JumpToLevel(saveFile.ReadLine());
 			_bossOneDefeated = saveFile.ReadLine() == "True";
 			_bossTwoDefeated = saveFile.ReadLine() == "True";
+			
+			//lastCheckpointPosition.x = float.Parse(saveFile.ReadLine());
+			//lastCheckpointPosition.y = float.Parse(saveFile.ReadLine());
 		}	
 	}
 

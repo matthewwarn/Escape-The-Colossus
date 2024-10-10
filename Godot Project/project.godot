@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="EscapeTheColossus"
+config/version="0.1"
 run/main_scene="res://Scenes/game_manager.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-globall="*res://scripts/global.gd"
+Global="*res://scripts/global.gd"
 SettingsManager="*res://settings_manager.gd"
 
 [display]
