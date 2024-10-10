@@ -1,21 +1,25 @@
 extends CharacterBody2D
 
-const CHASE_SPEED = 4000           #this speed is for when chasing player
-const SPEED = 50                   #this speed is used when not chasing player
+const CHASE_SPEED = 4000               #this speed is for when chasing player
+const SPEED = 50                       #this speed is used when not chasing player
+const JUMP_VELOCITY: float = -300.0
+const FALL_GRAVITY: int  = 1100
+const JUMP_BUFFER_TIME: float = 0.07
 
-var player_chase = false           #tracks weither if enemy should chase player or not
 var player = null
 var health = 1
-var direction = -1                 #this will be used for when enemy chases player
-var player_in_attack_zone = false  #tracks weither player is in range to be attacked 
-var can_take_damage_zone = false   #tracks weither the player in in range to deal damage to ribbug
-var can_take_damage = true
-var can_attack = true
-var is_alive = true
-var attack_ip = false              #tracks if enemy is attacking
-var facing = - 1                   #this is used when ribbug has engaged player but is no longer chasing player
-var has_engaged: bool = false      #tracks if player has engaged enemy 
-var can_chase: bool = true         #tracks if enemy can chase player 
+var direction = -1                       #this will be used for when enemy chases player
+var facing = - 1                         #this is used when ribbug has engaged player but is no longer chasing player
+var jump_buffer: bool = false
+var player_chase: bool = false           #tracks weither if enemy should chase player or not
+var player_in_attack_zone: bool = false  #tracks weither player is in range to be attacked 
+var can_take_damage_zone: bool = false   #tracks weither the player in in range to deal damage to ribbug
+var can_take_damage: bool = true
+var can_attack: bool = true
+var is_alive: bool = true
+var attack_ip: bool = false              #tracks if enemy is attacking
+var has_engaged: bool = false            #tracks if player has engaged enemy 
+var can_chase: bool = true               #tracks if enemy can chase player 
 
 @onready var attack_cooldown = $attack_cooldown
 @onready var take_damage_cooldown = $take_damage_cooldown
@@ -151,6 +155,16 @@ func deal_with_damage():
 			can_take_damage = false
 
 
+func jump():
+	# If on floor, do normal jump
+		if is_on_floor(): 
+			velocity.y = JUMP_VELOCITY
+			
+		# If jump is not available, start jump buffer timer
+		else:
+			jump_buffer = true
+			get_tree().create_timer(JUMP_BUFFER_TIME).timeout.connect(on_jump_buffer_timeout)
+
 #this is used by player to check if it is an enemy 
 func enemy():
 	pass
@@ -209,6 +223,10 @@ func _on_attack_cooldown_timeout():
 #this timer is so that the ribbug doesn't instantly try and chase the player after it turns around 
 func _on_chase_cooldown_timeout():
 	can_chase = true
+
+
+func on_jump_buffer_timeout()->void:
+	jump_buffer = false
 
 
 #for when death animation is finnished to remove the instacnce of that ribbug
