@@ -1,10 +1,11 @@
-[gd_scene load_steps=18 format=4 uid="uid://c8vkhgot11xyo"]
+[gd_scene load_steps=20 format=4 uid="uid://bweg1vxscikgs"]
 
 [ext_resource type="PackedScene" uid="uid://djgqihrehhe1h" path="res://Scenes/Levels/template_level.tscn" id="1_acwfr"]
 [ext_resource type="AudioStream" uid="uid://da84ipv4fccu5" path="res://Scenes/Audio/Music/Start and Area 1.ogg" id="2_4vad2"]
 [ext_resource type="TileSet" uid="uid://d3uaft5ba4k5r" path="res://Scenes/Levels/LevelAssets/gore_tileset.tres" id="2_xj5iw"]
 [ext_resource type="FontFile" uid="uid://bdc4hvgih0upu" path="res://Scenes/Levels/LevelAssets/DirtyHarold_Font_1_0/DirtyHarold.otf" id="3_6ivar"]
 [ext_resource type="Script" path="res://Scenes/Levels/Tutorial/animation_player.gd" id="4_67lyk"]
+[ext_resource type="Script" path="res://scripts/checkpoint.gd" id="4_cmtvj"]
 [ext_resource type="PackedScene" uid="uid://dmdvwelqe4h1u" path="res://Scenes/Entities/Spike Trap/spike_trap.tscn" id="5_pfnhm"]
 [ext_resource type="PackedScene" uid="uid://ddk74kjxma2c1" path="res://Scenes/Entities/Floor Maw/floor_maw.tscn" id="6_ay4ac"]
 [ext_resource type="PackedScene" uid="uid://b4gjkiteju2ea" path="res://Scenes/Entities/RibBug/rib_bug.tscn" id="7_lt7li"]
@@ -14,6 +15,9 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_heqqn"]
 size = Vector2(20, 43)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uoy55"]
+size = Vector2(87.5, 104)
 
 [sub_resource type="Animation" id="Animation_1kxru"]
 length = 0.001
@@ -166,7 +170,16 @@ tile_set = ExtResource("2_xj5iw")
 [node name="TileMapLayer" parent="." index="7"]
 visible = false
 
-[node name="Player" parent="." index="8"]
+[node name="Checkpoint" type="Area2D" parent="." index="8"]
+collision_mask = 3
+script = ExtResource("4_cmtvj")
+spawn_position = Vector2(630, 90)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoint" index="0"]
+position = Vector2(639, 110)
+shape = SubResource("RectangleShape2D_uoy55")
+
+[node name="Player" parent="." index="9"]
 position = Vector2(50, -57)
 
 [node name="Key instruction(space)" type="Label" parent="Player/Camera2D" index="0"]
@@ -223,7 +236,7 @@ one_shot = true
 wait_time = 4.0
 one_shot = true
 
-[node name="Hazards" type="Node" parent="." index="9"]
+[node name="Hazards" type="Node" parent="." index="10"]
 
 [node name="SpikeTrap2" parent="Hazards" index="0" instance=ExtResource("5_pfnhm")]
 position = Vector2(1041, 154)
@@ -240,7 +253,7 @@ position = Vector2(2248, 116)
 [node name="RibBug2" parent="Hazards" index="4" instance=ExtResource("7_lt7li")]
 position = Vector2(281, 148)
 
-[node name="PowerupOFF" type="Area2D" parent="." index="10"]
+[node name="PowerupOFF" type="Area2D" parent="." index="11"]
 collision_mask = 2
 script = ExtResource("8_7vndg")
 
@@ -248,10 +261,32 @@ script = ExtResource("8_7vndg")
 position = Vector2(63.5, 83.5)
 shape = SubResource("RectangleShape2D_b80db")
 
-[node name="EndLocator" parent="." index="11"]
+[node name="EndLocator" parent="." index="12"]
 position = Vector2(3665, -136)
 
+[node name="PowerupOFF2" type="Area2D" parent="." index="13"]
+position = Vector2(3535, -251)
+collision_mask = 2
+script = ExtResource("8_7vndg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PowerupOFF2" index="0"]
+position = Vector2(63.5, 83.5)
+shape = SubResource("RectangleShape2D_b80db")
+
+[node name="PowerupOFF3" type="Area2D" parent="." index="14"]
+position = Vector2(598, 25)
+scale = Vector2(0.617033, 1.37683)
+collision_mask = 2
+script = ExtResource("8_7vndg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PowerupOFF3" index="0"]
+position = Vector2(63.5, 83.5)
+shape = SubResource("RectangleShape2D_b80db")
+
+[connection signal="body_entered" from="Checkpoint" to="Checkpoint" method="_on_body_entered"]
 [connection signal="spike_trap_player_died" from="Hazards/SpikeTrap2" to="." method="_on_player_died"]
 [connection signal="spike_trap_player_died" from="Hazards/SpikeTrap" to="." method="_on_player_died"]
 [connection signal="player_died" from="Hazards/FloorMaw" to="." method="_on_player_died"]
 [connection signal="body_entered" from="PowerupOFF" to="PowerupOFF" method="_on_body_entered"]
+[connection signal="body_entered" from="PowerupOFF2" to="PowerupOFF2" method="_on_body_entered"]
+[connection signal="body_entered" from="PowerupOFF3" to="PowerupOFF3" method="_on_body_entered"]
