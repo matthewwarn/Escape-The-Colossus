@@ -13,14 +13,8 @@ There is not currently an executable release. To run the game it must first be i
 ![image](https://github.com/user-attachments/assets/64791ab2-4278-4b79-9cb3-d876869d7f7d)
 Main Menu
 
-![image](/readme_images/acid_level_lower.png)
-Third Level
-
-![image](/readme_images/settings_menu.png)
-Settings Menu
-
-![image](/readme_images/pause_menu.png)
-Pause Menu
+![image](https://github.com/user-attachments/assets/8f9a6339-d96e-4179-bf35-8c50fb9a39ed)
+Tutorial Level
 
 ## Control Scheme
 - Movement with WASD / Arrow Keys

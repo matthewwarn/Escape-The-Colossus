@@ -141,10 +141,6 @@ texture = ExtResource("1_qoal4")
 12:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 13:5/0 = 0
 13:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-13:0/0 = 0
-13:1/0 = 0
-13:2/0 = 0
-13:3/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_eovkn"]
 resource_name = "One-Way Gore Tiles"

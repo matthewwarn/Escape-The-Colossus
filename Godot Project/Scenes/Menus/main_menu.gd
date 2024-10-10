@@ -2,7 +2,6 @@ extends Control
 
 signal game_start_requested;
 signal game_resume_requested;
-signal request_save;
 
 @onready var resume_button: Button = $MainMenuParent/MarginContainer/VBoxContainer/ResumeButton
 @onready var settings_menu: Control = $SettingsMenu
@@ -30,6 +29,3 @@ func _on_settings_menu_hidden() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("fullscreen"):
 		SettingsManager.toggle_fullscreen();
-
-func _on_settings_menu_request_save() -> void:
-	request_save.emit();

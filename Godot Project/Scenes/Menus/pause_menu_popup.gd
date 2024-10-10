@@ -1,7 +1,6 @@
 extends Window
 
 signal main_menu_requested;
-signal request_save;
 @onready var settings_menu: Control = $SettingsMenu
 @onready var resume_button: Button = $PauseMenu/MarginContainer/VBoxContainer/ResumeButton
 @onready var settings_button: Button = $PauseMenu/MarginContainer/VBoxContainer/SettingsButton
@@ -34,6 +33,3 @@ func _on_settings_button_pressed() -> void:
 
 func _on_settings_menu_hidden() -> void:
 	settings_button.grab_focus();
-
-func _on_settings_menu_request_save() -> void:
-	request_save.emit();
