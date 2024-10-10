@@ -11,14 +11,12 @@ signal main_menu_requested;
 @onready var end_locator: Node2D = $EndLocator
 
 func _ready() -> void:
-	#Reset checkpoint state at start of level
-	Global.checkpoint_reached = false
-	Global.checkpoint_position = Vector2()
-
-	print("reset checkpoint_reached = ")
-	print(Global.checkpoint_reached)
-	print("reset checkpoint_position = ")
-	print(Global.checkpoint_position)
+	camera.position_smoothing_enabled = SettingsManager.camera_smoothing;
+	camera.position_smoothing_speed = SMOOTHING_SPEED;
+	
+	if Global.checkpoint_position != Vector2(0, 0):
+		print("Spawning at checkpoint: " + str(Global.checkpoint_position))
+		player.global_position = Global.checkpoint_position
 
 # Connect all killzones to this method.
 func _on_player_died() -> void:
@@ -32,6 +30,19 @@ func _on_player_died() -> void:
 func _on_level_transition_reached() -> void:
 	next_level_requested.emit();
 
+# Connect the area2d ExitA signal to this method.
+func _on_exit_a_reached() -> void:
+	level_requested.emit(exit_a);
+	Global.checkpoint_reached = false
+	Global.checkpoint_position = Vector2(0, 0)
+
+# Connect the area2d ExitB signal to this method.
+func _on_exit_b_reached() -> void:
+	level_requested.emit(exit_b);
+	Global.checkpoint_reached = false
+	Global.checkpoint_position = Vector2(0, 0)
+
+# Connect the area2d PrevLevelTransition signal to this method.
 func _on_prev_level_transition() -> void:
 	previous_level_requested.emit()
 

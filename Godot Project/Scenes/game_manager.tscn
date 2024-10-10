@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://dtpqqhxejqrok"]
+[gd_scene load_steps=3 format=3 uid="uid://dtpqqhxejqrok"]
 
-[ext_resource type="Script" path="res://Scenes/game_manager.cs" id="1_arbjg"]
+[ext_resource type="Script" path="res://Scenes/game_manager.gd" id="1_216xr"]
+[ext_resource type="PackedScene" path="res://scripts/audio_manager.tscn" id="2_lo7lq"]
 
 [node name="GameManager" type="Node"]
-script = ExtResource("1_arbjg")
+script = ExtResource("1_216xr")
+FIRST_LEVEL = "Tutorial/integrated_tutorial.tscn"
+
+[node name="AudioManager" parent="." instance=ExtResource("2_lo7lq")]
