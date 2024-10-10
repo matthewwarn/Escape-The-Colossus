@@ -1,6 +1,7 @@
 extends Node
 
-const GAME_SAVE_PATH: String = "Scenes/save.dat";
+const GAME_SAVE_PATH: String = "user://save.dat";
+const FALLBACK_SAVE: String  = "res://fallback_save.dat";
 const MAIN_MENU: String      = "Scenes/Menus/main_menu.tscn";
 const SETTINGS_MENU: String  = "Scenes/Menus/settings_menu.tscn";
 
@@ -14,6 +15,7 @@ const LEVEL_ROOT_DIR: String = "Scenes/Levels/";
 
 var current_level: Node;
 var current_level_path: String;
+
 
 ## When godot finishes loading game manager, load the main menu.
 func _ready() -> void:
@@ -33,6 +35,7 @@ func resume_game() -> void:
 func open_main_menu() -> void:
 	load_level(MAIN_MENU);
 
+
 ## Save game state to file.
 func save_game() -> void:
 	print("Saving at ", current_level_path)
@@ -45,10 +48,15 @@ func save_game() -> void:
 	var file = FileAccess.open(GAME_SAVE_PATH, FileAccess.WRITE);
 	file.store_string(serialised_data);
 
+
 ## Read previous game state from file.
 ## returns path to current level in save.
 func read_save() -> String:
 	var file = FileAccess.open(GAME_SAVE_PATH, FileAccess.READ);
+	# New installations will not have a game save file so we need to load a default one instead.
+	if file == null:
+		file = FileAccess.open(FALLBACK_SAVE, FileAccess.READ);
+	
 	var serialised_data = file.get_as_text();
 	var json = JSON.new();
 	var parse_error = json.parse(serialised_data);
@@ -64,6 +72,7 @@ func read_save() -> String:
 	else:
 		print("Parse error in save file: ", json.get_error_message());
 	return FIRST_LEVEL;
+
 
 ## Load Level
 ##
