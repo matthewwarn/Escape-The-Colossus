@@ -16,6 +16,7 @@ const LEVEL_ROOT_DIR: String = "Scenes/Levels/";
 var current_level: Node;
 var current_level_path: String;
 
+var speedrun_time: float = 0;
 
 ## When godot finishes loading game manager, load the main menu.
 func _ready() -> void:
