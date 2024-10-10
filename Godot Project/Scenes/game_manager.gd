@@ -5,6 +5,8 @@ const FALLBACK_SAVE: String  = "res://fallback_save.dat";
 const MAIN_MENU: String      = "Scenes/Menus/main_menu.tscn";
 const SETTINGS_MENU: String  = "Scenes/Menus/settings_menu.tscn";
 
+@onready var audio_manager = $AudioManager
+
 ## Path to first level of the game. Relative to LEVEL_ROOT_DIR
 @export
 var FIRST_LEVEL: String;
@@ -95,6 +97,10 @@ func _load_level_deferred(level_path: String, jump_to_end: bool = false) -> void
 	
 	current_level = next_level_preload.instantiate();
 	add_child(current_level);
+	
+	if current_level.has_method("get_level_music"):
+		var song = current_level.get_level_music()
+		audio_manager.play_music(song)
 	
 	# Connect signals
 	if (level_path == MAIN_MENU):
