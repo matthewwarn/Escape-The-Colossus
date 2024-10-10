@@ -1,6 +1,7 @@
-[gd_scene load_steps=23 format=4 uid="uid://d2be2xo822iaj"]
+[gd_scene load_steps=24 format=4 uid="uid://d2be2xo822iaj"]
 
 [ext_resource type="PackedScene" uid="uid://djgqihrehhe1h" path="res://Scenes/Levels/template_level.tscn" id="1_tjl8h"]
+[ext_resource type="AudioStream" uid="uid://dyfnr5yu66yck" path="res://Scenes/Audio/Music/Miniboss.mp3" id="2_e3kep"]
 [ext_resource type="TileSet" uid="uid://d3uaft5ba4k5r" path="res://Scenes/Levels/LevelAssets/gore_tileset.tres" id="2_oi6vb"]
 [ext_resource type="PackedScene" uid="uid://b4gjkiteju2ea" path="res://Scenes/Entities/RibBug/rib_bug.tscn" id="3_a8spc"]
 [ext_resource type="PackedScene" uid="uid://ddk74kjxma2c1" path="res://Scenes/Entities/Floor Maw/floor_maw.tscn" id="4_cexib"]
@@ -92,6 +93,7 @@ size = Vector2(197, 169)
 [node name="TemplateLevel" instance=ExtResource("1_tjl8h")]
 previous_level = "AcidLevel/acid_level.tscn"
 exit_a = "Hub/hub_level.tscn"
+level_music = ExtResource("2_e3kep")
 
 [node name="NextLevelTransition#CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
 position = Vector2(0.5, -6.5)
