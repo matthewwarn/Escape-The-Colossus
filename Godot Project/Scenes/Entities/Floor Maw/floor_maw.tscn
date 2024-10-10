@@ -1,8 +1,7 @@
-[gd_scene load_steps=27 format=3 uid="uid://ddk74kjxma2c1"]
+[gd_scene load_steps=29 format=3 uid="uid://ddk74kjxma2c1"]
 
 [ext_resource type="Script" path="res://Scenes/Entities/Floor Maw/floor_maw.gd" id="1_mmh5f"]
 [ext_resource type="Texture2D" uid="uid://gmrjmwhtvy0k" path="res://Scenes/Entities/EntityAssets/Floor Maw Sheet.png" id="1_vkvyk"]
-[ext_resource type="PackedScene" uid="uid://b31oekchnss6y" path="res://Scenes/Levels/LevelComponents/killzone.tscn" id="2_f6i67"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bjtp2"]
 atlas = ExtResource("1_vkvyk")
@@ -19,6 +18,18 @@ region = Rect2(32, 65, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_74o56"]
 atlas = ExtResource("1_vkvyk")
 region = Rect2(64, 65, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gltvy"]
+atlas = ExtResource("1_vkvyk")
+region = Rect2(33, 34, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pytqe"]
+atlas = ExtResource("1_vkvyk")
+region = Rect2(129, 2, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yhqyg"]
+atlas = ExtResource("1_vkvyk")
+region = Rect2(129, 34, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ahdh1"]
 atlas = ExtResource("1_vkvyk")
@@ -101,6 +112,20 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_gltvy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pytqe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yhqyg")
+}],
+"loop": true,
+"name": &"Attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_ahdh1")
 }, {
 "duration": 1.0,
@@ -160,14 +185,14 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_76kfy"]
+size = Vector2(113, 49.5)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qtajg"]
 size = Vector2(30, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q4elc"]
 size = Vector2(13, 20)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_76kfy"]
-size = Vector2(300, 105)
 
 [node name="FloorMaw" type="Node2D"]
 script = ExtResource("1_mmh5f")
@@ -175,29 +200,44 @@ script = ExtResource("1_mmh5f")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_ko6pf")
-animation = &"Spawn"
+animation = &"Attack"
 autoplay = "Unspawned"
-frame = 7
-frame_progress = 1.0
-
-[node name="Killzone" parent="." instance=ExtResource("2_f6i67")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
-position = Vector2(1, -6)
-shape = SubResource("RectangleShape2D_qtajg")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Killzone"]
-position = Vector2(0.5, -22)
-shape = SubResource("RectangleShape2D_q4elc")
+frame_progress = 0.515285
 
 [node name="Proximity Detector" type="Area2D" parent="."]
+visible = false
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Proximity Detector"]
 position = Vector2(0, -52)
 shape = SubResource("RectangleShape2D_76kfy")
 
+[node name="recieve_damage_hit_box" type="Area2D" parent="."]
+visible = false
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="recieve_damage_hit_box"]
+position = Vector2(1.5, -24.25)
+shape = SubResource("RectangleShape2D_76kfy")
+
+[node name="Attack_cooldown" type="Timer" parent="."]
+wait_time = 1.2
+
+[node name="deal_damage_hit-box" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="deal_damage_hit-box"]
+position = Vector2(1, -6)
+shape = SubResource("RectangleShape2D_qtajg")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="deal_damage_hit-box"]
+position = Vector2(0.5, -22)
+shape = SubResource("RectangleShape2D_q4elc")
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="player_died" from="Killzone" to="." method="_on_killzone_player_died"]
 [connection signal="body_entered" from="Proximity Detector" to="." method="_on_proximity_detector_body_entered"]
 [connection signal="body_exited" from="Proximity Detector" to="." method="_on_proximity_detector_body_exited"]
+[connection signal="body_entered" from="recieve_damage_hit_box" to="." method="_on_recieve_damage_hit_box_body_entered"]
+[connection signal="body_exited" from="recieve_damage_hit_box" to="." method="_on_recieve_damage_hit_box_body_exited"]
+[connection signal="timeout" from="Attack_cooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="body_entered" from="deal_damage_hit-box" to="." method="_on_deal_damage_hitbox_body_entered"]
+[connection signal="body_exited" from="deal_damage_hit-box" to="." method="_on_deal_damage_hitbox_body_exited"]
