@@ -1,13 +1,15 @@
-[gd_scene load_steps=16 format=4 uid="uid://c8vkhgot11xyo"]
+[gd_scene load_steps=19 format=4 uid="uid://o10ya26cqnu"]
 
 [ext_resource type="PackedScene" uid="uid://djgqihrehhe1h" path="res://Scenes/Levels/template_level.tscn" id="1_acwfr"]
 [ext_resource type="AudioStream" uid="uid://da84ipv4fccu5" path="res://Scenes/Audio/Music/Start and Area 1.ogg" id="2_4vad2"]
 [ext_resource type="TileSet" uid="uid://d3uaft5ba4k5r" path="res://Scenes/Levels/LevelAssets/gore_tileset.tres" id="2_xj5iw"]
 [ext_resource type="FontFile" uid="uid://bdc4hvgih0upu" path="res://Scenes/Levels/LevelAssets/DirtyHarold_Font_1_0/DirtyHarold.otf" id="3_6ivar"]
 [ext_resource type="Script" path="res://Scenes/Levels/Tutorial/animation_player.gd" id="4_67lyk"]
+[ext_resource type="PackedScene" uid="uid://brjlyssh0oxh0" path="res://Scenes/checkpoint.tscn" id="4_cnxiy"]
 [ext_resource type="PackedScene" uid="uid://dmdvwelqe4h1u" path="res://Scenes/Entities/Spike Trap/spike_trap.tscn" id="5_pfnhm"]
 [ext_resource type="PackedScene" uid="uid://ddk74kjxma2c1" path="res://Scenes/Entities/Floor Maw/floor_maw.tscn" id="6_ay4ac"]
 [ext_resource type="PackedScene" uid="uid://b4gjkiteju2ea" path="res://Scenes/Entities/RibBug/rib_bug.tscn" id="7_lt7li"]
+[ext_resource type="Script" path="res://Scenes/Levels/Level One/powerup_turn_off.gd" id="8_7vndg"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_adhrb"]
 
@@ -133,6 +135,9 @@ _data = {
 "fade_space": SubResource("Animation_8nob7")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b80db"]
+size = Vector2(239, 141)
+
 [node name="TemplateLevel" instance=ExtResource("1_acwfr")]
 exit_a = "Hub/hub_level.tscn"
 level_music = ExtResource("2_4vad2")
@@ -236,9 +241,28 @@ position = Vector2(2248, 116)
 [node name="RibBug2" parent="Hazards" index="4" instance=ExtResource("7_lt7li")]
 position = Vector2(281, 148)
 
-[node name="EndLocator" parent="." index="10"]
+[node name="PowerupOFF" type="Area2D" parent="." index="10"]
+collision_mask = 2
+script = ExtResource("8_7vndg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PowerupOFF" index="0"]
+position = Vector2(63.5, 83.5)
+shape = SubResource("RectangleShape2D_b80db")
+
+[node name="EndLocator" parent="." index="11"]
 position = Vector2(3665, -136)
+
+[node name="PowerupOFF3" type="Area2D" parent="." index="12"]
+position = Vector2(598, 25)
+scale = Vector2(0.617033, 1.37683)
+collision_mask = 2
+script = ExtResource("8_7vndg")
+
+[node name="Checkpoint" parent="." index="13" instance=ExtResource("4_cnxiy")]
+position = Vector2(645, 112)
 
 [connection signal="spike_trap_player_died" from="Hazards/SpikeTrap2" to="." method="_on_player_died"]
 [connection signal="spike_trap_player_died" from="Hazards/SpikeTrap" to="." method="_on_player_died"]
 [connection signal="player_died" from="Hazards/FloorMaw" to="." method="_on_player_died"]
+[connection signal="body_entered" from="PowerupOFF" to="PowerupOFF" method="_on_body_entered"]
+[connection signal="body_entered" from="PowerupOFF3" to="PowerupOFF3" method="_on_body_entered"]
