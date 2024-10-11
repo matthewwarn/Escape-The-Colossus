@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://da84ipv4fccu5"
+path="res://.godot/imported/Start and Area 1.ogg-44f16a6f245399b00ebc14a499e4ab9a.oggvorbisstr"
+
+[deps]
+
+source_file="res://Scenes/Audio/Music/Start and Area 1.ogg"
+dest_files=["res://.godot/imported/Start and Area 1.ogg-44f16a6f245399b00ebc14a499e4ab9a.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

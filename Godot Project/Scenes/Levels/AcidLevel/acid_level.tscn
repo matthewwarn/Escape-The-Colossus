@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=4 uid="uid://c5vh424eokept"]
+[gd_scene load_steps=14 format=4 uid="uid://c5vh424eokept"]
 
 [ext_resource type="PackedScene" uid="uid://djgqihrehhe1h" path="res://Scenes/Levels/template_level.tscn" id="1_25ldr"]
 [ext_resource type="SpriteFrames" uid="uid://k4dc5itrd64r" path="res://Scenes/Levels/AcidLevel/waterfall_animation.tres" id="2_8u0o3"]
 [ext_resource type="TileSet" uid="uid://d3uaft5ba4k5r" path="res://Scenes/Levels/LevelAssets/gore_tileset.tres" id="2_iinrv"]
+[ext_resource type="AudioStream" uid="uid://da84ipv4fccu5" path="res://Scenes/Audio/Music/Start and Area 1.ogg" id="2_ik0im"]
 [ext_resource type="PackedScene" uid="uid://d0i1p2gbb4mbj" path="res://Scenes/Levels/LevelComponents/AcidTiles/acid_tile.tscn" id="2_urcsd"]
 [ext_resource type="PackedScene" uid="uid://dqpw5paeu62au" path="res://Scenes/Levels/LevelComponents/AcidTiles/acid_tile_4long.tscn" id="4_sewor"]
 [ext_resource type="PackedScene" uid="uid://dmdvwelqe4h1u" path="res://Scenes/Entities/Spike Trap/spike_trap.tscn" id="6_gx5x2"]
@@ -23,6 +24,7 @@ size = Vector2(197, 169)
 [node name="TemplateLevel" instance=ExtResource("1_25ldr")]
 previous_level = "Level One/level_one.tscn"
 exit_a = "integrated_core.tscn"
+level_music = ExtResource("2_ik0im")
 
 [node name="Killzone" parent="." index="1"]
 position = Vector2(68, 110)
