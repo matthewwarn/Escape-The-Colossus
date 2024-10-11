@@ -30,6 +30,10 @@ window/per_pixel_transparency/allowed=true
 
 project/assembly_name="EscapeTheColossus"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gut/plugin.cfg")
+
 [input]
 
 ui_accept={
