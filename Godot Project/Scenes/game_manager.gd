@@ -25,6 +25,8 @@ func _ready() -> void:
 
 ## Called when main menu new game button pressed.
 func start_game() -> void:
+	Abilities.dash_enabled = false;
+	Abilities.double_jump_enabled = false;
 	load_level(FIRST_LEVEL);
 
 ## Called when main menu resume game button pressed.
