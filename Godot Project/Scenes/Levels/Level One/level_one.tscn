@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://Scenes/Levels/Level One/popup_text.gd" id="9_gi1r0"]
 [ext_resource type="Script" path="res://Scenes/Levels/Level One/powerup_turn_off.gd" id="10_47w8u"]
 
+
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_qd6oi"]
 normal = Vector2(-1, 0)
 
