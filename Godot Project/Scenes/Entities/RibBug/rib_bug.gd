@@ -39,7 +39,7 @@ func _physics_process(delta):
 	attack()
 	enemy()
 	
-#when RibBug dies set is_alive and player_chase to false 
+	#when RibBug dies set is_alive and player_chase to false 
 	if health <= 0:
 		is_alive = false
 		player_chase = false
@@ -209,6 +209,15 @@ func _on_recieve_damage_hit_box_body_entered(body):
 func _on_recieve_damage_hit_box_body_exited(body):
 	if body.has_method("player"):
 		can_take_damage_zone = false
+
+#this function is how to deal with damage taken
+func deal_with_damage():
+	if player_inattack_zone and Global.player_current_attack == true:
+		if can_take_damage == true:
+			health = health - 1
+			take_damage_cooldown.start()
+			can_take_damage = false
+			print("RibBug health: " + str(health))
 
 #this is what happens when the timer that is for being able to recive damage times out
 func _on_take_damage_cooldown_timeout():

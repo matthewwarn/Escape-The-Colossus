@@ -46,6 +46,8 @@ var heart3
 # Get the default gravity from project settings. Which is 980.
 var GRAVITY = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+# Show message once
+
 func _ready():
 	heart1 = get_node("CanvasLayer/Heart1")
 	heart2 = get_node("CanvasLayer/Heart2")
@@ -183,15 +185,15 @@ func play_animations():
 	if is_alive == true:
 		if is_on_floor():
 			if velocity.x == 0 and attack_ip == false:
-				animated_sprite.animation = "Idle"
+				animated_sprite.play("Idle")
 			elif attack_ip == true:
 				animated_sprite.play("Attack")
 			else:
-				animated_sprite.animation = "Movement"
+				animated_sprite.play("Movement")
 		else:
-			animated_sprite.animation = "Jump"
+			animated_sprite.play("Jump")
 	elif is_alive == false:
-		animated_sprite.animation = "Death"
+		animated_sprite.play("Death")
 
 func enemy_attack():	
 	if enemy_inattack_range and enemy_attack_cooldown == false:
@@ -210,7 +212,7 @@ func attack():
 	var dir: int = facing
 	
 	if Input.is_action_just_pressed("attack") and enemy_attack_cooldown == true:
-		globall.player_current_attack = true
+		Global.player_current_attack = true
 		attack_ip = true
 		if dir == 1:
 			animated_sprite.flip_h = true
@@ -232,7 +234,7 @@ func update_hearts(health):
 
 func _on_deal_attack_timer_timeout():
 	deal_damage_timer.stop()
-	globall.player_current_attack = false 
+	Global.player_current_attack = false 
 	attack_ip = false 
 
 #enemy enetered area where player can attack or take damage

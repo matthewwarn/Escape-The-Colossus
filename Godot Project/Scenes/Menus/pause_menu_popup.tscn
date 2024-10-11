@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b8iebbvcleo7v"]
+[gd_scene load_steps=6 format=3 uid="uid://b8iebbvcleo7v"]
 
 [ext_resource type="Script" path="res://Scenes/Menus/pause_menu_popup.gd" id="1_0u1r8"]
 [ext_resource type="FontFile" uid="uid://bdc4hvgih0upu" path="res://Scenes/Levels/LevelAssets/DirtyHarold_Font_1_0/DirtyHarold.otf" id="2_f45u3"]
+[ext_resource type="Texture2D" uid="uid://bfn7jame6o23c" path="res://Scenes/Levels/LevelAssets/Gore Background.png" id="2_x1yi8"]
+[ext_resource type="PackedScene" uid="uid://citiopmrbgvso" path="res://Scenes/Menus/settings_menu.tscn" id="3_5luvi"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_t5ul8"]
 font = ExtResource("2_f45u3")
@@ -12,7 +14,7 @@ shadow_color = Color(0, 0, 0, 0.772549)
 [node name="PauseMenuPopup" type="Window"]
 process_mode = 2
 initial_position = 2
-size = Vector2i(250, 185)
+size = Vector2i(1152, 648)
 visible = false
 unresizable = true
 borderless = true
@@ -25,12 +27,15 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_right = 40.0
+offset_bottom = 40.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="PauseMenu"]
+texture_filter = 1
+scale = Vector2(3.6, 3.6)
+texture = ExtResource("2_x1yi8")
 
 [node name="MarginContainer" type="MarginContainer" parent="PauseMenu"]
 custom_minimum_size = Vector2(150, 0)
@@ -58,17 +63,43 @@ label_settings = SubResource("LabelSettings_t5ul8")
 
 [node name="ResumeButton" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../QuitButton")
+focus_neighbor_bottom = NodePath("../MenuButton")
+focus_next = NodePath("../MenuButton")
+focus_previous = NodePath("../QuitButton")
 text = "Resume"
 
 [node name="MenuButton" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../ResumeButton")
+focus_neighbor_bottom = NodePath("../SettingsButton")
+focus_next = NodePath("../SettingsButton")
+focus_previous = NodePath("../ResumeButton")
 text = "Main Menu"
+
+[node name="SettingsButton" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../MenuButton")
+focus_neighbor_bottom = NodePath("../QuitButton")
+focus_next = NodePath("../QuitButton")
+focus_previous = NodePath("../MenuButton")
+text = "Settings"
 
 [node name="QuitButton" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../SettingsButton")
+focus_neighbor_bottom = NodePath("../ResumeButton")
+focus_next = NodePath("../ResumeButton")
+focus_previous = NodePath("../SettingsButton")
 text = "Quit Game"
+
+[node name="SettingsMenu" parent="." instance=ExtResource("3_5luvi")]
+visible = false
 
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
 [connection signal="pressed" from="PauseMenu/MarginContainer/VBoxContainer/ResumeButton" to="." method="close"]
 [connection signal="pressed" from="PauseMenu/MarginContainer/VBoxContainer/MenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="PauseMenu/MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="PauseMenu/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="hidden" from="SettingsMenu" to="." method="_on_settings_menu_hidden"]
+[connection signal="request_save" from="SettingsMenu" to="." method="_on_settings_menu_request_save"]

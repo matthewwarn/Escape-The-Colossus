@@ -192,7 +192,7 @@ size = Vector2(113, 49.5)
 size = Vector2(30, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q4elc"]
-size = Vector2(13, 20)
+size = Vector2(10, 17)
 
 [node name="FloorMaw" type="Node2D"]
 script = ExtResource("1_mmh5f")
@@ -202,7 +202,20 @@ position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_ko6pf")
 animation = &"Attack"
 autoplay = "Unspawned"
-frame_progress = 0.515285
+
+frame = 7
+frame_progress = 1.0
+
+[node name="Killzone" parent="." instance=ExtResource("2_f6i67")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(1, -6)
+shape = SubResource("RectangleShape2D_qtajg")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(0, -20.5)
+shape = SubResource("RectangleShape2D_q4elc")
+
 
 [node name="Proximity Detector" type="Area2D" parent="."]
 visible = false

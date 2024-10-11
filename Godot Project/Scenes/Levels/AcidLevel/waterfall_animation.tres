@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://k4dc5itrd64r"]
+
+[ext_resource type="Texture2D" uid="uid://b4dhxxntt1ss0" path="res://Scenes/Levels/LevelAssets/waterfall-Sheet.png" id="1_ur7b2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p67mg"]
+atlas = ExtResource("1_ur7b2")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nj5xc"]
+atlas = ExtResource("1_ur7b2")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jn8xa"]
+atlas = ExtResource("1_ur7b2")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n1kdr"]
+atlas = ExtResource("1_ur7b2")
+region = Rect2(48, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p67mg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nj5xc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jn8xa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n1kdr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
