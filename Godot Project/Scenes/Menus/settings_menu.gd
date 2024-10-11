@@ -32,8 +32,9 @@ func _on_fullscreen_button_request_save() -> void:
 
 func _on_smoothing_button_toggled(toggled_on: bool) -> void:
 	SettingsManager.camera_smoothing = toggled_on;
-	request_save.emit()
+	request_save.emit();
 
 
 func _on_speedrun_button_toggled(toggled_on: bool) -> void:
 	SettingsManager.speedrun_timer = toggled_on;
+	request_save.emit();
