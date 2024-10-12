@@ -33,7 +33,7 @@ var can_chase: bool = true               #tracks if enemy can chase player
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _physics_process(delta):
-	
+	print(can_chase)
 	play_animation()
 	deal_with_damage()
 	attack()
@@ -49,8 +49,9 @@ func _physics_process(delta):
 		velocity.y += gravity * delta 
 	
 	#if RibBug is on the floor
+	
 	if ray_cast_floor_left.is_colliding() and ray_cast_floor_right.is_colliding() :
-		if can_chase == true:
+		if player_chase == true:
 			chase_player(delta)
 		elif has_engaged == true and player_chase == false: #if RibBug has engaged the player then it will move around on platform
 			if (facing) < 0:
@@ -67,21 +68,23 @@ func _physics_process(delta):
 				facing = 1
 				position.x += facing * SPEED * delta 
 			position.x += facing * SPEED * delta
-	elif ray_cast_floor_left.is_colliding() == false or ray_cast_floor_right.is_colliding() == false:
-		can_chase = false
-		player_chase = false
+	elif (ray_cast_floor_left.is_colliding() == false) or (ray_cast_floor_right.is_colliding() == false):
+		
 			
 		if ray_cast_floor_left.is_colliding() == false and ray_cast_floor_right.is_colliding():
 			animated_sprite.flip_h = true
 			facing = 1
+			can_chase = false
+			player_chase = false
 			position.x += facing * SPEED * delta
+			chase_cooldown.start()
 		elif ray_cast_floor_right.is_colliding() == false and ray_cast_floor_left.is_colliding():
 			animated_sprite.flip_h = false
 			facing = -1
+			can_chase = false
+			player_chase = false
 			position.x += facing * SPEED * delta
-			
-		position.x += facing * SPEED * delta
-		chase_cooldown.start()
+			chase_cooldown.start()
 	move_and_slide()
 	# for when the player is in the RibBug's detection area 
 	
@@ -100,31 +103,27 @@ func play_animation():
 
 #handling chasing the player
 func chase_player(delta):
+	if (direction) < 0:
+		animated_sprite.flip_h = false
+	else:
+		animated_sprite.flip_h = true
 	
-	if player_chase:
-		
-		if (direction) < 0:
-			animated_sprite.flip_h = false
-		else:
-			animated_sprite.flip_h = true
-		
-		#if RibBug is on the floor
-		if ray_cast_floor_left.is_colliding() and ray_cast_floor_right.is_colliding():
-			if ray_cast_right.is_colliding():
-				player_chase = false
-				can_chase = false
-				chase_cooldown.start()
-			elif ray_cast_left.is_colliding():
-				player_chase = false
-				can_chase = false
-				chase_cooldown.start()
-			else:
-				position.x += direction / (CHASE_SPEED * delta ) #this is for chasing the player
-		elif ray_cast_floor_left.is_colliding() == false or ray_cast_floor_right.is_colliding() == false: #for when there is no floor
+	#if RibBug is on the floor
+	if ray_cast_floor_left.is_colliding() and ray_cast_floor_right.is_colliding():
+		if ray_cast_right.is_colliding():
 			player_chase = false
 			can_chase = false
 			chase_cooldown.start()
-	move_and_slide()
+		elif ray_cast_left.is_colliding():
+			player_chase = false
+			can_chase = false
+			chase_cooldown.start()
+		position.x += direction / (CHASE_SPEED * delta ) #this is for chasing the player
+	elif ray_cast_floor_left.is_colliding() == false or ray_cast_floor_right.is_colliding() == false: #for when there is no floor
+		player_chase = false
+		can_chase = false
+		chase_cooldown.start()
+	#move_and_slide()
 
 
 #this function is how the ribbug attacks 
@@ -148,7 +147,7 @@ func attack():
 
 #this function is how to deal with damage taken
 func deal_with_damage():
-	if can_take_damage_zone and globall.player_current_attack == true:
+	if can_take_damage_zone and Global.player_current_attack == true:
 		if can_take_damage == true:
 			health = health - 1
 			take_damage_cooldown.start()
@@ -174,15 +173,14 @@ func enemy():
 func _on_detection_body_entered(body):
 	if body.has_method("player"):
 		player = body
+		print(can_chase)
 		if can_chase == true:
 			player_chase = true
 			direction = (player.position.x - position.x)
 
 
 # for when the player leaves the engament area
-func _on_detection_body_exited(body):
-	player = body
-	player = null
+func _on_detection_body_exited(_body):
 	player_chase = false
 	has_engaged = true
 
@@ -210,15 +208,6 @@ func _on_recieve_damage_hit_box_body_exited(body):
 	if body.has_method("player"):
 		can_take_damage_zone = false
 
-#this function is how to deal with damage taken
-func deal_with_damage():
-	if player_inattack_zone and Global.player_current_attack == true:
-		if can_take_damage == true:
-			health = health - 1
-			take_damage_cooldown.start()
-			can_take_damage = false
-			print("RibBug health: " + str(health))
-
 #this is what happens when the timer that is for being able to recive damage times out
 func _on_take_damage_cooldown_timeout():
 	can_take_damage = true
@@ -232,6 +221,7 @@ func _on_attack_cooldown_timeout():
 #this timer is so that the ribbug doesn't instantly try and chase the player after it turns around 
 func _on_chase_cooldown_timeout():
 	can_chase = true
+	
 
 
 func on_jump_buffer_timeout()->void:

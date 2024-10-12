@@ -202,20 +202,7 @@ position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_ko6pf")
 animation = &"Attack"
 autoplay = "Unspawned"
-
-frame = 7
-frame_progress = 1.0
-
-[node name="Killzone" parent="." instance=ExtResource("2_f6i67")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
-position = Vector2(1, -6)
-shape = SubResource("RectangleShape2D_qtajg")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Killzone"]
-position = Vector2(0, -20.5)
-shape = SubResource("RectangleShape2D_q4elc")
-
+frame_progress = 0.031449
 
 [node name="Proximity Detector" type="Area2D" parent="."]
 visible = false

@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://b4gjkiteju2ea" path="res://Scenes/Entities/RibBug/rib_bug.tscn" id="8_jghfq"]
 [ext_resource type="PackedScene" uid="uid://b8iebbvcleo7v" path="res://Scenes/Menus/pause_menu_popup.tscn" id="8_pws3p"]
 
-
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8ttge"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4f7qi"]

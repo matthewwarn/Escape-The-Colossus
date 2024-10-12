@@ -207,11 +207,12 @@ func enemy_attack():
 #immunity cooldown
 func _on_recieve_damage_cooldown_timeout():
 	enemy_attack_cooldown = false
+	recieve_damage_cooldown.stop()
 
 func attack():
 	var dir: int = facing
 	
-	if Input.is_action_just_pressed("attack") and enemy_attack_cooldown == true:
+	if Input.is_action_just_pressed("attack") and enemy_attack_cooldown == false:
 		Global.player_current_attack = true
 		attack_ip = true
 		if dir == 1:
@@ -223,6 +224,7 @@ func attack():
 	
 
 # Takes the health the player had right BEFORE getting hit
+@warning_ignore("shadowed_variable")
 func update_hearts(health):
 	match health:
 		1:

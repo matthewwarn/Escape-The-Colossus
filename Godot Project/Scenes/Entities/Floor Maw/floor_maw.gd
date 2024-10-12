@@ -39,7 +39,7 @@ func acttack():
 
 #for if we want the player to be able to kill it
 func deal_with_damage():
-	if player_inattack_zone and globall.player_current_attack == true:
+	if player_inattack_zone and Global.player_current_attack == true:
 		if can_take_damage == true:
 			health = health - 1
 			can_take_damage = false
@@ -64,3 +64,7 @@ func _on_deal_damage_hitbox_body_exited(body):
 
 func _on_attack_cooldown_timeout():
 	can_attack = true
+
+
+func enemy():
+	pass

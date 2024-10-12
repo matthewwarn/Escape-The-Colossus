@@ -294,6 +294,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_0unf1")
 
 [node name="recieve_damage_hit_box" type="Area2D" parent="."]
+visible = false
 collision_layer = 2
 collision_mask = 2
 
@@ -303,6 +304,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_nn26i")
 
 [node name="deal_damage_hit_box" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="deal_damage_hit_box"]
 position = Vector2(0, -2)
@@ -310,26 +312,22 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_71dyf")
 
 [node name="RayCastRight" type="RayCast2D" parent="."]
-visible = false
 position = Vector2(4, 5)
 target_position = Vector2(8, 0)
 collide_with_areas = true
 
 [node name="RayCastLeft" type="RayCast2D" parent="."]
-visible = false
 position = Vector2(-4, 5)
 target_position = Vector2(-8, 0)
 collide_with_areas = true
 
 [node name="RayCastFloorLeft" type="RayCast2D" parent="."]
-visible = false
 position = Vector2(-13, -1)
 target_position = Vector2(0, 7)
 collision_mask = 3
 collide_with_areas = true
 
 [node name="RayCastFloorRight" type="RayCast2D" parent="."]
-visible = false
 position = Vector2(13, -1)
 target_position = Vector2(0, 7)
 collision_mask = 3
@@ -337,20 +335,23 @@ collide_with_areas = true
 
 [node name="chase_cooldown" type="Timer" parent="."]
 wait_time = 5.0
+one_shot = true
 
 [node name="take_damage_cooldown" type="Timer" parent="."]
 wait_time = 2.0
+one_shot = true
 
 [node name="attack_cooldown" type="Timer" parent="."]
 wait_time = 2.0
+one_shot = true
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="detection" to="." method="_on_detection_body_entered"]
 [connection signal="body_exited" from="detection" to="." method="_on_detection_body_exited"]
-[connection signal="body_entered" from="recieve_damage_hit_box" to="." method="_on_hit_box_body_entered"]
 [connection signal="body_entered" from="recieve_damage_hit_box" to="." method="_on_recieve_damage_hit_box_body_entered"]
-[connection signal="body_exited" from="recieve_damage_hit_box" to="." method="_on_hit_box_body_exited"]
+[connection signal="body_entered" from="recieve_damage_hit_box" to="." method="_on_hit_box_body_entered"]
 [connection signal="body_exited" from="recieve_damage_hit_box" to="." method="_on_recieve_damage_hit_box_body_exited"]
+[connection signal="body_exited" from="recieve_damage_hit_box" to="." method="_on_hit_box_body_exited"]
 [connection signal="body_entered" from="deal_damage_hit_box" to="." method="_on_deal_damage_hit_box_body_entered"]
 [connection signal="body_exited" from="deal_damage_hit_box" to="." method="_on_deal_damage_hit_box_body_exited"]
 [connection signal="timeout" from="chase_cooldown" to="." method="_on_chase_cooldown_timeout"]
