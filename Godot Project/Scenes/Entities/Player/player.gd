@@ -10,6 +10,7 @@ var damaged_heart_texture = preload("res://Scenes/Entities/Player/Health/Damaged
 var empty_heart_texture = preload("res://Scenes/Entities/Player/Health/EmptyHeart.png")
 
 signal player_died;
+signal attack_made;
 
 const SPEED: float            = 160.0
 const JUMP_VELOCITY: float    = -300.0
@@ -212,6 +213,7 @@ func attack():
 	var dir: int = facing
 	
 	if Input.is_action_just_pressed("attack") and enemy_attack_cooldown == true:
+		emit_signal("attack_made")
 		Global.player_current_attack = true
 		attack_ip = true
 		if dir == 1:
