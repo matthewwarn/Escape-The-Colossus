@@ -13,6 +13,22 @@ var FIRST_LEVEL: String;
 ## Path from which all level paths are given relative to.
 const LEVEL_ROOT_DIR: String = "Scenes/Levels/";
 
+var DEFAULT_SAVE: Dictionary = {
+	"current_level": FIRST_LEVEL,
+	"fullscreen": false,
+	"camera smoothing": true,
+	"double jump": false,
+	"dash": false,
+}
+
+var SAVE_KEYS: Array = [
+	'current_level',
+	'fullscreen',
+	'camera smoothing',
+	'double jump',
+	'dash'
+]
+
 var current_level: Node;
 var current_level_path: String;
 
@@ -69,16 +85,31 @@ func read_save() -> String:
 	if (parse_error == OK):
 		var save_data = json.data;
 		if (typeof(save_data) == TYPE_DICTIONARY):
-			SettingsManager.set_fullscreen(save_data["fullscreen"])
-			SettingsManager.camera_smoothing = save_data["camera smoothing"];
-			Abilities.double_jump_enabled = save_data["double jump"];
-			Abilities.dash_enabled = save_data["dash"];
-			return save_data["current_level"];
+			if check_dict_validity(SAVE_KEYS, save_data):
+				return apply_save(save_data)
+			else:
+				return apply_save(DEFAULT_SAVE)
 		else:
 			print("save data corrupt.");
 	else:
 		print("Parse error in save file: ", json.get_error_message());
 	return FIRST_LEVEL;
+
+
+## Apply the data from a save file to the game's global scripts
+func apply_save(data: Dictionary) -> String:
+	SettingsManager.set_fullscreen(data["fullscreen"])
+	SettingsManager.camera_smoothing = data["camera smoothing"];
+	Abilities.double_jump_enabled    = data["double jump"];
+	Abilities.dash_enabled           = data["dash"];
+	return data["current_level"];
+
+
+func check_dict_validity(keys: Array, dict: Dictionary) -> bool:
+	for key in keys:
+		if !dict.has(key):
+			return false;
+	return true;
 
 
 ## Load Level
