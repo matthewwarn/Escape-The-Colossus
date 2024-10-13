@@ -8,10 +8,27 @@ const SETTINGS_MENU: String  = "Scenes/Menus/settings_menu.tscn";
 @onready var audio_manager = $AudioManager
 
 ## Path to first level of the game. Relative to LEVEL_ROOT_DIR
-@export
-var FIRST_LEVEL: String;
+var FIRST_LEVEL: String = "Tutorial/integrated_tutorial.tscn";
 ## Path from which all level paths are given relative to.
 const LEVEL_ROOT_DIR: String = "Scenes/Levels/";
+
+var DEFAULT_SAVE: Dictionary = {
+	"current_level": FIRST_LEVEL,
+	"fullscreen": false,
+	"camera smoothing": true,
+	"double jump": false,
+	"dash": false,
+	"speedrun enabled": false,
+}
+
+var SAVE_KEYS: Array = [
+	'current_level',
+	'fullscreen',
+	'camera smoothing',
+	'double jump',
+	'dash',
+	'speedrun enabled'
+]
 
 var current_level: Node;
 var current_level_path: String;
@@ -25,6 +42,8 @@ func _ready() -> void:
 
 ## Called when main menu new game button pressed.
 func start_game() -> void:
+	Abilities.dash_enabled = false;
+	Abilities.double_jump_enabled = false;
 	load_level(FIRST_LEVEL);
 
 ## Called when main menu resume game button pressed.
@@ -45,6 +64,8 @@ func save_game() -> void:
 		"fullscreen": SettingsManager.is_fullscreen(),
 		"camera smoothing": SettingsManager.camera_smoothing,
 		"speedrun enabled": SettingsManager.speedrun_timer,
+		"double jump": Abilities.double_jump_enabled,
+		"dash": Abilities.dash_enabled,
 	}
 	var serialised_data = JSON.stringify(save_data);
 	var file = FileAccess.open(GAME_SAVE_PATH, FileAccess.WRITE);
@@ -66,15 +87,35 @@ func read_save() -> String:
 	if (parse_error == OK):
 		var save_data = json.data;
 		if (typeof(save_data) == TYPE_DICTIONARY):
-			SettingsManager.set_fullscreen(save_data["fullscreen"])
-			SettingsManager.camera_smoothing = save_data["camera smoothing"];
-			SettingsManager.speedrun_timer = save_data["speedrun enabled"]
-			return save_data["current_level"];
+			if check_dict_validity(SAVE_KEYS, save_data):
+				print("valid")
+				return apply_save(save_data)
+			else:
+				print("partially missing")
+				return apply_save(DEFAULT_SAVE)
 		else:
 			print("save data corrupt.");
 	else:
 		print("Parse error in save file: ", json.get_error_message());
 	return FIRST_LEVEL;
+
+
+## Apply the data from a save file to the game's global scripts
+func apply_save(data: Dictionary) -> String:
+	SettingsManager.set_fullscreen(data["fullscreen"])
+	SettingsManager.camera_smoothing = data["camera smoothing"];
+	Abilities.double_jump_enabled    = data["double jump"];
+	Abilities.dash_enabled           = data["dash"];
+	SettingsManager.speedrun_timer   = data["speedrun enabled"];
+	print(data['current_level'])
+	return data["current_level"];
+
+
+func check_dict_validity(keys: Array, dict: Dictionary) -> bool:
+	for key in keys:
+		if !dict.has(key):
+			return false;
+	return true;
 
 
 ## Load Level
