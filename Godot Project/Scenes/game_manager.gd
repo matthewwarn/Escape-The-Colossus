@@ -75,15 +75,18 @@ func save_game() -> void:
 ## Read previous game state from file.
 ## returns path to current level in save.
 func read_save() -> String:
+	# Try to read the save file
 	var file = FileAccess.open(GAME_SAVE_PATH, FileAccess.READ);
 	# New installations will not have a game save file so we need to load a default one instead.
 	if file == null:
-		file = FileAccess.open(FALLBACK_SAVE, FileAccess.READ);
+		return apply_save(DEFAULT_SAVE);
 	
+	# Parse the save file
 	var serialised_data = file.get_as_text();
 	var json = JSON.new();
 	var parse_error = json.parse(serialised_data);
 	
+	# Check save file validity and apply if correct
 	if (parse_error == OK):
 		var save_data = json.data;
 		if (typeof(save_data) == TYPE_DICTIONARY):
@@ -91,13 +94,14 @@ func read_save() -> String:
 				print("valid")
 				return apply_save(save_data)
 			else:
-				print("partially missing")
-				return apply_save(DEFAULT_SAVE)
+				print("Save file missing attribute");
 		else:
 			print("save data corrupt.");
 	else:
 		print("Parse error in save file: ", json.get_error_message());
-	return FIRST_LEVEL;
+	
+	# Save file is invalid, use the default.
+	return apply_save(DEFAULT_SAVE);
 
 
 ## Apply the data from a save file to the game's global scripts
