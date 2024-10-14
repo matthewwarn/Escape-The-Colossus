@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=4 uid="uid://bq106pqli3x4w"]
+[gd_scene load_steps=26 format=4 uid="uid://bq106pqli3x4w"]
 
 [ext_resource type="PackedScene" uid="uid://djgqihrehhe1h" path="res://Scenes/Levels/template_level.tscn" id="1_txbta"]
 [ext_resource type="Script" path="res://Scenes/Levels/Level One/double_jump_activation.gd" id="2_3b4qy"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://da84ipv4fccu5" path="res://Scenes/Audio/Music/Start and Area 1.ogg" id="2_gk0yu"]
 [ext_resource type="PackedScene" uid="uid://bm7gnelw71e8p" path="res://Scenes/Entities/Moving Platform/Moving floor.tscn" id="3_8m0ej"]
 [ext_resource type="Script" path="res://Scenes/Entities/Moving Platform/moving_floor.gd" id="4_4r76m"]
+[ext_resource type="AudioStream" uid="uid://d0uawj2602v8p" path="res://Scenes/Audio/SFX/powerup.mp3" id="4_m6lbb"]
 [ext_resource type="PackedScene" uid="uid://b4gjkiteju2ea" path="res://Scenes/Entities/RibBug/rib_bug.tscn" id="6_4ne71"]
 [ext_resource type="PackedScene" uid="uid://ddk74kjxma2c1" path="res://Scenes/Entities/Floor Maw/floor_maw.tscn" id="7_0jw5s"]
 [ext_resource type="FontFile" uid="uid://bdc4hvgih0upu" path="res://Scenes/Levels/LevelAssets/DirtyHarold_Font_1_0/DirtyHarold.otf" id="8_g2r0q"]
@@ -21,7 +22,7 @@ normal = Vector2(-1, 0)
 normal = Vector2(1, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pivey"]
-size = Vector2(160, 160)
+size = Vector2(76, 160)
 
 [sub_resource type="Animation" id="Animation_o4lli"]
 length = 0.001
@@ -178,12 +179,18 @@ position = Vector2(-264, 233)
 shape = SubResource("WorldBoundaryShape2D_eqeb7")
 
 [node name="DoubleJumpActivation" type="Area2D" parent="." index="4"]
+position = Vector2(4134, 314)
 collision_mask = 2
 script = ExtResource("2_3b4qy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoubleJumpActivation" index="0"]
-position = Vector2(4150, 320)
 shape = SubResource("RectangleShape2D_pivey")
+
+[node name="PowerupSFX" type="AudioStreamPlayer2D" parent="DoubleJumpActivation" index="1"]
+stream = ExtResource("4_m6lbb")
+volume_db = 13.0
+max_distance = 20000.0
+bus = &"SFX"
 
 [node name="Moving platform" parent="." index="5" instance=ExtResource("3_8m0ej")]
 position = Vector2(2465, 280)
@@ -344,7 +351,7 @@ position = Vector2(-160, 178)
 shape = SubResource("RectangleShape2D_ffjat")
 
 [node name="Player" parent="." index="13"]
-position = Vector2(-226, 255)
+position = Vector2(-229, 255)
 
 [node name="Label" type="Label" parent="Player/Camera2D" index="0"]
 offset_left = 238.0

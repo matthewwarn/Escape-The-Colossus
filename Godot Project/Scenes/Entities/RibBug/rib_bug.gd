@@ -180,6 +180,7 @@ func deal_with_damage():
 			health = health - 1
 			take_damage_cooldown.start()
 			can_take_damage = false
+			$HitSFX.play()
 			print("RibBug health: " + str(health))
 		
 

@@ -78,6 +78,8 @@ func toggle_powerups(powerup: String):
 			print("DOUBLE JUMP DISABLED")
 
 func _physics_process(delta):
+	if Input.is_action_just_pressed("attack"):
+		$AttackSFX.play()
 
 	if health < 1:
 		is_alive = false
@@ -198,6 +200,7 @@ func play_animations():
 func enemy_attack():	
 	if enemy_inattack_range and enemy_attack_cooldown == false:
 		update_hearts(health)
+		$HurtSFX.play();
 		health = health - 1
 		enemy_attack_cooldown = true
 		recieve_damage_cooldown.start()
