@@ -4,6 +4,7 @@ extends CharacterBody2D
 @onready var coyote_timer = $CoyoteTimer
 @onready var recieve_damage_cooldown= $recieve_damage_cooldown
 @onready var deal_damage_timer = $deal_damage_timer
+@onready var attack_hitbox = $attack_hitbox
 
 var full_heart_texture = preload("res://Scenes/Entities/Player/Health/Heart.png")
 var damaged_heart_texture = preload("res://Scenes/Entities/Player/Health/DamagedHeart.png")
@@ -86,6 +87,7 @@ func _physics_process(delta):
 	enemy_attack();
 	attack();
 	player()
+	
 
 	# Storing if the player just left the floor, for Coyote time.
 	var was_on_floor: bool = is_on_floor()
@@ -153,10 +155,12 @@ func _physics_process(delta):
 			animated_sprite.flip_h = false
 			velocity.x = -SPEED
 			facing = -1
+			attack_hitbox.scale.x = 1
 		elif move_right:
 			animated_sprite.flip_h = true
 			velocity.x = SPEED
 			facing = 1
+			attack_hitbox.scale.x = -1
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 
@@ -212,14 +216,16 @@ func _on_recieve_damage_cooldown_timeout():
 func attack():
 	var dir: int = facing
 	
-	if Input.is_action_just_pressed("attack") and enemy_attack_cooldown == false:
+	if Input.is_action_just_pressed("attack"):
 		Global.player_current_attack = true
 		attack_ip = true
 		if dir == 1:
 			animated_sprite.flip_h = true
+			attack_hitbox.scale.x = -1
 			deal_damage_timer.start()
 		if dir == -1:
 			animated_sprite.flip_h = false
+			attack_hitbox.scale.x = 1
 			deal_damage_timer.start()
 	
 

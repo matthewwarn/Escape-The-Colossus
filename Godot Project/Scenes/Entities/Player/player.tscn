@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bffllo437822"]
+[gd_scene load_steps=28 format=3 uid="uid://bffllo437822"]
 
 [ext_resource type="Script" path="res://Scenes/Entities/Player/player.gd" id="1_msad5"]
 [ext_resource type="Texture2D" uid="uid://dmar34rhv6vti" path="res://Scenes/Entities/Player/Health/Heart.png" id="2_8ijun"]
@@ -174,6 +174,9 @@ height = 14.0
 radius = 11.0
 height = 26.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_afjy0"]
+radius = 5.0
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 6
 collision_mask = 3
@@ -211,7 +214,7 @@ sprite_frames = SubResource("SpriteFrames_23yfs")
 animation = &"Attack"
 autoplay = "Idle"
 frame = 4
-frame_progress = 1.0
+frame_progress = 0.582506
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -7)
@@ -227,13 +230,23 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_hitbox"]
+visible = false
 position = Vector2(0, -12)
 shape = SubResource("CapsuleShape2D_f0iub")
 
 [node name="Speedrun Timer" parent="." instance=ExtResource("4_dbof1")]
+
+[node name="attack_hitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attack_hitbox"]
+position = Vector2(-17, -14)
+shape = SubResource("CapsuleShape2D_afjy0")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="timeout" from="recieve_damage_cooldown" to="." method="_on_recieve_damage_cooldown_timeout"]
 [connection signal="timeout" from="deal_damage_timer" to="." method="_on_deal_attack_timer_timeout"]
 [connection signal="body_entered" from="player_hitbox" to="." method="_on_player_hitbox_body_entered"]
 [connection signal="body_exited" from="player_hitbox" to="." method="_on_player_hitbox_body_exited"]
+[connection signal="body_entered" from="attack_hitbox" to="attack_hitbox" method="_on_body_entered"]
