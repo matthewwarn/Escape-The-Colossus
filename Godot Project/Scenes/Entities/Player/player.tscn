@@ -1,11 +1,9 @@
-[gd_scene load_steps=30 format=3 uid="uid://bffllo437822"]
+[gd_scene load_steps=27 format=3 uid="uid://bffllo437822"]
 
 [ext_resource type="Script" path="res://Scenes/Entities/Player/player.gd" id="1_msad5"]
 [ext_resource type="Texture2D" uid="uid://dmar34rhv6vti" path="res://Scenes/Entities/Player/Health/Heart.png" id="2_8ijun"]
-
 [ext_resource type="Texture2D" uid="uid://dsa177m1n5qh2" path="res://Scenes/Entities/Player/player sprites.png" id="3_dw74v"]
-[ext_resource type="PackedScene" uid="uid://b335bqrrgfxa1" path="res://Scenes/speedrun.tscn" id="4_dbof1"]
-
+[ext_resource type="PackedScene" uid="uid://oe1d3avjdk7a" path="res://Scenes/speedrun.tscn" id="4_dbof1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ntkm0"]
 atlas = ExtResource("3_dw74v")
