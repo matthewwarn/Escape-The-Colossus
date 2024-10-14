@@ -19,6 +19,9 @@ var DEFAULT_SAVE: Dictionary = {
 	"double jump": false,
 	"dash": false,
 	"speedrun enabled": false,
+	"speedrun time": 0,
+	"core one defeated": false,
+	"core two defeated": false,
 }
 
 var SAVE_KEYS: Array = [
@@ -27,7 +30,10 @@ var SAVE_KEYS: Array = [
 	'camera smoothing',
 	'double jump',
 	'dash',
-	'speedrun enabled'
+	'speedrun enabled',
+	"speedrun time",
+	"core one defeated",
+	"core two defeated"
 ]
 
 var current_level: Node;
@@ -64,8 +70,11 @@ func save_game() -> void:
 		"fullscreen": SettingsManager.is_fullscreen(),
 		"camera smoothing": SettingsManager.camera_smoothing,
 		"speedrun enabled": SettingsManager.speedrun_timer,
+		"speedrun time": Global.speedrun_time,
 		"double jump": Abilities.double_jump_enabled,
 		"dash": Abilities.dash_enabled,
+		"core one defeated": Global.core_one_defeated,
+		"core two defeated": Global.core_two_defeated,
 	}
 	var serialised_data = JSON.stringify(save_data);
 	var file = FileAccess.open(GAME_SAVE_PATH, FileAccess.WRITE);
@@ -111,6 +120,9 @@ func apply_save(data: Dictionary) -> String:
 	Abilities.double_jump_enabled    = data["double jump"];
 	Abilities.dash_enabled           = data["dash"];
 	SettingsManager.speedrun_timer   = data["speedrun enabled"];
+	Global.speedrun_time             = data["speedrun time"];
+	Global.core_one_defeated         = data["core one defeated"];
+	Global.core_two_defeated         = data["core two defeated"];
 	print(data['current_level'])
 	return data["current_level"];
 
