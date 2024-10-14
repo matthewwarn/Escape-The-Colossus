@@ -1,6 +1,7 @@
 extends Node
 
 var camera_smoothing: bool = true;
+var speedrun_timer: bool = false;
 
 func is_fullscreen() -> bool:
 	return DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN;
