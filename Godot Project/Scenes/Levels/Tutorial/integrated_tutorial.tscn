@@ -251,24 +251,17 @@ shape = SubResource("RectangleShape2D_b80db")
 [node name="EndLocator" parent="." index="11"]
 position = Vector2(3665, -136)
 
-[node name="PowerupOFF2" type="Area2D" parent="." index="12"]
-position = Vector2(3535, -251)
-collision_mask = 2
-script = ExtResource("8_7vndg")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PowerupOFF2" index="0"]
-position = Vector2(63.5, 83.5)
-shape = SubResource("RectangleShape2D_b80db")
-
-[node name="PowerupOFF3" type="Area2D" parent="." index="13"]
+[node name="PowerupOFF3" type="Area2D" parent="." index="12"]
 position = Vector2(598, 25)
 scale = Vector2(0.617033, 1.37683)
 collision_mask = 2
 script = ExtResource("8_7vndg")
 
+[node name="Checkpoint" parent="." index="13" instance=ExtResource("4_cnxiy")]
+position = Vector2(645, 112)
+
 [connection signal="spike_trap_player_died" from="Hazards/SpikeTrap2" to="." method="_on_player_died"]
 [connection signal="spike_trap_player_died" from="Hazards/SpikeTrap" to="." method="_on_player_died"]
 [connection signal="player_died" from="Hazards/FloorMaw" to="." method="_on_player_died"]
 [connection signal="body_entered" from="PowerupOFF" to="PowerupOFF" method="_on_body_entered"]
-[connection signal="body_entered" from="PowerupOFF2" to="PowerupOFF2" method="_on_body_entered"]
 [connection signal="body_entered" from="PowerupOFF3" to="PowerupOFF3" method="_on_body_entered"]

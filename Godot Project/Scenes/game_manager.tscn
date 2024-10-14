@@ -5,6 +5,5 @@
 
 [node name="GameManager" type="Node"]
 script = ExtResource("1_216xr")
-FIRST_LEVEL = "Tutorial/integrated_tutorial.tscn"
 
 [node name="AudioManager" parent="." instance=ExtResource("2_lo7lq")]
