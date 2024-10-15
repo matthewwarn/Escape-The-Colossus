@@ -102,7 +102,7 @@ func _physics_process(delta):
 			player_chase = false
 			position.x += facing * SPEED * delta
 			chase_cooldown.start()
-		#position.x += facing * SPEED * delta
+		position.x += facing * SPEED * delta
 	move_and_slide()
 	# for when the player is in the RibBug's detection area 
 	
@@ -139,10 +139,10 @@ func chase_player(delta):
 	if ray_cast_floor.is_colliding():
 		if ray_cast_wall.is_colliding():
 			jump(delta)
-			velocity.x += direction / (CHASE_SPEED * delta ) #this is for chasing the player
+			position.x += direction / (CHASE_SPEED * delta ) #this is for chasing the player
 	elif ray_cast_floor.is_colliding() == false: #for when there is no floor
 		jump(delta)
-		velocity.x += direction / (CHASE_SPEED * delta ) #this is for chasing the player
+		position.x += direction / (CHASE_SPEED * delta ) #this is for chasing the player
 		
 	position.x += direction / (CHASE_SPEED * delta ) #this is for chasing the player
 	move_and_slide()

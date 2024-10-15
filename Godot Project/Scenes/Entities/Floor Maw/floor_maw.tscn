@@ -186,15 +186,15 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_76kfy"]
-size = Vector2(113, 49.5)
+size = Vector2(115.5, 49.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qtajg"]
-size = Vector2(30, 12)
+size = Vector2(31, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q4elc"]
-size = Vector2(10, 17)
+size = Vector2(11.5, 18.5)
 
-[node name="FloorMaw" type="Node2D"]
+[node name="FloorMaw" type="CharacterBody2D"]
 script = ExtResource("1_mmh5f")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -205,18 +205,9 @@ autoplay = "Unspawned"
 frame_progress = 0.031449
 
 [node name="Proximity Detector" type="Area2D" parent="."]
-visible = false
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Proximity Detector"]
-position = Vector2(0, -52)
-shape = SubResource("RectangleShape2D_76kfy")
-
-[node name="recieve_damage_hit_box" type="Area2D" parent="."]
-visible = false
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="recieve_damage_hit_box"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Proximity Detector"]
 position = Vector2(1.5, -24.25)
 shape = SubResource("RectangleShape2D_76kfy")
 
@@ -233,11 +224,17 @@ shape = SubResource("RectangleShape2D_qtajg")
 position = Vector2(0.5, -22)
 shape = SubResource("RectangleShape2D_q4elc")
 
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(-0.25, -22.75)
+shape = SubResource("RectangleShape2D_q4elc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -6)
+shape = SubResource("RectangleShape2D_qtajg")
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="Proximity Detector" to="." method="_on_proximity_detector_body_entered"]
 [connection signal="body_exited" from="Proximity Detector" to="." method="_on_proximity_detector_body_exited"]
-[connection signal="body_entered" from="recieve_damage_hit_box" to="." method="_on_recieve_damage_hit_box_body_entered"]
-[connection signal="body_exited" from="recieve_damage_hit_box" to="." method="_on_recieve_damage_hit_box_body_exited"]
 [connection signal="timeout" from="Attack_cooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="body_entered" from="deal_damage_hit-box" to="." method="_on_deal_damage_hitbox_body_entered"]
 [connection signal="body_exited" from="deal_damage_hit-box" to="." method="_on_deal_damage_hitbox_body_exited"]
