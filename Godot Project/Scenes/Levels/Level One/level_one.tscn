@@ -153,7 +153,7 @@ _data = {
 "doublejump": SubResource("Animation_y7xk0")
 }
 
-[node name="TemplateLevel" instance=ExtResource("1_txbta")]
+[node name="TemplateLevel2" instance=ExtResource("1_txbta")]
 previous_level = "Hub/hub_level.tscn"
 exit_a = "AcidLevel/acid_level.tscn"
 level_music = ExtResource("2_gk0yu")
