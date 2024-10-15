@@ -28,10 +28,16 @@ var level_music : AudioStream;
 func _ready() -> void:
 	camera.position_smoothing_enabled = SettingsManager.camera_smoothing;
 	camera.position_smoothing_speed = SMOOTHING_SPEED;
-	
+	player.double_jump_toggle = Abilities.double_jump_enabled;
+	player.dash_toggle = Abilities.dash_enabled;
+
 	if Global.checkpoint_position != Vector2(0, 0):
 		print("Spawning at checkpoint: " + str(Global.checkpoint_position))
 		player.global_position = Global.checkpoint_position
+	
+	var killzone_hazards = get_tree().get_nodes_in_group("KillzoneHazard");
+	for hazard in killzone_hazards:
+		hazard.player_died.connect(_on_player_died);
 
 # Connect all killzones to this method.
 func _on_player_died() -> void:
@@ -65,6 +71,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		SettingsManager.toggle_fullscreen();
 	if event.is_action_pressed("pause"):
 		pause_menu_popup.open();
+	if event.is_action_pressed("reset"):
+		level_reset_requested.emit();
 
 # Relay main menu request from pause menu.
 func _on_pause_menu_popup_main_menu_requested() -> void:

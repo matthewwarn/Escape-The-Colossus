@@ -8,7 +8,7 @@
 atlas = ExtResource("1_f6xgt")
 region = Rect2(67, 15, 27, 17)
 
-[node name="SpikeTrap" type="Node2D"]
+[node name="SpikeTrap" type="Node2D" groups=["KillzoneHazard"]]
 script = ExtResource("1_xfwdy")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

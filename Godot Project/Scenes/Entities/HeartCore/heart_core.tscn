@@ -1,0 +1,93 @@
+[gd_scene load_steps=13 format=3 uid="uid://dyp8unn4irhq"]
+
+[ext_resource type="Texture2D" uid="uid://crh4qnkw227o0" path="res://Scenes/Levels/LevelAssets/core_animation.png" id="1_8xgss"]
+[ext_resource type="Script" path="res://Scenes/Entities/HeartCore/heart_core.gd" id="2_0yemp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wd6p5"]
+atlas = ExtResource("1_8xgss")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5kiib"]
+atlas = ExtResource("1_8xgss")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xuepq"]
+atlas = ExtResource("1_8xgss")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fej2a"]
+atlas = ExtResource("1_8xgss")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_87cdn"]
+atlas = ExtResource("1_8xgss")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_56gew"]
+atlas = ExtResource("1_8xgss")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4cp8j"]
+atlas = ExtResource("1_8xgss")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hkk6c"]
+atlas = ExtResource("1_8xgss")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vkoga"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wd6p5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5kiib")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xuepq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fej2a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_87cdn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_56gew")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4cp8j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hkk6c")
+}],
+"loop": true,
+"name": &"pulse",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eb3y5"]
+size = Vector2(100, 66)
+
+[node name="HeartCore" type="AnimatedSprite2D"]
+texture_filter = 1
+position = Vector2(0, -32)
+sprite_frames = SubResource("SpriteFrames_vkoga")
+animation = &"pulse"
+autoplay = "pulse"
+frame_progress = 0.843793
+script = ExtResource("2_0yemp")
+
+[node name="PlayerDetectionZone" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionZone"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_eb3y5")
+
+[node name="ImmunityTime" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="PlayerDetectionZone" to="." method="_on_player_detection_zone_body_entered"]
+[connection signal="body_exited" from="PlayerDetectionZone" to="." method="_on_player_detection_zone_body_exited"]

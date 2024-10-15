@@ -4,12 +4,14 @@ extends CharacterBody2D
 @onready var coyote_timer = $CoyoteTimer
 @onready var recieve_damage_cooldown= $recieve_damage_cooldown
 @onready var deal_damage_timer = $deal_damage_timer
+@onready var speedrun_timer: CanvasLayer = $"Speedrun Timer"
 
 var full_heart_texture = preload("res://Scenes/Entities/Player/Health/Heart.png")
 var damaged_heart_texture = preload("res://Scenes/Entities/Player/Health/DamagedHeart.png")
 var empty_heart_texture = preload("res://Scenes/Entities/Player/Health/EmptyHeart.png")
 
 signal player_died;
+signal attack_made;
 
 const SPEED: float            = 160.0
 const JUMP_VELOCITY: float    = -300.0
@@ -23,11 +25,13 @@ var facing: int = 1
 
 var jump: bool = false
 var double_jump_available: bool = false
+## Whether or not the player has unlocked this ability
 var double_jump_toggle: bool = true
 var jump_buffer: bool = false
 
 var is_dashing: bool = false
 var is_dash_cooling_down: bool = false
+## Whether or not the player has unlocked this ability
 var dash_toggle: bool = true;
 var dash_timer: float          = 0.0
 var dash_cooldown_timer: float = 0.0
@@ -78,6 +82,7 @@ func toggle_powerups(powerup: String):
 			print("DOUBLE JUMP DISABLED")
 
 func _physics_process(delta):
+
 	if Input.is_action_just_pressed("attack"):
 		$AttackSFX.play()
 
@@ -87,7 +92,8 @@ func _physics_process(delta):
 	play_animations()
 	enemy_attack();
 	attack();
-	player()
+	player();
+	update_speedrun_timer();
 
 	# Storing if the player just left the floor, for Coyote time.
 	var was_on_floor: bool = is_on_floor()
@@ -173,8 +179,11 @@ func _physics_process(delta):
 	# Start Coyote Timer if just walked off floor.
 	if was_on_floor and not is_on_floor():
 		coyote_timer.start()
-		
-	
+
+
+func update_speedrun_timer():
+	speedrun_timer.visible = SettingsManager.speedrun_timer;
+
 
 func on_jump_buffer_timeout()->void:
 	jump_buffer = false
@@ -215,6 +224,7 @@ func attack():
 	var dir: int = facing
 	
 	if Input.is_action_just_pressed("attack") and enemy_attack_cooldown == true:
+		emit_signal("attack_made")
 		Global.player_current_attack = true
 		attack_ip = true
 		if dir == 1:
