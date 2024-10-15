@@ -106,6 +106,7 @@ normal = Vector2(1, 0)
 
 [node name="TemplateLevel" type="Node2D"]
 script = ExtResource("1_0labh")
+previous_level = "Level Two/level_two.tscn"
 
 [node name="GoreBackground" parent="." instance=ExtResource("1_w5whi")]
 
