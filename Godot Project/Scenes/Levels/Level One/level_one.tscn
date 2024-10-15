@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://bq106pqli3x4w"]
+[gd_scene load_steps=25 format=4 uid="uid://bq106pqli3x4w"]
 
 [ext_resource type="PackedScene" uid="uid://djgqihrehhe1h" path="res://Scenes/Levels/template_level.tscn" id="1_txbta"]
 [ext_resource type="Script" path="res://Scenes/Levels/Level One/double_jump_activation.gd" id="2_3b4qy"]
@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://b4gjkiteju2ea" path="res://Scenes/Entities/RibBug/rib_bug.tscn" id="6_4ne71"]
 [ext_resource type="PackedScene" uid="uid://ddk74kjxma2c1" path="res://Scenes/Entities/Floor Maw/floor_maw.tscn" id="7_0jw5s"]
 [ext_resource type="FontFile" uid="uid://bdc4hvgih0upu" path="res://Scenes/Levels/LevelAssets/DirtyHarold_Font_1_0/DirtyHarold.otf" id="8_g2r0q"]
-[ext_resource type="Script" path="res://Scenes/Levels/Level One/powerup_turn_off.gd" id="10_47w8u"]
 [ext_resource type="Script" path="res://Scenes/Levels/Level One/animation_player.gd" id="12_745bn"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_qd6oi"]
@@ -64,9 +63,6 @@ _data = {
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xcf1b"]
 normal = Vector2(-0.999938, 0.0111104)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ffjat"]
-size = Vector2(322, 176)
-
 [sub_resource type="Animation" id="Animation_agmeo"]
 length = 0.001
 tracks/0/type = "value"
@@ -105,19 +101,6 @@ _data = {
 }
 
 [sub_resource type="Animation" id="Animation_mb78d"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1172, 132)]
-}
 
 [sub_resource type="Animation" id="Animation_qlhqu"]
 resource_name = "double jump unlock appear"
@@ -141,7 +124,7 @@ _data = {
 "double jump unlock appear": SubResource("Animation_qlhqu")
 }
 
-[node name="TemplateLevel" instance=ExtResource("1_txbta")]
+[node name="TemplateLevel2" instance=ExtResource("1_txbta")]
 previous_level = "Hub/hub_level.tscn"
 exit_a = "AcidLevel/acid_level.tscn"
 level_music = ExtResource("2_gk0yu")
@@ -319,21 +302,13 @@ rotation = 3.14159
 [node name="TileMapLayer" parent="." index="11"]
 visible = false
 
-[node name="PowerupOFF" type="Area2D" parent="." index="12"]
-collision_mask = 2
-script = ExtResource("10_47w8u")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PowerupOFF" index="0"]
-position = Vector2(-160, 178)
-shape = SubResource("RectangleShape2D_ffjat")
-
-[node name="Player" parent="." index="13"]
+[node name="Player" parent="." index="12"]
 position = Vector2(-226, 255)
 
-[node name="EndLocator" parent="." index="14"]
+[node name="EndLocator" parent="." index="13"]
 position = Vector2(4660, 349)
 
-[node name="CanvasGroup" type="CanvasLayer" parent="." index="15"]
+[node name="CanvasGroup" type="CanvasLayer" parent="." index="14"]
 
 [node name="level one" type="Label" parent="CanvasGroup" index="0"]
 offset_left = 430.0
@@ -372,14 +347,3 @@ libraries = {
 }
 
 [connection signal="body_entered" from="DoubleJumpActivation" to="DoubleJumpActivation" method="_on_body_entered"]
-[connection signal="player_died" from="Enemies and Obstacles/FloorMaws/FloorMaw11" to="." method="_on_player_died"]
-[connection signal="player_died" from="Enemies and Obstacles/FloorMaws/FloorMaw12" to="." method="_on_player_died"]
-[connection signal="player_died" from="Enemies and Obstacles/FloorMaws/FloorMaw13" to="." method="_on_player_died"]
-[connection signal="player_died" from="Enemies and Obstacles/FloorMaws/FloorMaw14" to="." method="_on_player_died"]
-[connection signal="player_died" from="Enemies and Obstacles/FloorMaws/FloorMaw15" to="." method="_on_player_died"]
-[connection signal="player_died" from="Enemies and Obstacles/FloorMaws/FloorMaw16" to="." method="_on_player_died"]
-[connection signal="player_died" from="Enemies and Obstacles/FloorMaws/FloorMaw4" to="." method="_on_player_died"]
-[connection signal="player_died" from="Enemies and Obstacles/FloorMaws/FloorMaw5" to="." method="_on_player_died"]
-[connection signal="player_died" from="Enemies and Obstacles/FloorMaws/FloorMaw6" to="." method="_on_player_died"]
-[connection signal="player_died" from="Enemies and Obstacles/FloorMaws/FloorMaw9" to="." method="_on_player_died"]
-[connection signal="body_entered" from="PowerupOFF" to="PowerupOFF" method="_on_body_entered"]

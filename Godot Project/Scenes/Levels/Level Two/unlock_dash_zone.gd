@@ -6,6 +6,6 @@ extends Area2D
 
 
 func _on_body_entered(_body):
-	print("You just entered.")
 	animation.play("dash unlock appear")
 	animation2.play("press z appear")
+	Abilities.dash_enabled = true;

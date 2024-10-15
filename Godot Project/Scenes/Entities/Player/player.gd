@@ -4,12 +4,15 @@ extends CharacterBody2D
 @onready var coyote_timer = $CoyoteTimer
 @onready var recieve_damage_cooldown= $recieve_damage_cooldown
 @onready var deal_damage_timer = $deal_damage_timer
+@onready var attack_hitbox = $attack_hitbox
+@onready var speedrun_timer: CanvasLayer = $"Speedrun Timer"
 
 var full_heart_texture = preload("res://Scenes/Entities/Player/Health/Heart.png")
 var damaged_heart_texture = preload("res://Scenes/Entities/Player/Health/DamagedHeart.png")
 var empty_heart_texture = preload("res://Scenes/Entities/Player/Health/EmptyHeart.png")
 
 signal player_died;
+signal attack_made;
 
 const SPEED: float            = 160.0
 const JUMP_VELOCITY: float    = -300.0
@@ -23,11 +26,13 @@ var facing: int = 1
 
 var jump: bool = false
 var double_jump_available: bool = false
+## Whether or not the player has unlocked this ability
 var double_jump_toggle: bool = true
 var jump_buffer: bool = false
 
 var is_dashing: bool = false
 var is_dash_cooling_down: bool = false
+## Whether or not the player has unlocked this ability
 var dash_toggle: bool = true;
 var dash_timer: float          = 0.0
 var dash_cooldown_timer: float = 0.0
@@ -78,14 +83,14 @@ func toggle_powerups(powerup: String):
 			print("DOUBLE JUMP DISABLED")
 
 func _physics_process(delta):
-
 	if health < 1:
 		is_alive = false
 		
 	play_animations()
 	enemy_attack();
 	attack();
-	player()
+	player();
+	update_speedrun_timer();
 
 	# Storing if the player just left the floor, for Coyote time.
 	var was_on_floor: bool = is_on_floor()
@@ -153,10 +158,12 @@ func _physics_process(delta):
 			animated_sprite.flip_h = false
 			velocity.x = -SPEED
 			facing = -1
+			attack_hitbox.scale.x = 1
 		elif move_right:
 			animated_sprite.flip_h = true
 			velocity.x = SPEED
 			facing = 1
+			attack_hitbox.scale.x = -1
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 
@@ -171,8 +178,11 @@ func _physics_process(delta):
 	# Start Coyote Timer if just walked off floor.
 	if was_on_floor and not is_on_floor():
 		coyote_timer.start()
-		
-	
+
+
+func update_speedrun_timer():
+	speedrun_timer.visible = SettingsManager.speedrun_timer;
+
 
 func on_jump_buffer_timeout()->void:
 	jump_buffer = false
@@ -207,22 +217,29 @@ func enemy_attack():
 #immunity cooldown
 func _on_recieve_damage_cooldown_timeout():
 	enemy_attack_cooldown = false
+	recieve_damage_cooldown.stop()
 
 func attack():
 	var dir: int = facing
 	
+
 	if Input.is_action_just_pressed("attack") and enemy_attack_cooldown == true:
+		emit_signal("attack_made")
+
 		Global.player_current_attack = true
 		attack_ip = true
 		if dir == 1:
 			animated_sprite.flip_h = true
+			attack_hitbox.scale.x = -1
 			deal_damage_timer.start()
 		if dir == -1:
 			animated_sprite.flip_h = false
+			attack_hitbox.scale.x = 1
 			deal_damage_timer.start()
 	
 
 # Takes the health the player had right BEFORE getting hit
+@warning_ignore("shadowed_variable")
 func update_hearts(health):
 	match health:
 		1:
@@ -242,10 +259,16 @@ func _on_player_hitbox_body_entered(body):
 	if body.has_method("enemy"):
 		enemy_inattack_range = true 
 		enemy_attack_cooldown = false
+	elif body.has_method("floormaw_enemy"):
+		enemy_inattack_range = true
+		enemy_attack_cooldown = false
 
 #enemy left area where player can attack and recieve damage
 func _on_player_hitbox_body_exited(body):
 	if body.has_method("enemy"):
+		enemy_inattack_range = false
+		enemy_attack_cooldown = true
+	elif body.has_method("floormaw_enemy"):
 		enemy_inattack_range = false
 		enemy_attack_cooldown = true
 
