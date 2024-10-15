@@ -211,7 +211,7 @@ _data = {
 
 [node name="TemplateLevel" instance=ExtResource("1_7v2t2")]
 previous_level = "Hub/hub_level.tscn"
-exit_a = "Level Three/level three.tscn"
+exit_a = "Level Three/_level_three.tscn"
 level_music = ExtResource("2_itaki")
 
 [node name="Killzone" parent="." index="1"]
