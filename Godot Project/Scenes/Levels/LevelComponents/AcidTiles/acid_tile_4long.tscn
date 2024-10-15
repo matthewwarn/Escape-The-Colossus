@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scenes/Levels/LevelComponents/AcidTiles/acid_tile_4_long.gd" id="1_ywyph"]
 [ext_resource type="PackedScene" uid="uid://d0i1p2gbb4mbj" path="res://Scenes/Levels/LevelComponents/AcidTiles/acid_tile.tscn" id="2_nls0u"]
 
-[node name="AcidTile4Long" type="Node2D"]
+[node name="AcidTile4Long" type="Node2D" groups=["KillzoneHazard"]]
 script = ExtResource("1_ywyph")
 
 [node name="AcidTile4" parent="." instance=ExtResource("2_nls0u")]
