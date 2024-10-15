@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=4 uid="uid://dg0inc6rsa7g2"]
+[gd_scene load_steps=8 format=4 uid="uid://dg0inc6rsa7g2"]
 
 [ext_resource type="PackedScene" uid="uid://djgqihrehhe1h" path="res://Scenes/Levels/template_level.tscn" id="1_w8r22"]
 [ext_resource type="AudioStream" uid="uid://da84ipv4fccu5" path="res://Scenes/Audio/Music/Start and Area 1.ogg" id="2_hrdhi"]
+[ext_resource type="PackedScene" uid="uid://ccb205jld20es" path="res://Scenes/Levels/LevelComponents/Barrier.tscn" id="3_shbf4"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_j7r1s"]
 
@@ -52,3 +53,6 @@ tile_map_data = PackedByteArray("AAAAAAAAAAABAAMAAAABAAAAAAABAAMAAAACAAAAAAABAAM
 
 [node name="EndLocator" parent="." index="8"]
 position = Vector2(539, -225)
+
+[node name="Barrier" parent="." index="9" instance=ExtResource("3_shbf4")]
+position = Vector2(-88, -240)

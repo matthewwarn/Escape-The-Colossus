@@ -259,6 +259,7 @@ scale = Vector2(0.617033, 1.37683)
 collision_mask = 2
 script = ExtResource("8_7vndg")
 
+
 [node name="Checkpoint" parent="." index="13" instance=ExtResource("4_cnxiy")]
 position = Vector2(645, 112)
 collision_layer = 4
@@ -267,4 +268,8 @@ collision_mask = 4
 [connection signal="spike_trap_player_died" from="Hazards/SpikeTrap2" to="." method="_on_player_died"]
 [connection signal="spike_trap_player_died" from="Hazards/SpikeTrap" to="." method="_on_player_died"]
 [connection signal="body_entered" from="PowerupOFF2" to="PowerupOFF2" method="_on_body_entered"]
+
+[connection signal="player_died" from="Hazards/FloorMaw" to="." method="_on_player_died"]
+[connection signal="body_entered" from="PowerupOFF" to="PowerupOFF" method="_on_body_entered"]
+
 [connection signal="body_entered" from="PowerupOFF3" to="PowerupOFF3" method="_on_body_entered"]
