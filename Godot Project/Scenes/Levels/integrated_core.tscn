@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://d2be2xo822iaj"]
+[gd_scene load_steps=15 format=4 uid="uid://d2be2xo822iaj"]
 
 [ext_resource type="PackedScene" uid="uid://djgqihrehhe1h" path="res://Scenes/Levels/template_level.tscn" id="1_tjl8h"]
 [ext_resource type="AudioStream" uid="uid://dyfnr5yu66yck" path="res://Scenes/Audio/Music/Miniboss.mp3" id="2_e3kep"]
@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://dmdvwelqe4h1u" path="res://Scenes/Entities/Spike Trap/spike_trap.tscn" id="5_3xakp"]
 [ext_resource type="PackedScene" uid="uid://dyp8unn4irhq" path="res://Scenes/Entities/HeartCore/heart_core.tscn" id="7_bcxry"]
 [ext_resource type="PackedScene" uid="uid://ccb205jld20es" path="res://Scenes/Levels/LevelComponents/Barrier.tscn" id="8_0yblf"]
+[ext_resource type="AudioStream" uid="uid://cktnlskwl3eak" path="res://Scenes/Audio/SFX/blood.mp3" id="8_lqmxw"]
+[ext_resource type="AudioStream" uid="uid://brsystwbq7bs0" path="res://Scenes/Audio/SFX/roar.wav" id="9_cpt1s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v1qaj"]
 size = Vector2(59, 15)
@@ -147,8 +149,16 @@ rotation = 3.14159
 [node name="HeartCore" parent="." index="10" instance=ExtResource("7_bcxry")]
 position = Vector2(74, -992)
 
+[node name="BloodSFX" type="AudioStreamPlayer2D" parent="HeartCore" index="2"]
+stream = ExtResource("8_lqmxw")
+bus = &"SFX"
+
+[node name="RoarSFX" type="AudioStreamPlayer2D" parent="HeartCore" index="3"]
+stream = ExtResource("9_cpt1s")
+bus = &"SFX"
+
 [node name="Player" parent="." index="11"]
-position = Vector2(329, 285)
+position = Vector2(38, -989)
 
 [node name="Barrier" parent="." index="12" instance=ExtResource("8_0yblf")]
 position = Vector2(-68, -992)

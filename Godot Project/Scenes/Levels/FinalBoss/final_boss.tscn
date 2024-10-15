@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://dxmst7n0dwkc"]
+[gd_scene load_steps=31 format=4 uid="uid://dxmst7n0dwkc"]
 
 [ext_resource type="PackedScene" uid="uid://djgqihrehhe1h" path="res://Scenes/Levels/template_level.tscn" id="1_so76t"]
 [ext_resource type="AudioStream" uid="uid://dyfnr5yu66yck" path="res://Scenes/Audio/Music/Miniboss.mp3" id="2_17g4g"]
@@ -11,8 +11,12 @@
 [ext_resource type="Texture2D" uid="uid://crh4qnkw227o0" path="res://Scenes/Levels/LevelAssets/core_animation.png" id="6_w07g6"]
 [ext_resource type="PackedScene" uid="uid://b4gjkiteju2ea" path="res://Scenes/Entities/RibBug/rib_bug.tscn" id="7_f2j0w"]
 [ext_resource type="Script" path="res://Scenes/Levels/FinalBoss/heart_destruction.gd" id="7_iml7i"]
+[ext_resource type="AudioStream" uid="uid://ccjxmn0m6tg3e" path="res://Scenes/Audio/SFX/acid.mp3" id="7_ujvkm"]
+[ext_resource type="AudioStream" uid="uid://dpuax8c55c738" path="res://Scenes/Audio/Music/Acid Chase.ogg" id="8_83inj"]
 [ext_resource type="PackedScene" uid="uid://dmdvwelqe4h1u" path="res://Scenes/Entities/Spike Trap/spike_trap.tscn" id="8_olybp"]
+[ext_resource type="AudioStream" uid="uid://cktnlskwl3eak" path="res://Scenes/Audio/SFX/blood.mp3" id="11_k8rvt"]
 [ext_resource type="Script" path="res://scripts/checkpoint.gd" id="12_awbk7"]
+[ext_resource type="AudioStream" uid="uid://brsystwbq7bs0" path="res://Scenes/Audio/SFX/roar.wav" id="12_rdx88"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_so8ak"]
 size = Vector2(449, 105)
@@ -89,7 +93,6 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_atuvm"]
 
 [node name="TemplateLevel" instance=ExtResource("1_so76t")]
-level_music = ExtResource("2_17g4g")
 
 [node name="Checkpoint" type="Area2D" parent="." index="1"]
 script = ExtResource("12_awbk7")
@@ -212,6 +215,28 @@ position = Vector2(752, -1672)
 position = Vector2(143.875, 6518.5)
 scale = Vector2(128.017, 1091.27)
 texture = ExtResource("4_44cby")
+
+[node name="AcidSFX" type="AudioStreamPlayer2D" parent="Rising Acid" index="31"]
+position = Vector2(133, -1645)
+stream = ExtResource("7_ujvkm")
+volume_db = 6.5
+attenuation = 0.5
+panning_strength = 0.0
+bus = &"SFX"
+
+[node name="Song1Player" type="AudioStreamPlayer2D" parent="Rising Acid" index="32"]
+stream = ExtResource("2_17g4g")
+max_distance = 1e+09
+attenuation = 1e-05
+panning_strength = 0.0
+bus = &"Music"
+
+[node name="Song2Player" type="AudioStreamPlayer2D" parent="Rising Acid" index="33"]
+stream = ExtResource("8_83inj")
+max_distance = 1e+10
+attenuation = 1e-05
+panning_strength = 0.0
+bus = &"Music"
 
 [node name="Waterfall" type="Node2D" parent="." index="9"]
 
@@ -340,6 +365,14 @@ script = ExtResource("7_iml7i")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HeartCore/Area2D" index="0"]
 shape = SubResource("RectangleShape2D_atuvm")
+
+[node name="BloodSFX" type="AudioStreamPlayer2D" parent="HeartCore/Area2D" index="1"]
+stream = ExtResource("11_k8rvt")
+bus = &"SFX"
+
+[node name="RoarSFX" type="AudioStreamPlayer2D" parent="HeartCore/Area2D" index="2"]
+stream = ExtResource("12_rdx88")
+bus = &"SFX"
 
 [node name="Acid Pond" type="Node2D" parent="." index="11"]
 

@@ -7,16 +7,19 @@ var acid_active = false;
 
 func _ready():
 	position.x = 5000
+	$Song1Player.play()
 
 func _process(delta):
 	if acid_active:
 		rise_acid(delta)
 
 func _on_area_2d_heart_destroyed_signal():
-	#play monster roar sfx
-	#destroy tunnel blockage
-	#enable acid
-	#play escape music
+	#Switch Song
+	$Song1Player.stop()
+	$Song2Player.play()
+	
+	$AcidSFX.play()
+	
 	acid_active = true;
 
 func rise_acid(delta):

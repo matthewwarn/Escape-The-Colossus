@@ -1,9 +1,13 @@
-[gd_scene load_steps=27 format=3 uid="uid://bffllo437822"]
+[gd_scene load_steps=31 format=3 uid="uid://bffllo437822"]
 
 [ext_resource type="Script" path="res://Scenes/Entities/Player/player.gd" id="1_msad5"]
 [ext_resource type="Texture2D" uid="uid://dmar34rhv6vti" path="res://Scenes/Entities/Player/Health/Heart.png" id="2_8ijun"]
 [ext_resource type="Texture2D" uid="uid://dsa177m1n5qh2" path="res://Scenes/Entities/Player/player sprites.png" id="3_dw74v"]
 [ext_resource type="PackedScene" uid="uid://oe1d3avjdk7a" path="res://Scenes/speedrun.tscn" id="4_dbof1"]
+[ext_resource type="AudioStream" uid="uid://djwr070l6wklr" path="res://Scenes/Audio/SFX/jump.wav" id="5_g1mad"]
+[ext_resource type="AudioStream" uid="uid://duv2lhqxfimi3" path="res://Scenes/Audio/SFX/hurt.wav" id="6_3542x"]
+[ext_resource type="AudioStream" uid="uid://bqq4darhkg5tk" path="res://Scenes/Audio/SFX/attack.wav" id="7_saf7l"]
+[ext_resource type="AudioStream" uid="uid://dlh2c82n7h0wd" path="res://Scenes/Audio/SFX/dash.wav" id="8_dqfvd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ntkm0"]
 atlas = ExtResource("3_dw74v")
@@ -230,6 +234,22 @@ position = Vector2(0, -12)
 shape = SubResource("CapsuleShape2D_f0iub")
 
 [node name="Speedrun Timer" parent="." instance=ExtResource("4_dbof1")]
+
+[node name="JumpSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_g1mad")
+bus = &"SFX"
+
+[node name="HurtSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_3542x")
+bus = &"SFX"
+
+[node name="AttackSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_saf7l")
+bus = &"SFX"
+
+[node name="DashSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_dqfvd")
+bus = &"SFX"
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="timeout" from="recieve_damage_cooldown" to="." method="_on_attack_cooldown_timeout"]
