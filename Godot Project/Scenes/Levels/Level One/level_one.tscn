@@ -355,9 +355,9 @@ script = ExtResource("12_745bn")
 
 [node name="double jump unlock" type="Label" parent="CanvasGroup" index="1"]
 offset_left = 1172.0
-offset_top = 146.0
+offset_top = 132.0
 offset_right = 3073.0
-offset_bottom = 432.0
+offset_bottom = 418.0
 scale = Vector2(0.231725, 0.231366)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("8_g2r0q")
