@@ -259,10 +259,16 @@ func _on_player_hitbox_body_entered(body):
 	if body.has_method("enemy"):
 		enemy_inattack_range = true 
 		enemy_attack_cooldown = false
+	elif body.has_method("floormaw_enemy"):
+		enemy_inattack_range = true
+		enemy_attack_cooldown = false
 
 #enemy left area where player can attack and recieve damage
 func _on_player_hitbox_body_exited(body):
 	if body.has_method("enemy"):
+		enemy_inattack_range = false
+		enemy_attack_cooldown = true
+	elif body.has_method("floormaw_enemy"):
 		enemy_inattack_range = false
 		enemy_attack_cooldown = true
 

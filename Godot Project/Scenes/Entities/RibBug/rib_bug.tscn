@@ -145,9 +145,9 @@ animations = [{
 "duration": 2.0,
 "texture": SubResource("AtlasTexture_rgiki")
 }],
-"loop": false,
+"loop": true,
 "name": &"Attack",
-"speed": 6.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -273,10 +273,11 @@ script = ExtResource("1_g8m6j")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -10)
 sprite_frames = SubResource("SpriteFrames_hhuaa")
-animation = &"Death "
+animation = &"Attack"
 autoplay = "Spawn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-2, 1)
 rotation = 1.55683
 shape = SubResource("CapsuleShape2D_4ovni")
@@ -291,6 +292,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_0unf1")
 
 [node name="recieve_damage_hit_box" type="Area2D" parent="."]
+visible = false
 collision_layer = 2
 collision_mask = 2
 
@@ -300,8 +302,10 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_nn26i")
 
 [node name="deal_damage_hit_box" type="Area2D" parent="."]
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="deal_damage_hit_box"]
+visible = false
 position = Vector2(0, -2)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_71dyf")

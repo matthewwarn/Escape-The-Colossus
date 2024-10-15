@@ -1,11 +1,9 @@
 [gd_scene load_steps=28 format=3 uid="uid://bffllo437822"]
 
-
 [ext_resource type="Script" path="res://Scenes/Entities/Player/player.gd" id="1_msad5"]
 [ext_resource type="Texture2D" uid="uid://dmar34rhv6vti" path="res://Scenes/Entities/Player/Health/Heart.png" id="2_8ijun"]
 [ext_resource type="Texture2D" uid="uid://dsa177m1n5qh2" path="res://Scenes/Entities/Player/player sprites.png" id="3_dw74v"]
 [ext_resource type="PackedScene" uid="uid://oe1d3avjdk7a" path="res://Scenes/speedrun.tscn" id="4_dbof1"]
-
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ntkm0"]
 atlas = ExtResource("3_dw74v")
@@ -223,16 +221,17 @@ position = Vector2(0, -7)
 shape = SubResource("CapsuleShape2D_1uc2o")
 
 [node name="recieve_damage_cooldown" type="Timer" parent="."]
+one_shot = true
 
 [node name="deal_damage_timer" type="Timer" parent="."]
 wait_time = 0.4
+one_shot = true
 
 [node name="player_hitbox" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_hitbox"]
-visible = false
 position = Vector2(0, -12)
 shape = SubResource("CapsuleShape2D_f0iub")
 
@@ -251,4 +250,3 @@ shape = SubResource("CapsuleShape2D_afjy0")
 [connection signal="timeout" from="deal_damage_timer" to="." method="_on_deal_attack_timer_timeout"]
 [connection signal="body_entered" from="player_hitbox" to="." method="_on_player_hitbox_body_entered"]
 [connection signal="body_exited" from="player_hitbox" to="." method="_on_player_hitbox_body_exited"]
-[connection signal="body_entered" from="attack_hitbox" to="attack_hitbox" method="_on_body_entered"]

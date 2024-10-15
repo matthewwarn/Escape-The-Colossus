@@ -32,7 +32,6 @@ var can_chase: bool = true               #tracks if enemy can chase player
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _physics_process(delta):
-	#print(can_chase)
 	play_animation()
 	deal_with_damage()
 	attack()
@@ -68,7 +67,6 @@ func _physics_process(delta):
 			ray_cast_jump.position.x = 16
 			
 		if ray_cast_wall.is_colliding():
-			print("wall")
 			if (facing) < 0:
 				animated_sprite.flip_h = true
 				facing = 1
@@ -150,16 +148,15 @@ func chase_player(delta):
 
 #this function is how the ribbug attacks 
 func attack():
-	var dir = facing
 	if player_in_attack_zone and can_attack:
 		attack_ip = true
-		if dir == 1:
+		if facing == 1:
 			animated_sprite.flip_h = true
 			animated_sprite.play("Attack")
 			attack_cooldown.start()
 			attack_ip = false
 			can_attack = false
-		if dir == -1:
+		if facing == -1:
 			animated_sprite.flip_h = false
 			animated_sprite.play("Attack")
 			attack_cooldown.start()
@@ -182,7 +179,6 @@ func jump(delta):
 		velocity.y += JUMP_VELOCITY
 		velocity.x += direction / (CHASE_SPEED * delta ) #this is for chasing the player
 		is_jumping = true
-		print("jump", velocity.y, " p: ", position.x)
 
 
 #this is used by player to check if it is an enemy 
@@ -194,7 +190,6 @@ func enemy():
 func _on_detection_body_entered(body):
 	if body.has_method("player"):
 		player = body
-		#print(can_chase)
 		if can_chase == true:
 			player_chase = true
 
