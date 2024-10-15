@@ -6,6 +6,7 @@ const MAIN_MENU: String      = "Scenes/Menus/main_menu.tscn";
 const SETTINGS_MENU: String  = "Scenes/Menus/settings_menu.tscn";
 
 @onready var audio_manager = $AudioManager
+@onready var screen_overlay: CanvasLayer = $ScreenOverlay
 
 ## Path to first level of the game. Relative to LEVEL_ROOT_DIR
 var FIRST_LEVEL: String = "Tutorial/integrated_tutorial.tscn";
@@ -131,7 +132,7 @@ func load_level(level_path: String, jump_to_end: bool = false) -> void:
 
 ## Load a scene and connect all its signals
 func _load_level_deferred(level_path: String, jump_to_end: bool = false) -> void:
-	## Needed as when this is called in _ready there is no loaded level.
+	# Needed as when this is called in _ready there is no loaded level.
 	if (current_level != null):
 		remove_child(current_level);
 		current_level.call_deferred("free");
@@ -166,6 +167,11 @@ func _load_level_deferred(level_path: String, jump_to_end: bool = false) -> void
 			current_level.jump_to_end();
 	
 
-# Reload current level on player death.
+## Reload current level on player death.
 func reload_level() -> void:
+	# Fade the screen to black
+	screen_overlay.auto_fade();
+	# Wait until the screen is black before unloading the level.
+	# This masks the brief freeze when reloading the level.
+	await screen_overlay.fade_complete;
 	load_level(current_level_path);
