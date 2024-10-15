@@ -6,10 +6,6 @@ extends Area2D
 
 func _on_body_entered(body: Node2D) -> void:
 	print("double jump on")
-
 	PowerupSFX.play()
-
-	Abilities.double_jump_enabled = true;
-
 	player.double_jump_toggle = true;
 	animation_player.play("doublejump");
