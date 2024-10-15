@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://4krpsc4cin1j" path="res://Scenes/Entities/EntityAssets/Ribbug Sheet.png" id="1_a34pl"]
 [ext_resource type="Script" path="res://Scenes/Entities/RibBug/rib_bug.gd" id="1_g8m6j"]
+[ext_resource type="AudioStream" uid="uid://rxql8fylrjc0" path="res://Scenes/Audio/SFX/hit.wav" id="3_guq6j"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0x5qi"]
 atlas = ExtResource("1_a34pl")
@@ -344,6 +345,10 @@ collide_with_bodies = false
 position = Vector2(-13, -1)
 target_position = Vector2(0, 7)
 collide_with_areas = true
+
+[node name="HitSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_guq6j")
+bus = &"SFX"
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="detection" to="." method="_on_detection_body_entered"]

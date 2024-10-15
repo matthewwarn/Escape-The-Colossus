@@ -5,7 +5,7 @@ signal defeated;
 @onready var immunity_time: Timer = $ImmunityTime
 
 var player_in_range: bool = false;
-var health: int = 1;
+var health: int = 3;
 
 func _on_player_detection_zone_body_entered(body: Node2D) -> void:
 	if body.has_method("player"):
@@ -21,6 +21,7 @@ func _on_player_detection_zone_body_exited(body: Node2D) -> void:
 func _process(_delta: float) -> void:
 	if Global.player_current_attack && player_in_range && immunity_time.is_stopped():
 		immunity_time.start()
+		$BloodSFX.play()
 		health -= 1;
 	if health <= 0:
 		kill_self();
@@ -28,6 +29,7 @@ func _process(_delta: float) -> void:
 
 func kill_self():
 	defeated.emit();
+	$RoarSFX.play()
 	Global.core_one_defeated = true;
 	print("Core defeated");
 	self.queue_free();

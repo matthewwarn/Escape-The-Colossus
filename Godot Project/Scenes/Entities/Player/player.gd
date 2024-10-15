@@ -123,11 +123,13 @@ func _physics_process(delta):
 		# If on floor, do normal jump
 		if is_on_floor() || !coyote_timer.is_stopped():
 			velocity.y = JUMP_VELOCITY
+			$JumpSFX.play()
 			
 		# If not on floor, use double jump
 		elif double_jump_toggle and double_jump_available:
 			velocity.y = JUMP_VELOCITY
 			double_jump_available = false
+			$JumpSFX.play()
 			
 		# If neither jump available, start jump buffer timer
 		else:
@@ -142,6 +144,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("dash") && dash_toggle && not is_dashing && not is_dash_cooling_down:
 		is_dashing = true
 		dash_timer = DASH_DURATION
+		$DashSFX.play()
 		
 	if is_dashing:
 		velocity.x = DASH_VELOCITY * facing
@@ -208,6 +211,7 @@ func play_animations():
 func enemy_attack():	
 	if enemy_inattack_range and enemy_attack_cooldown == false:
 		update_hearts(health)
+		$HurtSFX.play()
 		health = health - 1
 		enemy_attack_cooldown = true
 		recieve_damage_cooldown.start()
@@ -228,6 +232,7 @@ func attack():
 
 		Global.player_current_attack = true
 		attack_ip = true
+		$AttackSFX.play()
 		if dir == 1:
 			animated_sprite.flip_h = true
 			attack_hitbox.scale.x = -1

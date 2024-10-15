@@ -30,10 +30,11 @@ func _on_player_attack_made():
 	if player_in_range and not heart_destroyed:
 		heart_hits += 1
 		print("hit")
-		#squishy blood sound effect
+		$BloodSFX.play()
 		
 		if heart_hits >= 3:
 			$CollisionShape2D.set_deferred("disabled", true)
 			get_parent().visible = false
 			tilemap.set_cell(Vector2(-7, -117), -1)
 			emit_signal("heart_destroyed_signal")
+			$RoarSFX.play()
