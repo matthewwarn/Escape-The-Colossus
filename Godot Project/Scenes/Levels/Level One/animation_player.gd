@@ -3,7 +3,8 @@ extends AnimationPlayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	play("fade_in_and_out")
+	play("level one appear")
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

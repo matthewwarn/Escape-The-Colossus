@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://bq106pqli3x4w"]
+[gd_scene load_steps=26 format=4 uid="uid://bq106pqli3x4w"]
 
 [ext_resource type="PackedScene" uid="uid://djgqihrehhe1h" path="res://Scenes/Levels/template_level.tscn" id="1_txbta"]
 [ext_resource type="Script" path="res://Scenes/Levels/Level One/double_jump_activation.gd" id="2_3b4qy"]
@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://b4gjkiteju2ea" path="res://Scenes/Entities/RibBug/rib_bug.tscn" id="6_4ne71"]
 [ext_resource type="PackedScene" uid="uid://ddk74kjxma2c1" path="res://Scenes/Entities/Floor Maw/floor_maw.tscn" id="7_0jw5s"]
 [ext_resource type="FontFile" uid="uid://bdc4hvgih0upu" path="res://Scenes/Levels/LevelAssets/DirtyHarold_Font_1_0/DirtyHarold.otf" id="8_g2r0q"]
-[ext_resource type="Script" path="res://Scenes/Levels/Level One/popup_text.gd" id="9_gi1r0"]
+[ext_resource type="Script" path="res://Scenes/Levels/Level One/animation_player.gd" id="12_745bn"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_qd6oi"]
 normal = Vector2(-1, 0)
@@ -64,64 +64,48 @@ _data = {
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xcf1b"]
 normal = Vector2(-0.999938, 0.0111104)
 
-[sub_resource type="Animation" id="Animation_ue5tl"]
+[sub_resource type="Animation" id="Animation_agmeo"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(238, -78)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:theme_override_colors/font_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../Label3:theme_override_colors/font_color")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Color(0, 0, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_sju1t"]
-resource_name = "appear_level_one"
-length = 6.0
+[sub_resource type="Animation" id="Animation_a12c6"]
+resource_name = "level one appear"
+length = 7.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Label3:theme_override_colors/font_color")
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.466667, 1.06667, 4.1, 4.63333),
+"times": PackedFloat32Array(0.4, 0.9, 4.93333, 5.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_y7xk0"]
-resource_name = "move_left"
-length = 5.0
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l8k8o"]
+_data = {
+"RESET": SubResource("Animation_agmeo"),
+"level one appear": SubResource("Animation_a12c6")
+}
+
+[sub_resource type="Animation" id="Animation_mb78d"]
+
+[sub_resource type="Animation" id="Animation_qlhqu"]
+resource_name = "double jump unlock appear"
+length = 7.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -129,29 +113,16 @@ tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.0333301, 0.266663, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.333333, 4.36667, 4.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(238, -78), Vector2(-121, -78), Vector2(-83, -78)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:theme_override_colors/font_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(4.13333, 4.63333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+"values": [Vector2(1172, 146), Vector2(372, 146), Vector2(372, 146), Vector2(-466, 146)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ejbty"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kwb7d"]
 _data = {
-"RESET": SubResource("Animation_ue5tl"),
-"appear_level_one": SubResource("Animation_sju1t"),
-"doublejump": SubResource("Animation_y7xk0")
+"RESET": SubResource("Animation_mb78d"),
+"double jump unlock appear": SubResource("Animation_qlhqu")
 }
 
 [node name="TemplateLevel2" instance=ExtResource("1_txbta")]
@@ -341,49 +312,45 @@ visible = false
 [node name="Player" parent="." index="12"]
 position = Vector2(-226, 255)
 
-[node name="Label" type="Label" parent="Player/Camera2D" index="0"]
-offset_left = 238.0
-offset_top = -78.0
-offset_right = 998.0
-offset_bottom = 39.0
-scale = Vector2(0.231725, 0.231366)
-theme_override_colors/font_color = Color(1, 1, 1, 0)
+[node name="EndLocator" parent="." index="13"]
+position = Vector2(4660, 349)
+
+[node name="CanvasGroup" type="CanvasLayer" parent="." index="14"]
+
+[node name="level one" type="Label" parent="CanvasGroup" index="0"]
+offset_left = 430.0
+offset_top = 88.0
+offset_right = 1470.0
+offset_bottom = 431.0
+scale = Vector2(0.310037, 0.310037)
+theme_override_colors/font_color = Color(0, 0, 0, 0)
 theme_override_fonts/font = ExtResource("8_g2r0q")
-theme_override_font_sizes/font_size = 100
+theme_override_font_sizes/font_size = 300
+text = "Level One"
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasGroup/level one" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_l8k8o")
+}
+script = ExtResource("12_745bn")
+
+[node name="double jump unlock" type="Label" parent="CanvasGroup" index="1"]
+offset_left = 1172.0
+offset_top = 132.0
+offset_right = 3073.0
+offset_bottom = 418.0
+scale = Vector2(0.231725, 0.231366)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("8_g2r0q")
+theme_override_font_sizes/font_size = 250
 text = "Double jump unlocked"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Label3" type="Label" parent="Player/Camera2D" index="1"]
-offset_left = -54.0
-offset_top = -81.0
-offset_right = 293.0
-offset_bottom = 34.0
-scale = Vector2(0.310037, 0.310037)
-theme_override_colors/font_color = Color(1, 1, 1, 0)
-theme_override_fonts/font = ExtResource("8_g2r0q")
-theme_override_font_sizes/font_size = 100
-text = "Level One"
-metadata/_edit_use_anchors_ = true
-
-[node name="Popup Text" type="AnimationPlayer" parent="Player/Camera2D" index="2"]
-root_node = NodePath("../Label")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasGroup/double jump unlock" index="0"]
 libraries = {
-"": SubResource("AnimationLibrary_ejbty")
+"": SubResource("AnimationLibrary_kwb7d")
 }
-script = ExtResource("9_gi1r0")
-
-[node name="EndLocator" parent="." index="13"]
-position = Vector2(4660, 349)
 
 [connection signal="body_entered" from="DoubleJumpActivation" to="DoubleJumpActivation" method="_on_body_entered"]
-[connection signal="player_died" from="Enemies and Obstacles/FloorMaws/FloorMaw11" to="." method="_on_player_died"]
-[connection signal="player_died" from="Enemies and Obstacles/FloorMaws/FloorMaw12" to="." method="_on_player_died"]
-[connection signal="player_died" from="Enemies and Obstacles/FloorMaws/FloorMaw13" to="." method="_on_player_died"]
-[connection signal="player_died" from="Enemies and Obstacles/FloorMaws/FloorMaw14" to="." method="_on_player_died"]
-[connection signal="player_died" from="Enemies and Obstacles/FloorMaws/FloorMaw15" to="." method="_on_player_died"]
-[connection signal="player_died" from="Enemies and Obstacles/FloorMaws/FloorMaw16" to="." method="_on_player_died"]
-[connection signal="player_died" from="Enemies and Obstacles/FloorMaws/FloorMaw4" to="." method="_on_player_died"]
-[connection signal="player_died" from="Enemies and Obstacles/FloorMaws/FloorMaw5" to="." method="_on_player_died"]
-[connection signal="player_died" from="Enemies and Obstacles/FloorMaws/FloorMaw6" to="." method="_on_player_died"]
-[connection signal="player_died" from="Enemies and Obstacles/FloorMaws/FloorMaw9" to="." method="_on_player_died"]
