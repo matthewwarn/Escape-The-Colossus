@@ -1,6 +1,6 @@
 extends Area2D
 
-@onready var tilemap = get_node("/root/TemplateLevel/TileMapLayer")
+@onready var tilemap: TileMapLayer = $"../../TileMapLayer"
 
 signal heart_destroyed_signal
 
