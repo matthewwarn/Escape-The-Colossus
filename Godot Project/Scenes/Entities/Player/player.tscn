@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bffllo437822"]
+[gd_scene load_steps=30 format=3 uid="uid://bffllo437822"]
 
 [ext_resource type="Script" path="res://Scenes/Entities/Player/player.gd" id="1_msad5"]
 [ext_resource type="Texture2D" uid="uid://dmar34rhv6vti" path="res://Scenes/Entities/Player/Health/Heart.png" id="2_8ijun"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://oe1d3avjdk7a" path="res://Scenes/speedrun.tscn" id="4_dbof1"]
 [ext_resource type="AudioStream" uid="uid://b7halrlpyh4yt" path="res://Scenes/Audio/SFX/attack.wav" id="5_0o1ih"]
 [ext_resource type="AudioStream" uid="uid://c2kklvq2llg47" path="res://Scenes/Audio/SFX/hurt.wav" id="6_0hoed"]
+[ext_resource type="AudioStream" uid="uid://c6kxjukwglos1" path="res://Scenes/Audio/SFX/jump.wav" id="7_nqlke"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ntkm0"]
 atlas = ExtResource("3_dw74v")
@@ -240,6 +241,13 @@ bus = &"SFX"
 [node name="HurtSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_0hoed")
 volume_db = 3.0
+bus = &"SFX"
+
+[node name="JumpSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_nqlke")
+bus = &"SFX"
+
+[node name="DeathSFX" type="AudioStreamPlayer2D" parent="."]
 bus = &"SFX"
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

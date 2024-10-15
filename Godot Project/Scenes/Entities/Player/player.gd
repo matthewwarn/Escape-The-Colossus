@@ -120,11 +120,13 @@ func _physics_process(delta):
 		# If on floor, do normal jump
 		if is_on_floor() || !coyote_timer.is_stopped():
 			velocity.y = JUMP_VELOCITY
+			$JumpSFX.play()
 			
 		# If not on floor, use double jump
 		elif double_jump_toggle and double_jump_available:
 			velocity.y = JUMP_VELOCITY
 			double_jump_available = false
+			$JumpSFX.play()
 			
 		# If neither jump available, start jump buffer timer
 		else:
