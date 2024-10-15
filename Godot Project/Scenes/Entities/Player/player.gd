@@ -4,6 +4,7 @@ extends CharacterBody2D
 @onready var coyote_timer = $CoyoteTimer
 @onready var recieve_damage_cooldown= $recieve_damage_cooldown
 @onready var deal_damage_timer = $deal_damage_timer
+@onready var attack_hitbox = $attack_hitbox
 @onready var speedrun_timer: CanvasLayer = $"Speedrun Timer"
 
 var full_heart_texture = preload("res://Scenes/Entities/Player/Health/Heart.png")
@@ -157,10 +158,12 @@ func _physics_process(delta):
 			animated_sprite.flip_h = false
 			velocity.x = -SPEED
 			facing = -1
+			attack_hitbox.scale.x = 1
 		elif move_right:
 			animated_sprite.flip_h = true
 			velocity.x = SPEED
 			facing = 1
+			attack_hitbox.scale.x = -1
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 
@@ -214,23 +217,29 @@ func enemy_attack():
 #immunity cooldown
 func _on_recieve_damage_cooldown_timeout():
 	enemy_attack_cooldown = false
+	recieve_damage_cooldown.stop()
 
 func attack():
 	var dir: int = facing
 	
+
 	if Input.is_action_just_pressed("attack") and enemy_attack_cooldown == true:
 		emit_signal("attack_made")
+
 		Global.player_current_attack = true
 		attack_ip = true
 		if dir == 1:
 			animated_sprite.flip_h = true
+			attack_hitbox.scale.x = -1
 			deal_damage_timer.start()
 		if dir == -1:
 			animated_sprite.flip_h = false
+			attack_hitbox.scale.x = 1
 			deal_damage_timer.start()
 	
 
 # Takes the health the player had right BEFORE getting hit
+@warning_ignore("shadowed_variable")
 func update_hearts(health):
 	match health:
 		1:
@@ -250,10 +259,16 @@ func _on_player_hitbox_body_entered(body):
 	if body.has_method("enemy"):
 		enemy_inattack_range = true 
 		enemy_attack_cooldown = false
+	elif body.has_method("floormaw_enemy"):
+		enemy_inattack_range = true
+		enemy_attack_cooldown = false
 
 #enemy left area where player can attack and recieve damage
 func _on_player_hitbox_body_exited(body):
 	if body.has_method("enemy"):
+		enemy_inattack_range = false
+		enemy_attack_cooldown = true
+	elif body.has_method("floormaw_enemy"):
 		enemy_inattack_range = false
 		enemy_attack_cooldown = true
 

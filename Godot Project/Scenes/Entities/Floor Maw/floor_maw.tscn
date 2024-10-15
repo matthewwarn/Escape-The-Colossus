@@ -1,8 +1,13 @@
-[gd_scene load_steps=34 format=3 uid="uid://ddk74kjxma2c1"]
+[gd_scene load_steps=35 format=3 uid="uid://ddk74kjxma2c1"]
 
 [ext_resource type="Script" path="res://Scenes/Entities/Floor Maw/floor_maw.gd" id="1_mmh5f"]
-[ext_resource type="PackedScene" uid="uid://b31oekchnss6y" path="res://Scenes/Levels/LevelComponents/killzone.tscn" id="2_f6i67"]
 [ext_resource type="Texture2D" uid="uid://do3whecdhv8pv" path="res://Scenes/Entities/Floor Maw/Floor Maw-Sheet.png" id="2_qjm1t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yngmb"]
+size = Vector2(30, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ftqv2"]
+size = Vector2(11.5, 18)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a16yp"]
 atlas = ExtResource("2_qjm1t")
@@ -214,17 +219,27 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_76kfy"]
+size = Vector2(115.5, 49.5)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qtajg"]
-size = Vector2(30, 12)
+size = Vector2(34, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q4elc"]
-size = Vector2(10, 17)
+size = Vector2(21, 18.5)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_76kfy"]
-size = Vector2(300, 105)
-
-[node name="FloorMaw" type="Node2D"]
+[node name="FloorMaw" type="CharacterBody2D"]
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_mmh5f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -6)
+shape = SubResource("RectangleShape2D_yngmb")
+
+[node name="CollisionShape2D_2" type="CollisionShape2D" parent="."]
+position = Vector2(0.25, -22)
+shape = SubResource("RectangleShape2D_ftqv2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
@@ -232,24 +247,32 @@ sprite_frames = SubResource("SpriteFrames_ko6pf")
 animation = &"Unspawned"
 autoplay = "Unspawned"
 
-[node name="Killzone" parent="." instance=ExtResource("2_f6i67")]
+[node name="Proximity Detector" type="Area2D" parent="."]
+collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Proximity Detector"]
+position = Vector2(1.5, -24.25)
+shape = SubResource("RectangleShape2D_76kfy")
+
+[node name="Attack_cooldown" type="Timer" parent="."]
+wait_time = 1.2
+one_shot = true
+
+[node name="deal_damage_hit-box" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="deal_damage_hit-box"]
 position = Vector2(1, -6)
 shape = SubResource("RectangleShape2D_qtajg")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Killzone"]
-position = Vector2(0, -20.5)
+[node name="CollisionShape2D_2" type="CollisionShape2D" parent="deal_damage_hit-box"]
+position = Vector2(1.5, -22)
 shape = SubResource("RectangleShape2D_q4elc")
 
-[node name="Proximity Detector" type="Area2D" parent="."]
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Proximity Detector"]
-position = Vector2(0, -52)
-shape = SubResource("RectangleShape2D_76kfy")
-
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="player_died" from="Killzone" to="." method="_on_killzone_player_died"]
 [connection signal="body_entered" from="Proximity Detector" to="." method="_on_proximity_detector_body_entered"]
 [connection signal="body_exited" from="Proximity Detector" to="." method="_on_proximity_detector_body_exited"]
+[connection signal="timeout" from="Attack_cooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="body_entered" from="deal_damage_hit-box" to="." method="_on_deal_damage_hitbox_body_entered"]
+[connection signal="body_exited" from="deal_damage_hit-box" to="." method="_on_deal_damage_hitbox_body_exited"]
