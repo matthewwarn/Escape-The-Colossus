@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bffllo437822"]
+[gd_scene load_steps=32 format=3 uid="uid://bffllo437822"]
 
 [ext_resource type="Script" path="res://Scenes/Entities/Player/player.gd" id="1_msad5"]
 [ext_resource type="Texture2D" uid="uid://dmar34rhv6vti" path="res://Scenes/Entities/Player/Health/Heart.png" id="2_8ijun"]
@@ -241,7 +241,6 @@ shape = SubResource("CapsuleShape2D_f0iub")
 
 [node name="Speedrun Timer" parent="." instance=ExtResource("4_dbof1")]
 
-
 [node name="JumpSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_g1mad")
 bus = &"SFX"
@@ -265,7 +264,6 @@ collision_mask = 3
 [node name="CollisionShape2D" type="CollisionShape2D" parent="attack_hitbox"]
 position = Vector2(-17, -14)
 shape = SubResource("CapsuleShape2D_afjy0")
-
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="timeout" from="recieve_damage_cooldown" to="." method="_on_recieve_damage_cooldown_timeout"]
