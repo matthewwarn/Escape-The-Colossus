@@ -211,6 +211,7 @@ position = Vector2(3665, -136)
 
 [node name="Checkpoint" parent="." index="11" instance=ExtResource("4_cnxiy")]
 position = Vector2(645, 112)
+collision_layer = 2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." index="12"]
 script = ExtResource("11_0rfn5")
