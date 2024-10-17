@@ -136,7 +136,10 @@ func chase_player(delta):
 	#if RibBug is on the floor
 	if ray_cast_floor.is_colliding():
 		if ray_cast_wall.is_colliding():
-			jump(delta)
+			if ray_cast_jump.is_colliding() == false:
+				jump(delta)
+			else:
+				player_chase = false
 			position.x += direction / (CHASE_SPEED * delta ) #this is for chasing the player
 	elif ray_cast_floor.is_colliding() == false: #for when there is no floor
 		jump(delta)
