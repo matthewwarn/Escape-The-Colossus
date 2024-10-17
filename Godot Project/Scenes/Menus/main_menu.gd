@@ -30,6 +30,7 @@ func _on_settings_menu_hidden() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("fullscreen"):
 		SettingsManager.toggle_fullscreen();
+		request_save.emit();
 
 func _on_settings_menu_request_save() -> void:
 	request_save.emit();
