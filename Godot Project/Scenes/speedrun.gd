@@ -8,12 +8,24 @@ func _physics_process(delta):
 	update_ui();
 
 func update_ui():
-	var formatted_time = str(time)
-	var decimal_index = formatted_time.find(".")
+	var minutes = int(time) / 60
+	var seconds = time - minutes * 60
+	
+	var formatted_minutes = str(minutes).pad_zeros(2)
+	var formatted_seconds = str(seconds).pad_zeros(2)
+	var decimal_index = formatted_seconds.find(".")
 	
 	if decimal_index > 0:
-		formatted_time = formatted_time.left(decimal_index + 3)
+		formatted_seconds = formatted_seconds.left(decimal_index + 3)
+	else:
+		formatted_seconds += ".00"
 	
-	Global.speedrun_time = formatted_time
+	if formatted_seconds.find(".") == len(formatted_seconds) - 2:
+		formatted_seconds += "0"
+	
+	
+	var formatted_time = formatted_minutes + ":" + formatted_seconds
+	
+	Global.speedrun_time = time
 	
 	$Label.text = formatted_time

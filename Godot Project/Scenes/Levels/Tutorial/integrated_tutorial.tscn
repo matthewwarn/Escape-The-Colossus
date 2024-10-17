@@ -1,22 +1,21 @@
-[gd_scene load_steps=19 format=4 uid="uid://o10ya26cqnu"]
+[gd_scene load_steps=23 format=4 uid="uid://c5j1qqa7tghs6"]
 
 [ext_resource type="PackedScene" uid="uid://djgqihrehhe1h" path="res://Scenes/Levels/template_level.tscn" id="1_acwfr"]
 [ext_resource type="AudioStream" uid="uid://da84ipv4fccu5" path="res://Scenes/Audio/Music/Start and Area 1.ogg" id="2_4vad2"]
 [ext_resource type="TileSet" uid="uid://d3uaft5ba4k5r" path="res://Scenes/Levels/LevelAssets/gore_tileset.tres" id="2_xj5iw"]
 [ext_resource type="FontFile" uid="uid://bdc4hvgih0upu" path="res://Scenes/Levels/LevelAssets/DirtyHarold_Font_1_0/DirtyHarold.otf" id="3_6ivar"]
-[ext_resource type="Script" path="res://Scenes/Levels/Tutorial/animation_player.gd" id="4_67lyk"]
 [ext_resource type="PackedScene" uid="uid://brjlyssh0oxh0" path="res://Scenes/checkpoint.tscn" id="4_cnxiy"]
 [ext_resource type="PackedScene" uid="uid://dmdvwelqe4h1u" path="res://Scenes/Entities/Spike Trap/spike_trap.tscn" id="5_pfnhm"]
 [ext_resource type="PackedScene" uid="uid://ddk74kjxma2c1" path="res://Scenes/Entities/Floor Maw/floor_maw.tscn" id="6_ay4ac"]
 [ext_resource type="PackedScene" uid="uid://b4gjkiteju2ea" path="res://Scenes/Entities/RibBug/rib_bug.tscn" id="7_lt7li"]
-[ext_resource type="Script" path="res://Scenes/Levels/Level One/powerup_turn_off.gd" id="8_7vndg"]
+[ext_resource type="Script" path="res://Scenes/Levels/Tutorial/managePopupMessages.gd" id="11_0rfn5"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_adhrb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_heqqn"]
 size = Vector2(20, 43)
 
-[sub_resource type="Animation" id="Animation_1kxru"]
+[sub_resource type="Animation" id="Animation_lwmik"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -30,77 +29,114 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../Key instruction(arrow):theme_override_colors/font_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
+
+[sub_resource type="Animation" id="Animation_e4mys"]
+resource_name = "arrow appear"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.566667, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_bu854"]
+resource_name = "arrow fade"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.566667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_agm5c"]
+_data = {
+"RESET": SubResource("Animation_lwmik"),
+"arrow appear": SubResource("Animation_e4mys"),
+"arrow fade": SubResource("Animation_bu854")
+}
+
+[sub_resource type="Animation" id="Animation_dstwq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../Title:theme_override_colors/font_color")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
+
+[sub_resource type="Animation" id="Animation_wlhed"]
+resource_name = "space appear"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.833333, 1.36667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_hjqaj"]
+resource_name = "space fade"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yh6tv"]
+_data = {
+"RESET": SubResource("Animation_dstwq"),
+"space appear": SubResource("Animation_wlhed"),
+"space fade": SubResource("Animation_hjqaj")
+}
+
+[sub_resource type="Animation" id="Animation_mr1pi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(0, 0, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_r77j2"]
-resource_name = "appear_arrow"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Key instruction(arrow):theme_override_colors/font_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.733333, 1.7),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_mtxqp"]
-resource_name = "fade_and_appear"
-length = 3.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Key instruction(arrow):theme_override_colors/font_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.0333333, 0.866667),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:theme_override_colors/font_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(1.03333, 1.8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_8nob7"]
-resource_name = "fade_space"
+[sub_resource type="Animation" id="Animation_76ytg"]
+resource_name = "title appear and fade"
 length = 8.0
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -109,34 +145,17 @@ tracks/0/path = NodePath(".:theme_override_colors/font_color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.0666667, 0.833333),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(1.4, 1.96667, 5.33334, 5.86667, 6.6, 7.13334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../Title:theme_override_colors/font_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(1.63333, 2.4, 5.3, 5.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0.6, 0, 0, 1), Color(0.6, 0, 0, 1), Color(0.6, 0, 0, 0)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_yh0ws"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xuauu"]
 _data = {
-"RESET": SubResource("Animation_1kxru"),
-"appear_arrow": SubResource("Animation_r77j2"),
-"fade_and_appear": SubResource("Animation_mtxqp"),
-"fade_space": SubResource("Animation_8nob7")
+"RESET": SubResource("Animation_mr1pi"),
+"title appear and fade": SubResource("Animation_76ytg")
 }
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_b80db"]
-size = Vector2(239, 141)
 
 [node name="TemplateLevel" instance=ExtResource("1_acwfr")]
 exit_a = "Hub/hub_level.tscn"
@@ -170,60 +189,6 @@ visible = false
 [node name="Player" parent="." index="8"]
 position = Vector2(50, -57)
 
-[node name="Key instruction(space)" type="Label" parent="Player/Camera2D" index="0"]
-offset_left = -73.0
-offset_top = -92.0
-offset_right = 176.0
-offset_bottom = -51.0
-scale = Vector2(0.215119, 0.214392)
-theme_override_colors/font_color = Color(1, 1, 1, 0)
-theme_override_fonts/font = ExtResource("3_6ivar")
-theme_override_font_sizes/font_size = 100
-text = "Press space bar  to jump
-"
-metadata/_edit_use_anchors_ = true
-
-[node name="Key instruction(arrow)" type="Label" parent="Player/Camera2D" index="1"]
-offset_left = -73.0
-offset_top = -92.0
-offset_right = 793.0
-offset_bottom = 42.0
-scale = Vector2(0.215119, 0.214392)
-theme_override_colors/font_color = Color(1, 1, 1, 0)
-theme_override_fonts/font = ExtResource("3_6ivar")
-theme_override_font_sizes/font_size = 100
-text = "Press the → key to move 
-"
-metadata/_edit_use_anchors_ = true
-
-[node name="Title" type="Label" parent="Player/Camera2D" index="2"]
-offset_left = -147.0
-offset_top = -93.0
-offset_right = 6804.0
-offset_bottom = 1047.0
-scale = Vector2(0.215119, 0.214392)
-theme_override_colors/font_color = Color(0, 0, 0, 0)
-theme_override_fonts/font = ExtResource("3_6ivar")
-theme_override_font_sizes/font_size = 200
-text = "Escape the Colossus
-"
-metadata/_edit_use_anchors_ = true
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Player/Camera2D" index="3"]
-root_node = NodePath("../Key instruction(space)")
-libraries = {
-"": SubResource("AnimationLibrary_yh0ws")
-}
-script = ExtResource("4_67lyk")
-
-[node name="Timer" type="Timer" parent="Player/Camera2D/AnimationPlayer" index="0"]
-wait_time = 2.0
-one_shot = true
-
-[node name="Timer2" type="Timer" parent="Player/Camera2D/AnimationPlayer" index="1"]
-wait_time = 4.0
-one_shot = true
-
 [node name="Hazards" type="Node" parent="." index="9"]
 
 [node name="SpikeTrap2" parent="Hazards" index="0" instance=ExtResource("5_pfnhm")]
@@ -236,43 +201,81 @@ position = Vector2(1013, 154)
 position = Vector2(1815, 90)
 
 [node name="RibBug" parent="Hazards" index="3" instance=ExtResource("7_lt7li")]
-position = Vector2(2248, 116)
+position = Vector2(2248, 117)
 
 [node name="RibBug2" parent="Hazards" index="4" instance=ExtResource("7_lt7li")]
-position = Vector2(281, 148)
+position = Vector2(236, 149)
 
-[node name="PowerupOFF" type="Area2D" parent="." index="10"]
-collision_mask = 2
-script = ExtResource("8_7vndg")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PowerupOFF" index="0"]
-position = Vector2(63.5, 83.5)
-shape = SubResource("RectangleShape2D_b80db")
-
-[node name="EndLocator" parent="." index="11"]
+[node name="EndLocator" parent="." index="10"]
 position = Vector2(3665, -136)
 
-[node name="PowerupOFF2" type="Area2D" parent="." index="12"]
-position = Vector2(3535, -251)
-collision_mask = 2
-script = ExtResource("8_7vndg")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PowerupOFF2" index="0"]
-position = Vector2(63.5, 83.5)
-shape = SubResource("RectangleShape2D_b80db")
-
-[node name="PowerupOFF3" type="Area2D" parent="." index="13"]
-position = Vector2(598, 25)
-scale = Vector2(0.617033, 1.37683)
-collision_mask = 2
-script = ExtResource("8_7vndg")
-
-[node name="Checkpoint" parent="." index="14" instance=ExtResource("4_cnxiy")]
+[node name="Checkpoint" parent="." index="11" instance=ExtResource("4_cnxiy")]
 position = Vector2(645, 112)
 
-[connection signal="spike_trap_player_died" from="Hazards/SpikeTrap2" to="." method="_on_player_died"]
-[connection signal="spike_trap_player_died" from="Hazards/SpikeTrap" to="." method="_on_player_died"]
-[connection signal="player_died" from="Hazards/FloorMaw" to="." method="_on_player_died"]
-[connection signal="body_entered" from="PowerupOFF" to="PowerupOFF" method="_on_body_entered"]
-[connection signal="body_entered" from="PowerupOFF2" to="PowerupOFF2" method="_on_body_entered"]
-[connection signal="body_entered" from="PowerupOFF3" to="PowerupOFF3" method="_on_body_entered"]
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="12"]
+script = ExtResource("11_0rfn5")
+
+[node name="Key instruction(arrow)" type="Label" parent="CanvasLayer" index="0"]
+offset_left = 344.0
+offset_top = 152.0
+offset_right = 2542.0
+offset_bottom = 774.0
+scale = Vector2(0.215119, 0.214392)
+theme_override_colors/font_color = Color(1, 1, 1, 0)
+theme_override_fonts/font = ExtResource("3_6ivar")
+theme_override_font_sizes/font_size = 250
+text = "Press arrow  key to move 
+                 →
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Key instruction(arrow)" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_agm5c")
+}
+
+[node name="Key instruction(space)" type="Label" parent="CanvasLayer" index="1"]
+offset_left = 349.0
+offset_top = 154.0
+offset_right = 2451.0
+offset_bottom = 440.0
+scale = Vector2(0.215119, 0.214392)
+theme_override_colors/font_color = Color(1, 1, 1, 0)
+theme_override_fonts/font = ExtResource("3_6ivar")
+theme_override_font_sizes/font_size = 250
+text = "Press space bar  to jump
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="CanvasLayer/Key instruction(space)" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_yh6tv")
+}
+
+[node name="Title" type="Label" parent="CanvasLayer" index="2"]
+anchors_preset = -1
+anchor_top = -0.530864
+anchor_bottom = -0.530864
+offset_left = 177.0
+offset_top = 463.0
+offset_right = 4000.0
+offset_bottom = 1434.0
+scale = Vector2(0.215119, 0.214392)
+theme_override_colors/font_color = Color(0, 0, 0, 0)
+theme_override_fonts/font = ExtResource("3_6ivar")
+theme_override_font_sizes/font_size = 550
+text = "Escape the colossus"
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer3" type="AnimationPlayer" parent="CanvasLayer/Title" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_xuauu")
+}
+
+[node name="Timer" type="Timer" parent="CanvasLayer" index="3"]
+wait_time = 2.0
+one_shot = true
+
+[node name="Timer2" type="Timer" parent="CanvasLayer" index="4"]
+wait_time = 2.0
+one_shot = true

@@ -1,7 +1,8 @@
-[gd_scene load_steps=38 format=3 uid="uid://b4gjkiteju2ea"]
+[gd_scene load_steps=39 format=3 uid="uid://b4gjkiteju2ea"]
 
 [ext_resource type="Texture2D" uid="uid://4krpsc4cin1j" path="res://Scenes/Entities/EntityAssets/Ribbug Sheet.png" id="1_a34pl"]
 [ext_resource type="Script" path="res://Scenes/Entities/RibBug/rib_bug.gd" id="1_g8m6j"]
+[ext_resource type="AudioStream" uid="uid://rxql8fylrjc0" path="res://Scenes/Audio/SFX/hit.wav" id="3_guq6j"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0x5qi"]
 atlas = ExtResource("1_a34pl")
@@ -145,9 +146,9 @@ animations = [{
 "duration": 2.0,
 "texture": SubResource("AtlasTexture_rgiki")
 }],
-"loop": false,
+"loop": true,
 "name": &"Attack",
-"speed": 6.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -182,7 +183,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"Death ",
-"speed": 5.0
+"speed": 6.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -257,7 +258,12 @@ radius = 50.0
 height = 240.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nn26i"]
-height = 46.0
+radius = 11.0
+height = 50.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_71dyf"]
+radius = 9.0
+height = 34.0
 
 [node name="RibBug" type="CharacterBody2D"]
 position = Vector2(0, -9)
@@ -268,17 +274,17 @@ script = ExtResource("1_g8m6j")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -10)
 sprite_frames = SubResource("SpriteFrames_hhuaa")
-animation = &"Walking"
+animation = &"Attack"
 autoplay = "Spawn"
-frame = 4
-frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-2, 1)
 rotation = 1.55683
 shape = SubResource("CapsuleShape2D_4ovni")
 
 [node name="detection" type="Area2D" parent="."]
+visible = false
 collision_layer = 2
 collision_mask = 2
 
@@ -286,47 +292,74 @@ collision_mask = 2
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_0unf1")
 
-[node name="hit_box" type="Area2D" parent="."]
+[node name="recieve_damage_hit_box" type="Area2D" parent="."]
+visible = false
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_box"]
-position = Vector2(0, -1)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="recieve_damage_hit_box"]
+position = Vector2(0, -2)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_nn26i")
 
-[node name="RayCastRight" type="RayCast2D" parent="."]
-position = Vector2(4, 5)
-target_position = Vector2(8, 0)
-collide_with_areas = true
+[node name="deal_damage_hit_box" type="Area2D" parent="."]
+collision_mask = 3
 
-[node name="RayCastLeft" type="RayCast2D" parent="."]
-position = Vector2(-4, 5)
-target_position = Vector2(-8, 0)
-collide_with_areas = true
+[node name="CollisionShape2D" type="CollisionShape2D" parent="deal_damage_hit_box"]
+visible = false
+position = Vector2(0, -2)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_71dyf")
+
+[node name="chase_cooldown" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
 
 [node name="take_damage_cooldown" type="Timer" parent="."]
 wait_time = 2.0
+one_shot = true
 
 [node name="attack_cooldown" type="Timer" parent="."]
 wait_time = 2.0
+one_shot = true
 
-[node name="RayCastFloorLeft" type="RayCast2D" parent="."]
+[node name="Jump_time" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="RayCast_jump" type="RayCast2D" parent="."]
+physics_interpolation_mode = 1
+position = Vector2(-16, -39)
+rotation = 1.5708
+target_position = Vector2(8, 0)
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="RayCastWall" type="RayCast2D" parent="."]
+position = Vector2(0, 5)
+target_position = Vector2(-11, 0)
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="RayCastFloor" type="RayCast2D" parent="."]
 position = Vector2(-13, -1)
 target_position = Vector2(0, 7)
-collision_mask = 3
 collide_with_areas = true
 
-[node name="RayCastFloorRight" type="RayCast2D" parent="."]
-position = Vector2(13, -1)
-target_position = Vector2(0, 7)
-collision_mask = 3
-collide_with_areas = true
+[node name="HitSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_guq6j")
+bus = &"SFX"
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="detection" to="." method="_on_detection_body_entered"]
 [connection signal="body_exited" from="detection" to="." method="_on_detection_body_exited"]
-[connection signal="body_entered" from="hit_box" to="." method="_on_hit_box_body_entered"]
-[connection signal="body_exited" from="hit_box" to="." method="_on_hit_box_body_exited"]
+[connection signal="area_entered" from="recieve_damage_hit_box" to="." method="_on_recieve_damage_hit_box_area_entered"]
+[connection signal="area_exited" from="recieve_damage_hit_box" to="." method="_on_recieve_damage_hit_box_area_exited"]
+[connection signal="body_entered" from="recieve_damage_hit_box" to="." method="_on_recieve_damage_hit_box_body_entered"]
+[connection signal="body_exited" from="recieve_damage_hit_box" to="." method="_on_recieve_damage_hit_box_body_exited"]
+[connection signal="body_entered" from="deal_damage_hit_box" to="." method="_on_deal_damage_hit_box_body_entered"]
+[connection signal="body_exited" from="deal_damage_hit_box" to="." method="_on_deal_damage_hit_box_body_exited"]
+[connection signal="timeout" from="chase_cooldown" to="." method="_on_chase_cooldown_timeout"]
 [connection signal="timeout" from="take_damage_cooldown" to="." method="_on_take_damage_cooldown_timeout"]
 [connection signal="timeout" from="attack_cooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="timeout" from="Jump_time" to="." method="_on_jump_time_timeout"]

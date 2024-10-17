@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://d2be2xo822iaj"]
+[gd_scene load_steps=15 format=4 uid="uid://d2be2xo822iaj"]
 
 [ext_resource type="PackedScene" uid="uid://djgqihrehhe1h" path="res://Scenes/Levels/template_level.tscn" id="1_tjl8h"]
 [ext_resource type="AudioStream" uid="uid://dyfnr5yu66yck" path="res://Scenes/Audio/Music/Miniboss.mp3" id="2_e3kep"]
@@ -6,8 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://b4gjkiteju2ea" path="res://Scenes/Entities/RibBug/rib_bug.tscn" id="3_a8spc"]
 [ext_resource type="PackedScene" uid="uid://ddk74kjxma2c1" path="res://Scenes/Entities/Floor Maw/floor_maw.tscn" id="4_cexib"]
 [ext_resource type="PackedScene" uid="uid://dmdvwelqe4h1u" path="res://Scenes/Entities/Spike Trap/spike_trap.tscn" id="5_3xakp"]
-[ext_resource type="Texture2D" uid="uid://crh4qnkw227o0" path="res://Scenes/Levels/LevelAssets/core_animation.png" id="6_djkpx"]
-[ext_resource type="Script" path="res://Scenes/Levels/AcidLevel/dash_turn_off.gd" id="7_sr4h5"]
+[ext_resource type="PackedScene" uid="uid://dyp8unn4irhq" path="res://Scenes/Entities/HeartCore/heart_core.tscn" id="7_bcxry"]
+[ext_resource type="PackedScene" uid="uid://ccb205jld20es" path="res://Scenes/Levels/LevelComponents/Barrier.tscn" id="8_0yblf"]
+[ext_resource type="AudioStream" uid="uid://cktnlskwl3eak" path="res://Scenes/Audio/SFX/blood.mp3" id="8_lqmxw"]
+[ext_resource type="AudioStream" uid="uid://brsystwbq7bs0" path="res://Scenes/Audio/SFX/roar.wav" id="9_cpt1s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v1qaj"]
 size = Vector2(59, 15)
@@ -21,76 +23,7 @@ size = Vector2(20, 42)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xuvhy"]
 size = Vector2(77, 20)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wd6p5"]
-atlas = ExtResource("6_djkpx")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5kiib"]
-atlas = ExtResource("6_djkpx")
-region = Rect2(64, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xuepq"]
-atlas = ExtResource("6_djkpx")
-region = Rect2(128, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fej2a"]
-atlas = ExtResource("6_djkpx")
-region = Rect2(192, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_87cdn"]
-atlas = ExtResource("6_djkpx")
-region = Rect2(256, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_56gew"]
-atlas = ExtResource("6_djkpx")
-region = Rect2(320, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4cp8j"]
-atlas = ExtResource("6_djkpx")
-region = Rect2(384, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hkk6c"]
-atlas = ExtResource("6_djkpx")
-region = Rect2(448, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_vkoga"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wd6p5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5kiib")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xuepq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fej2a")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_87cdn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_56gew")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4cp8j")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hkk6c")
-}],
-"loop": true,
-"name": &"pulse",
-"speed": 5.0
-}]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7inm1"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qs2u5"]
-size = Vector2(197, 169)
-
-[node name="TemplateLevel" instance=ExtResource("1_tjl8h")]
+[node name="TemplateLevel2" instance=ExtResource("1_tjl8h")]
 previous_level = "AcidLevel/acid_level.tscn"
 exit_a = "Hub/hub_level.tscn"
 level_music = ExtResource("2_e3kep")
@@ -213,28 +146,22 @@ rotation = 1.5708
 position = Vector2(227, -384)
 rotation = 3.14159
 
-[node name="HeartCore" type="AnimatedSprite2D" parent="." index="10"]
-texture_filter = 1
-position = Vector2(71, -999)
-sprite_frames = SubResource("SpriteFrames_vkoga")
-animation = &"pulse"
-autoplay = "pulse"
+[node name="HeartCore" parent="." index="10" instance=ExtResource("7_bcxry")]
+position = Vector2(74, -992)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HeartCore" index="0"]
-position = Vector2(0.999996, 0)
-scale = Vector2(2.03123, 3.04)
-shape = SubResource("RectangleShape2D_7inm1")
+[node name="BloodSFX" type="AudioStreamPlayer2D" parent="HeartCore" index="2"]
+stream = ExtResource("8_lqmxw")
+bus = &"SFX"
 
-[node name="DashOFF" type="Area2D" parent="." index="11"]
-collision_mask = 2
-script = ExtResource("7_sr4h5")
+[node name="RoarSFX" type="AudioStreamPlayer2D" parent="HeartCore" index="3"]
+stream = ExtResource("9_cpt1s")
+bus = &"SFX"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DashOFF" index="0"]
-position = Vector2(321, 255)
-shape = SubResource("RectangleShape2D_qs2u5")
+[node name="Player" parent="." index="11"]
+position = Vector2(38, -989)
 
-[node name="Player" parent="." index="12"]
-position = Vector2(329, 285)
+[node name="Barrier" parent="." index="12" instance=ExtResource("8_0yblf")]
+position = Vector2(-68, -992)
 
 [node name="EndLocator" parent="." index="13"]
 position = Vector2(-185, -977)
@@ -244,4 +171,4 @@ position = Vector2(-185, -977)
 [connection signal="player_died" from="Enemies/FloorMaw3" to="." method="_on_player_died"]
 [connection signal="player_died" from="Enemies/FloorMaw4" to="." method="_on_player_died"]
 [connection signal="player_died" from="Enemies/FloorMaw5" to="." method="_on_player_died"]
-[connection signal="body_entered" from="DashOFF" to="DashOFF" method="_on_body_entered"]
+[connection signal="defeated" from="HeartCore" to="Barrier" method="_on_heart_core_defeated"]

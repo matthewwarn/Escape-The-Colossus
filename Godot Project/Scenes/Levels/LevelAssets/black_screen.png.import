@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://gmrjmwhtvy0k"
-path="res://.godot/imported/Floor Maw Sheet.png-afc413f9ce4cc624888d419831dffbdc.ctex"
+uid="uid://di6cheug63uh5"
+path="res://.godot/imported/black_screen.png-fa049a11b2224a4ef69e67e7a4d73633.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/Entities/EntityAssets/Floor Maw Sheet.png"
-dest_files=["res://.godot/imported/Floor Maw Sheet.png-afc413f9ce4cc624888d419831dffbdc.ctex"]
+source_file="res://Scenes/Levels/LevelAssets/black_screen.png"
+dest_files=["res://.godot/imported/black_screen.png-fa049a11b2224a4ef69e67e7a4d73633.ctex"]
 
 [params]
 
