@@ -171,7 +171,7 @@ func deal_with_damage():
 	if can_take_damage_zone and Global.player_current_attack == true:
 		if can_take_damage == true:
 			$HitSFX.play()
-			blood_splash.is_emitting()
+			blood_splash.start_emitting()
 			health = health - 1
 			take_damage_cooldown.start()
 			can_take_damage = false
