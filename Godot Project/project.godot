@@ -31,15 +31,13 @@ window/per_pixel_transparency/allowed=true
 
 project/assembly_name="EscapeTheColossus"
 
-<<<<<<< HEAD
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/gut/plugin.cfg")
-=======
+
 [global_group]
 
 KillzoneHazard="Scenes which contain a killzone"
->>>>>>> main
 
 [input]
 
