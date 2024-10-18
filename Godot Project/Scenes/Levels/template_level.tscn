@@ -34,7 +34,7 @@ zoom = Vector2(2.5, 2.5)
 position_smoothing_speed = 13.0
 
 [node name="CoyoteTimer" type="Timer" parent="Player"]
-wait_time = 0.08
+wait_time = 0.12
 one_shot = true
 
 [node name="EndLocator" type="Node2D" parent="."]

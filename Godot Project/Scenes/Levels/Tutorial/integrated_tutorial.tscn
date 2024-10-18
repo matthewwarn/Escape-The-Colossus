@@ -1,23 +1,19 @@
-[gd_scene load_steps=25 format=4 uid="uid://o10ya26cqnu"]
+[gd_scene load_steps=23 format=4 uid="uid://c5j1qqa7tghs6"]
 
 [ext_resource type="PackedScene" uid="uid://djgqihrehhe1h" path="res://Scenes/Levels/template_level.tscn" id="1_acwfr"]
 [ext_resource type="AudioStream" uid="uid://da84ipv4fccu5" path="res://Scenes/Audio/Music/Start and Area 1.ogg" id="2_4vad2"]
 [ext_resource type="TileSet" uid="uid://d3uaft5ba4k5r" path="res://Scenes/Levels/LevelAssets/gore_tileset.tres" id="2_xj5iw"]
 [ext_resource type="FontFile" uid="uid://bdc4hvgih0upu" path="res://Scenes/Levels/LevelAssets/DirtyHarold_Font_1_0/DirtyHarold.otf" id="3_6ivar"]
-[ext_resource type="PackedScene" uid="uid://brjlyssh0oxh0" path="res://Scenes/checkpoint.tscn" id="4_cnxiy"]
+[ext_resource type="PackedScene" path="res://Scenes/checkpoint.tscn" id="4_cnxiy"]
 [ext_resource type="PackedScene" uid="uid://dmdvwelqe4h1u" path="res://Scenes/Entities/Spike Trap/spike_trap.tscn" id="5_pfnhm"]
 [ext_resource type="PackedScene" uid="uid://ddk74kjxma2c1" path="res://Scenes/Entities/Floor Maw/floor_maw.tscn" id="6_ay4ac"]
 [ext_resource type="PackedScene" uid="uid://b4gjkiteju2ea" path="res://Scenes/Entities/RibBug/rib_bug.tscn" id="7_lt7li"]
-[ext_resource type="Script" path="res://Scenes/Levels/Level One/powerup_turn_off.gd" id="8_7vndg"]
 [ext_resource type="Script" path="res://Scenes/Levels/Tutorial/managePopupMessages.gd" id="11_0rfn5"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_adhrb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_heqqn"]
 size = Vector2(20, 43)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_b80db"]
-size = Vector2(239, 141)
 
 [sub_resource type="Animation" id="Animation_lwmik"]
 length = 0.001
@@ -205,41 +201,19 @@ position = Vector2(1013, 154)
 position = Vector2(1815, 90)
 
 [node name="RibBug" parent="Hazards" index="3" instance=ExtResource("7_lt7li")]
-position = Vector2(2248, 116)
+position = Vector2(2248, 117)
 
 [node name="RibBug2" parent="Hazards" index="4" instance=ExtResource("7_lt7li")]
-position = Vector2(281, 148)
+position = Vector2(240, 152)
 
-[node name="PowerupOFF" type="Area2D" parent="." index="10"]
-collision_mask = 2
-script = ExtResource("8_7vndg")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PowerupOFF" index="0"]
-position = Vector2(63.5, 83.5)
-shape = SubResource("RectangleShape2D_b80db")
-
-[node name="EndLocator" parent="." index="11"]
+[node name="EndLocator" parent="." index="10"]
 position = Vector2(3665, -136)
 
-[node name="PowerupOFF2" type="Area2D" parent="." index="12"]
-position = Vector2(3535, -251)
-collision_mask = 2
-script = ExtResource("8_7vndg")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PowerupOFF2" index="0"]
-position = Vector2(63.5, 83.5)
-shape = SubResource("RectangleShape2D_b80db")
-
-[node name="PowerupOFF3" type="Area2D" parent="." index="13"]
-position = Vector2(598, 25)
-scale = Vector2(0.617033, 1.37683)
-collision_mask = 2
-script = ExtResource("8_7vndg")
-
-[node name="Checkpoint" parent="." index="14" instance=ExtResource("4_cnxiy")]
+[node name="Checkpoint" parent="." index="11" instance=ExtResource("4_cnxiy")]
 position = Vector2(645, 112)
+collision_layer = 2
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." index="15"]
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="12"]
 script = ExtResource("11_0rfn5")
 
 [node name="Key instruction(arrow)" type="Label" parent="CanvasLayer" index="0"]
@@ -306,10 +280,3 @@ one_shot = true
 [node name="Timer2" type="Timer" parent="CanvasLayer" index="4"]
 wait_time = 2.0
 one_shot = true
-
-[connection signal="spike_trap_player_died" from="Hazards/SpikeTrap2" to="." method="_on_player_died"]
-[connection signal="spike_trap_player_died" from="Hazards/SpikeTrap" to="." method="_on_player_died"]
-[connection signal="player_died" from="Hazards/FloorMaw" to="." method="_on_player_died"]
-[connection signal="body_entered" from="PowerupOFF" to="PowerupOFF" method="_on_body_entered"]
-[connection signal="body_entered" from="PowerupOFF2" to="PowerupOFF2" method="_on_body_entered"]
-[connection signal="body_entered" from="PowerupOFF3" to="PowerupOFF3" method="_on_body_entered"]

@@ -8,7 +8,7 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_5tawf"]
 font = ExtResource("2_rnt7i")
-font_size = 37
+font_size = 48
 shadow_size = 2
 shadow_color = Color(0.27451, 0, 0, 0.780392)
 
@@ -38,27 +38,31 @@ position = Vector2(576, 324)
 scale = Vector2(3.6, 3.6)
 texture = ExtResource("1_anrnc")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 0
-offset_left = 452.0
-offset_top = 231.0
-offset_right = 714.0
-offset_bottom = 414.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="Title" type="Label" parent="."]
 layout_mode = 2
-
-[node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
+offset_left = 430.0
+offset_top = 155.0
+offset_right = 750.0
+offset_bottom = 210.0
 text = "Escape the SeTtings
 "
 label_settings = SubResource("LabelSettings_5tawf")
 horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 452.0
+offset_top = 227.0
+offset_right = 714.0
+offset_bottom = 589.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="Audio Slider Title" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="AudioSettingsContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Audio Slider Title" type="Label" parent="MarginContainer/VBoxContainer/AudioSettingsContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "Volume"
@@ -66,19 +70,19 @@ label_settings = SubResource("LabelSettings_ihnyw")
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="MasterSliderContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="MasterSliderContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/AudioSettingsContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/MasterSliderContainer"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/AudioSettingsContainer/MasterSliderContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 text = "Master"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/MasterSliderContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/AudioSettingsContainer/MasterSliderContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VolumeSlider" type="HSlider" parent="MarginContainer/VBoxContainer/VBoxContainer/MasterSliderContainer/VBoxContainer"]
+[node name="VolumeSlider" type="HSlider" parent="MarginContainer/VBoxContainer/AudioSettingsContainer/MasterSliderContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 focus_neighbor_top = NodePath("../../../../ReturnButton")
@@ -92,19 +96,19 @@ ticks_on_borders = true
 script = ExtResource("4_v3umm")
 bus_name = "Master"
 
-[node name="MusicSliderContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="MusicSliderContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/AudioSettingsContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/MusicSliderContainer"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/AudioSettingsContainer/MusicSliderContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 text = "Music  "
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/MusicSliderContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/AudioSettingsContainer/MusicSliderContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VolumeSlider" type="HSlider" parent="MarginContainer/VBoxContainer/VBoxContainer/MusicSliderContainer/VBoxContainer"]
+[node name="VolumeSlider" type="HSlider" parent="MarginContainer/VBoxContainer/AudioSettingsContainer/MusicSliderContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 focus_neighbor_top = NodePath("../../../MasterSliderContainer/VBoxContainer/VolumeSlider")
@@ -118,19 +122,19 @@ ticks_on_borders = true
 script = ExtResource("4_v3umm")
 bus_name = "Music"
 
-[node name="MusicSliderContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="MusicSliderContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/AudioSettingsContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/MusicSliderContainer2"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/AudioSettingsContainer/MusicSliderContainer2"]
 layout_mode = 2
 size_flags_vertical = 0
 text = "SFX      "
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/MusicSliderContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/AudioSettingsContainer/MusicSliderContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VolumeSlider" type="HSlider" parent="MarginContainer/VBoxContainer/VBoxContainer/MusicSliderContainer2/VBoxContainer"]
+[node name="VolumeSlider" type="HSlider" parent="MarginContainer/VBoxContainer/AudioSettingsContainer/MusicSliderContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 focus_neighbor_top = NodePath("../../../MusicSliderContainer/VBoxContainer/VolumeSlider")
@@ -144,7 +148,7 @@ ticks_on_borders = true
 script = ExtResource("4_v3umm")
 bus_name = "SFX"
 
-[node name="Volume percent label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/MusicSliderContainer2/VBoxContainer"]
+[node name="Volume percent label" type="Label" parent="MarginContainer/VBoxContainer/AudioSettingsContainer/MusicSliderContainer2/VBoxContainer"]
 layout_mode = 2
 text = " 0 100 "
 label_settings = SubResource("LabelSettings_qfomh")
@@ -152,26 +156,34 @@ horizontal_alignment = 3
 
 [node name="FullscreenButton" type="CheckButton" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../VBoxContainer/MusicSliderContainer2/VBoxContainer/VolumeSlider")
-focus_neighbor_bottom = NodePath("../VBoxContainer2/SmoothingButton")
-focus_next = NodePath("../VBoxContainer2/SmoothingButton")
-focus_previous = NodePath("../VBoxContainer/MusicSliderContainer2/VBoxContainer/VolumeSlider")
+focus_neighbor_top = NodePath("../AudioSettingsContainer/MusicSliderContainer2/VBoxContainer/VolumeSlider")
+focus_neighbor_bottom = NodePath("../SpeedrunButton")
+focus_next = NodePath("../SpeedrunButton")
+focus_previous = NodePath("../AudioSettingsContainer/MusicSliderContainer2/VBoxContainer/VolumeSlider")
 text = "Fullscreen"
 script = ExtResource("4_s6qnc")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="SpeedrunButton" type="CheckButton" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../FullscreenButton")
+focus_neighbor_bottom = NodePath("../SmoothingButtonContainer/SmoothingButton")
+focus_next = NodePath("../SmoothingButtonContainer/SmoothingButton")
+focus_previous = NodePath("../FullscreenButton")
+text = "Speedrun Timer"
+
+[node name="SmoothingButtonContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="SmoothingButton" type="CheckButton" parent="MarginContainer/VBoxContainer/VBoxContainer2"]
+[node name="SmoothingButton" type="CheckButton" parent="MarginContainer/VBoxContainer/SmoothingButtonContainer"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../../FullscreenButton")
+focus_neighbor_top = NodePath("../../SpeedrunButton")
 focus_neighbor_bottom = NodePath("../../ReturnButton")
 focus_next = NodePath("../../ReturnButton")
-focus_previous = NodePath("../../FullscreenButton")
+focus_previous = NodePath("../../SpeedrunButton")
 text = "Camera Smoothing"
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer2"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SmoothingButtonContainer"]
 layout_mode = 2
 text = "  (Requires Reload)
  "
@@ -179,17 +191,18 @@ label_settings = SubResource("LabelSettings_diksu")
 
 [node name="ReturnButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../VBoxContainer2/SmoothingButton")
-focus_neighbor_bottom = NodePath("../VBoxContainer/MasterSliderContainer/VBoxContainer/VolumeSlider")
-focus_next = NodePath("../VBoxContainer/MasterSliderContainer/VBoxContainer/VolumeSlider")
-focus_previous = NodePath("../VBoxContainer2/SmoothingButton")
+focus_neighbor_top = NodePath("../SmoothingButtonContainer/SmoothingButton")
+focus_neighbor_bottom = NodePath("../AudioSettingsContainer/MasterSliderContainer/VBoxContainer/VolumeSlider")
+focus_next = NodePath("../AudioSettingsContainer/MasterSliderContainer/VBoxContainer/VolumeSlider")
+focus_previous = NodePath("../SmoothingButtonContainer/SmoothingButton")
 text = "Back"
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
-[connection signal="value_changed" from="MarginContainer/VBoxContainer/VBoxContainer/MasterSliderContainer/VBoxContainer/VolumeSlider" to="MarginContainer/VBoxContainer/VBoxContainer/MasterSliderContainer/VBoxContainer/VolumeSlider" method="_on_value_changed"]
-[connection signal="value_changed" from="MarginContainer/VBoxContainer/VBoxContainer/MusicSliderContainer/VBoxContainer/VolumeSlider" to="MarginContainer/VBoxContainer/VBoxContainer/MusicSliderContainer/VBoxContainer/VolumeSlider" method="_on_value_changed"]
-[connection signal="value_changed" from="MarginContainer/VBoxContainer/VBoxContainer/MusicSliderContainer2/VBoxContainer/VolumeSlider" to="MarginContainer/VBoxContainer/VBoxContainer/MusicSliderContainer2/VBoxContainer/VolumeSlider" method="_on_value_changed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/AudioSettingsContainer/MasterSliderContainer/VBoxContainer/VolumeSlider" to="MarginContainer/VBoxContainer/AudioSettingsContainer/MasterSliderContainer/VBoxContainer/VolumeSlider" method="_on_value_changed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/AudioSettingsContainer/MusicSliderContainer/VBoxContainer/VolumeSlider" to="MarginContainer/VBoxContainer/AudioSettingsContainer/MusicSliderContainer/VBoxContainer/VolumeSlider" method="_on_value_changed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/AudioSettingsContainer/MusicSliderContainer2/VBoxContainer/VolumeSlider" to="MarginContainer/VBoxContainer/AudioSettingsContainer/MusicSliderContainer2/VBoxContainer/VolumeSlider" method="_on_value_changed"]
 [connection signal="request_save" from="MarginContainer/VBoxContainer/FullscreenButton" to="." method="_on_fullscreen_button_request_save"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/FullscreenButton" to="MarginContainer/VBoxContainer/FullscreenButton" method="_on_fullscreen_button_toggled"]
-[connection signal="toggled" from="MarginContainer/VBoxContainer/VBoxContainer2/SmoothingButton" to="." method="_on_smoothing_button_toggled"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/SpeedrunButton" to="." method="_on_speedrun_button_toggled"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/SmoothingButtonContainer/SmoothingButton" to="." method="_on_smoothing_button_toggled"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ReturnButton" to="." method="_on_return_button_pressed"]

@@ -7,7 +7,7 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_68t43"]
 font = ExtResource("3_oxgcf")
-font_size = 37
+font_size = 48
 shadow_size = 2
 shadow_color = Color(0.27451, 0, 0, 0.780392)
 
@@ -30,21 +30,25 @@ position = Vector2(576, 324)
 scale = Vector2(3.6, 3.6)
 texture = ExtResource("2_xra3f")
 
-[node name="MarginContainer" type="MarginContainer" parent="MainMenuParent"]
-layout_mode = 0
-offset_left = 452.0
-offset_top = 231.0
-offset_right = 714.0
-offset_bottom = 414.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuParent/MarginContainer"]
+[node name="Title" type="Label" parent="MainMenuParent"]
 layout_mode = 2
-
-[node name="Label" type="Label" parent="MainMenuParent/MarginContainer/VBoxContainer"]
-layout_mode = 2
+offset_left = 421.0
+offset_top = 207.0
+offset_right = 755.0
+offset_bottom = 262.0
 text = "Escape the Colossus"
 label_settings = SubResource("LabelSettings_68t43")
 horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MainMenuParent"]
+layout_mode = 0
+offset_left = 452.0
+offset_top = 266.0
+offset_right = 714.0
+offset_bottom = 449.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuParent/MarginContainer"]
+layout_mode = 2
 
 [node name="ResumeButton" type="Button" parent="MainMenuParent/MarginContainer/VBoxContainer"]
 layout_mode = 2
