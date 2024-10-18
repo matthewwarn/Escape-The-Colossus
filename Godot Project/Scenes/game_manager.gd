@@ -1,11 +1,14 @@
 extends Node
 
+signal level_load_complete;
+
 const GAME_SAVE_PATH: String = "user://save.dat";
-const FALLBACK_SAVE: String  = "res://fallback_save.dat";
 const MAIN_MENU: String      = "Scenes/Menus/main_menu.tscn";
 const SETTINGS_MENU: String  = "Scenes/Menus/settings_menu.tscn";
 
+## Used to play each level's soundtrack.
 @onready var audio_manager = $AudioManager
+## Used to fade screen while loading a level.
 @onready var screen_overlay: CanvasLayer = $ScreenOverlay
 
 ## Path to first level of the game. Relative to LEVEL_ROOT_DIR
@@ -13,6 +16,7 @@ var FIRST_LEVEL: String = "Tutorial/integrated_tutorial.tscn";
 ## Path from which all level paths are given relative to.
 const LEVEL_ROOT_DIR: String = "Scenes/Levels/";
 
+## When the save file on a user's computer is not usable, use this instead.
 var DEFAULT_SAVE: Dictionary = {
 	"current_level": FIRST_LEVEL,
 	"fullscreen": false,
@@ -28,6 +32,7 @@ var DEFAULT_SAVE: Dictionary = {
 	"SFX": 1.0,
 }
 
+## A save file must contain all of these attributes to be considered valid.
 var SAVE_KEYS: Array = [
 	'current_level',
 	'fullscreen',
@@ -43,10 +48,13 @@ var SAVE_KEYS: Array = [
 	"SFX",
 ]
 
+## Reference to root of currently loaded scene.
 var current_level: Node;
+## Path to .tscn file for currently loaded scene.
 var current_level_path: String;
 
-var speedrun_time: float = 0;
+## Float seconds taken since this save was started.
+#var speedrun_time: float = 0;
 
 ## When godot finishes loading game manager, load the main menu.
 func _ready() -> void:
@@ -54,12 +62,17 @@ func _ready() -> void:
 	current_level_path = read_save();
 
 ## Called when main menu new game button pressed.
+## Reset the player's position, abilities, and speedrun time.
 func start_game() -> void:
+	load_level(FIRST_LEVEL);
+	await self.level_load_complete;
 	Abilities.dash_enabled = false;
 	Abilities.double_jump_enabled = false;
-	load_level(FIRST_LEVEL);
+	Global.speedrun_time = 0.0;
+	save_game()
 
 ## Called when main menu resume game button pressed.
+## Resume the most recent save.
 func resume_game() -> void:
 	current_level_path = read_save();
 	load_level(current_level_path);
@@ -139,6 +152,7 @@ func apply_save(data: Dictionary) -> String:
 	return data["current_level"];
 
 
+## Check that the given dictionary has all the attributes required to be a valid save file.
 func check_dict_validity(keys: Array, dict: Dictionary) -> bool:
 	for key in keys:
 		if !dict.has(key):
@@ -153,13 +167,16 @@ func check_dict_validity(keys: Array, dict: Dictionary) -> bool:
 func load_level(level_path: String, jump_to_end: bool = false) -> void:
 	call_deferred("_load_level_deferred", level_path, jump_to_end);
 
+
 ## Load a scene and connect all its signals
 func _load_level_deferred(level_path: String, jump_to_end: bool = false) -> void:
-	# Needed as when this is called in _ready there is no loaded level.
+	# Condition needed as when this is called in _ready there is no loaded level.
 	if (current_level != null):
+		# Unload the current level.
 		remove_child(current_level);
 		current_level.call_deferred("free");
 	
+	# Load level as resource from file.
 	var next_level_preload;
 	if (level_path == MAIN_MENU):
 		next_level_preload = load(level_path);
@@ -167,6 +184,7 @@ func _load_level_deferred(level_path: String, jump_to_end: bool = false) -> void
 		next_level_preload = load(LEVEL_ROOT_DIR + level_path);
 		current_level_path = level_path;
 	
+	# Create instance of level and add as child to scene tree.
 	current_level = next_level_preload.instantiate();
 	add_child(current_level);
 	
@@ -188,6 +206,8 @@ func _load_level_deferred(level_path: String, jump_to_end: bool = false) -> void
 		# When moving to a previous level, we need to jump to the end of the level.
 		if (jump_to_end):
 			current_level.jump_to_end();
+	
+	level_load_complete.emit();
 	
 
 ## Reload current level on player death.
