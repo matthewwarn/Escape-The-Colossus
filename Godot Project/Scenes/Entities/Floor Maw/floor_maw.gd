@@ -11,7 +11,7 @@ var can_attack = true
 var is_alive = true
 var attack_ip = false
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	floormaw_enemy()
 	attack()
 
@@ -60,7 +60,8 @@ func _on_deal_damage_hitbox_body_entered(body):
 
 
 func _on_deal_damage_hitbox_body_exited(body):
-	player_inattack_zone = false
+	if body.has_method("player"):
+		player_inattack_zone = false
 
 
 func _on_attack_cooldown_timeout():
