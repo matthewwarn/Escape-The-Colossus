@@ -53,8 +53,6 @@ var current_level: Node;
 ## Path to .tscn file for currently loaded scene.
 var current_level_path: String;
 
-## Float seconds taken since this save was started.
-#var speedrun_time: float = 0;
 
 ## When godot finishes loading game manager, load the main menu.
 func _ready() -> void:
