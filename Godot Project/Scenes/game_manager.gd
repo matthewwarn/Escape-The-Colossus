@@ -6,36 +6,12 @@ const MAIN_MENU: String      = "Scenes/Menus/main_menu.tscn";
 const SETTINGS_MENU: String  = "Scenes/Menus/settings_menu.tscn";
 
 @onready var audio_manager = $AudioManager
-@onready var screen_overlay: CanvasLayer = $ScreenOverlay
 
 ## Path to first level of the game. Relative to LEVEL_ROOT_DIR
-var FIRST_LEVEL: String = "Tutorial/integrated_tutorial.tscn";
+@export
+var FIRST_LEVEL: String;
 ## Path from which all level paths are given relative to.
 const LEVEL_ROOT_DIR: String = "Scenes/Levels/";
-
-var DEFAULT_SAVE: Dictionary = {
-	"current_level": FIRST_LEVEL,
-	"fullscreen": false,
-	"camera smoothing": true,
-	"double jump": false,
-	"dash": false,
-	"speedrun enabled": false,
-	"speedrun time": 0,
-	"core one defeated": false,
-	"core two defeated": false,
-}
-
-var SAVE_KEYS: Array = [
-	'current_level',
-	'fullscreen',
-	'camera smoothing',
-	'double jump',
-	'dash',
-	'speedrun enabled',
-	"speedrun time",
-	"core one defeated",
-	"core two defeated"
-]
 
 var current_level: Node;
 var current_level_path: String;
@@ -49,8 +25,6 @@ func _ready() -> void:
 
 ## Called when main menu new game button pressed.
 func start_game() -> void:
-	Abilities.dash_enabled = false;
-	Abilities.double_jump_enabled = false;
 	load_level(FIRST_LEVEL);
 
 ## Called when main menu resume game button pressed.
@@ -69,13 +43,7 @@ func save_game() -> void:
 	var save_data = {
 		"current_level": current_level_path,
 		"fullscreen": SettingsManager.is_fullscreen(),
-		"camera smoothing": SettingsManager.camera_smoothing,
-		"speedrun enabled": SettingsManager.speedrun_timer,
-		"speedrun time": Global.speedrun_time,
-		"double jump": Abilities.double_jump_enabled,
-		"dash": Abilities.dash_enabled,
-		"core one defeated": Global.core_one_defeated,
-		"core two defeated": Global.core_two_defeated,
+		"camera smoothing": SettingsManager.camera_smoothing
 	}
 	var serialised_data = JSON.stringify(save_data);
 	var file = FileAccess.open(GAME_SAVE_PATH, FileAccess.WRITE);
@@ -85,54 +53,26 @@ func save_game() -> void:
 ## Read previous game state from file.
 ## returns path to current level in save.
 func read_save() -> String:
-	# Try to read the save file
 	var file = FileAccess.open(GAME_SAVE_PATH, FileAccess.READ);
 	# New installations will not have a game save file so we need to load a default one instead.
 	if file == null:
-		return apply_save(DEFAULT_SAVE);
+		file = FileAccess.open(FALLBACK_SAVE, FileAccess.READ);
 	
-	# Parse the save file
 	var serialised_data = file.get_as_text();
 	var json = JSON.new();
 	var parse_error = json.parse(serialised_data);
 	
-	# Check save file validity and apply if correct
 	if (parse_error == OK):
 		var save_data = json.data;
 		if (typeof(save_data) == TYPE_DICTIONARY):
-			if check_dict_validity(SAVE_KEYS, save_data):
-				print("valid")
-				return apply_save(save_data)
-			else:
-				print("Save file missing attribute");
+			SettingsManager.set_fullscreen(save_data["fullscreen"])
+			SettingsManager.camera_smoothing = save_data["camera smoothing"];
+			return save_data["current_level"];
 		else:
 			print("save data corrupt.");
 	else:
 		print("Parse error in save file: ", json.get_error_message());
-	
-	# Save file is invalid, use the default.
-	return apply_save(DEFAULT_SAVE);
-
-
-## Apply the data from a save file to the game's global scripts
-func apply_save(data: Dictionary) -> String:
-	SettingsManager.set_fullscreen(data["fullscreen"])
-	SettingsManager.camera_smoothing = data["camera smoothing"];
-	Abilities.double_jump_enabled    = data["double jump"];
-	Abilities.dash_enabled           = data["dash"];
-	SettingsManager.speedrun_timer   = data["speedrun enabled"];
-	Global.speedrun_time             = data["speedrun time"];
-	Global.core_one_defeated         = data["core one defeated"];
-	Global.core_two_defeated         = data["core two defeated"];
-	print(data['current_level'])
-	return data["current_level"];
-
-
-func check_dict_validity(keys: Array, dict: Dictionary) -> bool:
-	for key in keys:
-		if !dict.has(key):
-			return false;
-	return true;
+	return FIRST_LEVEL;
 
 
 ## Load Level
@@ -144,7 +84,7 @@ func load_level(level_path: String, jump_to_end: bool = false) -> void:
 
 ## Load a scene and connect all its signals
 func _load_level_deferred(level_path: String, jump_to_end: bool = false) -> void:
-	# Needed as when this is called in _ready there is no loaded level.
+	## Needed as when this is called in _ready there is no loaded level.
 	if (current_level != null):
 		remove_child(current_level);
 		current_level.call_deferred("free");
@@ -179,11 +119,6 @@ func _load_level_deferred(level_path: String, jump_to_end: bool = false) -> void
 			current_level.jump_to_end();
 	
 
-## Reload current level on player death.
+# Reload current level on player death.
 func reload_level() -> void:
-	# Fade the screen to black
-	screen_overlay.auto_fade();
-	# Wait until the screen is black before unloading the level.
-	# This masks the brief freeze when reloading the level.
-	await screen_overlay.fade_complete;
 	load_level(current_level_path);
