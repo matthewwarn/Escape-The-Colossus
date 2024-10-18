@@ -23,6 +23,9 @@ var DEFAULT_SAVE: Dictionary = {
 	"speedrun time": 0,
 	"core one defeated": false,
 	"core two defeated": false,
+	"Master": 1.0,
+	"Music": 1.0,
+	"SFX": 1.0,
 }
 
 var SAVE_KEYS: Array = [
@@ -34,7 +37,10 @@ var SAVE_KEYS: Array = [
 	'speedrun enabled',
 	"speedrun time",
 	"core one defeated",
-	"core two defeated"
+	"core two defeated",
+	"Master",
+	"Music",
+	"SFX",
 ]
 
 var current_level: Node;
@@ -71,13 +77,16 @@ func save_game() -> void:
 		"fullscreen": SettingsManager.is_fullscreen(),
 		"camera smoothing": SettingsManager.camera_smoothing,
 		"speedrun enabled": SettingsManager.speedrun_timer,
-		"speedrun time": Global.speedrun_time,
+		"speedrun time": snapped(Global.speedrun_time, 0.0001),
 		"double jump": Abilities.double_jump_enabled,
 		"dash": Abilities.dash_enabled,
 		"core one defeated": Global.core_one_defeated,
 		"core two defeated": Global.core_two_defeated,
+		"Master": snapped(SettingsManager.get_linear_volume("Master"), 0.01),
+		"Music": snapped(SettingsManager.get_linear_volume("Music"), 0.01),
+		"SFX": snapped(SettingsManager.get_linear_volume("SFX"), 0.01),
 	}
-	var serialised_data = JSON.stringify(save_data);
+	var serialised_data = JSON.stringify(save_data, "\t");
 	var file = FileAccess.open(GAME_SAVE_PATH, FileAccess.WRITE);
 	file.store_string(serialised_data);
 
@@ -116,7 +125,10 @@ func read_save() -> String:
 
 ## Apply the data from a save file to the game's global scripts
 func apply_save(data: Dictionary) -> String:
-	SettingsManager.set_fullscreen(data["fullscreen"])
+	SettingsManager.set_fullscreen(data["fullscreen"]);
+	SettingsManager.set_linear_volume("Master", data["Master"]);
+	SettingsManager.set_linear_volume("Music", data["Music"]);
+	SettingsManager.set_linear_volume("SFX", data["SFX"]);
 	SettingsManager.camera_smoothing = data["camera smoothing"];
 	Abilities.double_jump_enabled    = data["double jump"];
 	Abilities.dash_enabled           = data["dash"];
@@ -124,7 +136,6 @@ func apply_save(data: Dictionary) -> String:
 	Global.speedrun_time             = data["speedrun time"];
 	Global.core_one_defeated         = data["core one defeated"];
 	Global.core_two_defeated         = data["core two defeated"];
-	print(data['current_level'])
 	return data["current_level"];
 
 

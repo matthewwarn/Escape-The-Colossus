@@ -1,5 +1,7 @@
 extends HSlider
 
+signal save_requested;
+
 @export
 var bus_name: String
 var bus_index: int
@@ -10,7 +12,5 @@ func _ready() -> void:
 
 
 func _on_value_changed(_value: float) -> void:
-	AudioServer.set_bus_volume_db(
-		bus_index,
-		linear_to_db(_value)
-	);
+	SettingsManager.set_linear_volume(bus_name, _value);
+	save_requested.emit();
