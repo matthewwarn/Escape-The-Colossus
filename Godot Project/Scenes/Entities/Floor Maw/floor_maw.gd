@@ -13,18 +13,21 @@ var attack_ip = false
 
 func _physics_process(delta):
 	floormaw_enemy()
-	acttack()
+	attack()
 
 
-func _on_proximity_detector_body_entered(_body: Node2D) -> void:
-	animated_sprite.play(&"Spawn")
+func _on_proximity_detector_body_entered(body: Node2D) -> void:
+	if body.has_method("player"):
+		animated_sprite.play(&"Spawn")
 
 
 func _on_proximity_detector_body_exited(body: Node2D) -> void:
-	animated_sprite.play_backwards(&"Spawn");
+	if body.has_method("player"):
+		animated_sprite.play_backwards(&"Spawn");
+
 
 #to play attack animation
-func acttack():
+func attack():
 	var dir = facing
 	if player_inattack_zone and can_attack:
 		attack_ip = true
