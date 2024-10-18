@@ -227,7 +227,7 @@ func attack():
 	var dir: int = facing
 	
 
-	if Input.is_action_just_pressed("attack") and enemy_attack_cooldown == true:
+	if Input.is_action_just_pressed("attack"):
 		emit_signal("attack_made")
 
 		Global.player_current_attack = true

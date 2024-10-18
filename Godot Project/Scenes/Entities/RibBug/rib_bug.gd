@@ -28,6 +28,7 @@ var can_chase: bool = true               #tracks if enemy can chase player
 @onready var jump_time = $Jump_time
 @onready var ray_cast_wall = $RayCastWall
 @onready var ray_cast_floor = $RayCastFloor
+@onready var blood_splash = $"Blood splash"
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -104,6 +105,7 @@ func _physics_process(delta):
 	move_and_slide()
 	# for when the player is in the RibBug's detection area 
 	
+	
 
 #playing the different animations
 func play_animation():
@@ -169,6 +171,7 @@ func deal_with_damage():
 	if can_take_damage_zone and Global.player_current_attack == true:
 		if can_take_damage == true:
 			$HitSFX.play()
+			blood_splash.start_emitting()
 			health = health - 1
 			take_damage_cooldown.start()
 			can_take_damage = false
