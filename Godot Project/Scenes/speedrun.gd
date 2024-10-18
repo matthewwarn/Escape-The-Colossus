@@ -3,7 +3,7 @@ extends CanvasLayer
 var time = Global.speedrun_time
 
 func _physics_process(delta):
-	time = float(time) + delta
+	time = float(Global.speedrun_time) + delta
 	
 	update_ui();
 

@@ -198,8 +198,11 @@ focus_previous = NodePath("../SmoothingButtonContainer/SmoothingButton")
 text = "Back"
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="save_requested" from="MarginContainer/VBoxContainer/AudioSettingsContainer/MasterSliderContainer/VBoxContainer/VolumeSlider" to="." method="_on_fullscreen_button_request_save"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/AudioSettingsContainer/MasterSliderContainer/VBoxContainer/VolumeSlider" to="MarginContainer/VBoxContainer/AudioSettingsContainer/MasterSliderContainer/VBoxContainer/VolumeSlider" method="_on_value_changed"]
+[connection signal="save_requested" from="MarginContainer/VBoxContainer/AudioSettingsContainer/MusicSliderContainer/VBoxContainer/VolumeSlider" to="." method="_on_fullscreen_button_request_save"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/AudioSettingsContainer/MusicSliderContainer/VBoxContainer/VolumeSlider" to="MarginContainer/VBoxContainer/AudioSettingsContainer/MusicSliderContainer/VBoxContainer/VolumeSlider" method="_on_value_changed"]
+[connection signal="save_requested" from="MarginContainer/VBoxContainer/AudioSettingsContainer/MusicSliderContainer2/VBoxContainer/VolumeSlider" to="." method="_on_fullscreen_button_request_save"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/AudioSettingsContainer/MusicSliderContainer2/VBoxContainer/VolumeSlider" to="MarginContainer/VBoxContainer/AudioSettingsContainer/MusicSliderContainer2/VBoxContainer/VolumeSlider" method="_on_value_changed"]
 [connection signal="request_save" from="MarginContainer/VBoxContainer/FullscreenButton" to="." method="_on_fullscreen_button_request_save"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/FullscreenButton" to="MarginContainer/VBoxContainer/FullscreenButton" method="_on_fullscreen_button_toggled"]

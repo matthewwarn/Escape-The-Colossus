@@ -17,3 +17,15 @@ func set_fullscreen(fullscreen_enabled: bool) -> void:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN);
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED);
+
+
+func get_linear_volume(bus_name: String):
+	var bus_index = AudioServer.get_bus_index(bus_name);
+	return db_to_linear(AudioServer.get_bus_volume_db(bus_index));
+
+
+func set_linear_volume(bus_name: String, volume: float):
+	AudioServer.set_bus_volume_db(
+		AudioServer.get_bus_index(bus_name),
+		linear_to_db(volume)
+	);
