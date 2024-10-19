@@ -52,60 +52,59 @@ func _physics_process(delta):
 			velocity.y += FALL_GRAVITY * delta
 	
 	#if RibBug there is floor infornt of the ribbug
-	
-	if player_chase == true:
-		chase_player(delta)
-	elif has_engaged == true and player_chase == false and is_jumping == false: #if RibBug has engaged the player then it will move around on platform
-		if (facing) < 0:
-			animated_sprite.flip_h = false
-			ray_cast_floor.position.x = -13
-			ray_cast_wall.scale.x = 1
-			ray_cast_jump.position.x = -16
-		else:
-			animated_sprite.flip_h = true
-			ray_cast_floor.position.x = 13
-			ray_cast_wall.scale.x = -1
-			ray_cast_jump.position.x = 16
+	if is_alive == true:
+		if player_chase == true:
+			chase_player(delta)
+		elif has_engaged == true and player_chase == false and is_jumping == false: #if RibBug has engaged the player then it will move around on platform
+			if (facing) < 0:
+				animated_sprite.flip_h = false
+				ray_cast_floor.position.x = -13
+				ray_cast_wall.scale.x = 1
+				ray_cast_jump.position.x = -16
+			else:
+				animated_sprite.flip_h = true
+				ray_cast_floor.position.x = 13
+				ray_cast_wall.scale.x = -1
+				ray_cast_jump.position.x = 16
 			
-		if ray_cast_wall.is_colliding():
-			if (facing) < 0:
-				animated_sprite.flip_h = true
-				facing = 1
-				ray_cast_floor.position.x = 13
-				ray_cast_wall.scale.x = -1
-				ray_cast_jump.position.x = 16
-			else:
-				animated_sprite.flip_h = false
-				facing = -1
-				ray_cast_floor.position.x = -13
-				ray_cast_wall.scale.x = 1
-				ray_cast_jump.position.x = -16
-			can_chase = false
-			player_chase = false
+			if ray_cast_wall.is_colliding():
+				if (facing) < 0:
+					animated_sprite.flip_h = true
+					facing = 1
+					ray_cast_floor.position.x = 13
+					ray_cast_wall.scale.x = -1
+					ray_cast_jump.position.x = 16
+				else:
+					animated_sprite.flip_h = false
+					facing = -1
+					ray_cast_floor.position.x = -13
+					ray_cast_wall.scale.x = 1
+					ray_cast_jump.position.x = -16
+				can_chase = false
+				player_chase = false
+				position.x += facing * SPEED * delta
+				chase_cooldown.start()
+			elif ray_cast_floor.is_colliding() == false:
+				if (facing) < 0:
+					animated_sprite.flip_h = true
+					facing = 1
+					ray_cast_floor.position.x = 13
+					ray_cast_wall.scale.x = -1
+					ray_cast_jump.position.x = 16
+				else:
+					animated_sprite.flip_h = false
+					facing = -1
+					ray_cast_floor.position.x = -13
+					ray_cast_wall.scale.x = 1
+					ray_cast_jump.position.x = -16
+				can_chase = false
+				player_chase = false
+				position.x += facing * SPEED * delta
+				chase_cooldown.start()
 			position.x += facing * SPEED * delta
-			chase_cooldown.start()
-		elif ray_cast_floor.is_colliding() == false:
-			if (facing) < 0:
-				animated_sprite.flip_h = true
-				facing = 1
-				ray_cast_floor.position.x = 13
-				ray_cast_wall.scale.x = -1
-				ray_cast_jump.position.x = 16
-			else:
-				animated_sprite.flip_h = false
-				facing = -1
-				ray_cast_floor.position.x = -13
-				ray_cast_wall.scale.x = 1
-				ray_cast_jump.position.x = -16
-			can_chase = false
-			player_chase = false
-			position.x += facing * SPEED * delta
-			chase_cooldown.start()
-		position.x += facing * SPEED * delta
 	move_and_slide()
 	# for when the player is in the RibBug's detection area 
-	
-	
+
 
 #playing the different animations
 func play_animation():
@@ -117,7 +116,6 @@ func play_animation():
 		animated_sprite.play("Attack")
 	elif is_alive == false:
 		animated_sprite.play("Death ")
-
 
 #handling chasing the player
 func chase_player(delta):
@@ -138,7 +136,10 @@ func chase_player(delta):
 	#if RibBug is on the floor
 	if ray_cast_floor.is_colliding():
 		if ray_cast_wall.is_colliding():
-			jump(delta)
+			if ray_cast_jump.is_colliding() == false:
+				jump(delta)
+			else:
+				player_chase = false
 			position.x += direction / (CHASE_SPEED * delta ) #this is for chasing the player
 	elif ray_cast_floor.is_colliding() == false: #for when there is no floor
 		jump(delta)
@@ -175,6 +176,7 @@ func deal_with_damage():
 			health = health - 1
 			take_damage_cooldown.start()
 			can_take_damage = false
+			collision_layer = false
 
 
 func jump(delta):
