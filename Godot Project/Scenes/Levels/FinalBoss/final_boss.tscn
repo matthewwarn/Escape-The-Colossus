@@ -21,7 +21,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_so8ak"]
 size = Vector2(449, 105)
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8ye5g"]
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_t222a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_444ym"]
 size = Vector2(37, 81)
@@ -95,6 +95,8 @@ animations = [{
 [node name="TemplateLevel" instance=ExtResource("1_so76t")]
 
 [node name="Checkpoint" type="Area2D" parent="." index="1"]
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("12_awbk7")
 spawn_position = Vector2(-289, -1803)
 
@@ -102,9 +104,13 @@ spawn_position = Vector2(-289, -1803)
 position = Vector2(-290.5, -1846.5)
 shape = SubResource("RectangleShape2D_so8ak")
 
+[node name="Killzone" parent="." index="2"]
+position = Vector2(2, -3)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone" index="1"]
-position = Vector2(0, 354)
-shape = SubResource("WorldBoundaryShape2D_8ye5g")
+position = Vector2(25, 256)
+shape = SubResource("WorldBoundaryShape2D_t222a")
+debug_color = Color(0.858774, 0.205224, 0.741549, 0.42)
 
 [node name="PrevLevelTransition" parent="." index="3"]
 position = Vector2(-72, 0)
@@ -499,7 +505,7 @@ position = Vector2(321, -3457)
 rotation = -1.57079
 
 [node name="Player" parent="." index="15"]
-position = Vector2(32, 160)
+position = Vector2(27, 158)
 
 [node name="EndLocator" parent="." index="16"]
 position = Vector2(169, -12)
@@ -674,6 +680,7 @@ rotation = 1.57079
 position = Vector2(-80, -210)
 rotation = 1.57079
 
+[connection signal="body_entered" from="Checkpoint" to="Checkpoint" method="_on_body_entered"]
 [connection signal="body_entered" from="HeartCore/Area2D" to="HeartCore/Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="HeartCore/Area2D" to="HeartCore/Area2D" method="_on_body_exited"]
 [connection signal="heart_destroyed_signal" from="HeartCore/Area2D" to="Rising Acid" method="_on_area_2d_heart_destroyed_signal"]
