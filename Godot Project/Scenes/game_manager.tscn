@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://dtpqqhxejqrok"]
 
 [ext_resource type="Script" path="res://Scenes/game_manager.gd" id="1_216xr"]
-[ext_resource type="PackedScene" uid="uid://bg4hns4dr4nit" path="res://scripts/audio_manager.tscn" id="2_lo7lq"]
+[ext_resource type="PackedScene" path="res://scripts/audio_manager.tscn" id="2_lo7lq"]
 [ext_resource type="Texture2D" uid="uid://di6cheug63uh5" path="res://Scenes/Levels/LevelAssets/black_screen.png" id="3_3yi7u"]
 [ext_resource type="Script" path="res://Scenes/screen_overlay.gd" id="3_byyw1"]
 
