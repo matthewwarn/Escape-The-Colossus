@@ -220,7 +220,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_76kfy"]
-size = Vector2(115.5, 73.5)
+size = Vector2(197, 91.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qtajg"]
 size = Vector2(31, 12)
@@ -251,7 +251,7 @@ autoplay = "Unspawned"
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Proximity Detector"]
-position = Vector2(1.5, -36.25)
+position = Vector2(-0.5, -45.25)
 shape = SubResource("RectangleShape2D_76kfy")
 
 [node name="Attack_cooldown" type="Timer" parent="."]
