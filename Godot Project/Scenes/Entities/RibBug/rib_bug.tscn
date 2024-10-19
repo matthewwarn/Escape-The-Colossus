@@ -1,8 +1,11 @@
-[gd_scene load_steps=40 format=3 uid="uid://b4gjkiteju2ea"]
+
+[gd_scene load_steps=41 format=3 uid="uid://b4gjkiteju2ea"]
+
 
 [ext_resource type="Texture2D" uid="uid://4krpsc4cin1j" path="res://Scenes/Entities/EntityAssets/Ribbug Sheet.png" id="1_a34pl"]
 [ext_resource type="Script" path="res://Scenes/Entities/RibBug/rib_bug.gd" id="1_g8m6j"]
 [ext_resource type="AudioStream" uid="uid://rxql8fylrjc0" path="res://Scenes/Audio/SFX/hit.wav" id="3_guq6j"]
+[ext_resource type="PackedScene" uid="uid://cl5mdr542gn8t" path="res://Scenes/Particle System/blood_splash.tscn" id="4_u6ns2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0x5qi"]
 atlas = ExtResource("1_a34pl")
@@ -350,6 +353,8 @@ collide_with_areas = true
 visible = false
 stream = ExtResource("3_guq6j")
 bus = &"SFX"
+
+[node name="Blood splash" parent="." instance=ExtResource("4_u6ns2")]
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="detection" to="." method="_on_detection_body_entered"]
