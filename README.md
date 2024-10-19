@@ -15,11 +15,19 @@ Windows defender may display a popup saying that the application is not signed. 
 MacOS is currently not supported due to the cost of an apple developer license.
 
 
-## Control Scheme
-- Movement with WASD / Arrow Keys
-- Jump   - Space / X
-- Dash   - Ctrl / Z
-- Attack - E / C
+## Control Scheme - Keyboard
+- Movement - WASD / Arrow Keys
+- Jump     - Space / X
+- Dash     - Ctrl / Z
+- Attack   - E / C
+- Pause    - Escape
+
+## Control Scheme - Controller (Xbox)
+- Movement - Left Stick / D-Pad
+- Jump     - A Button
+- Dash     - LT / RT
+- Attack   - X Button
+- Pause    - Start
 
 
 ## Screenshots
