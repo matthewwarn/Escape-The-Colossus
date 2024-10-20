@@ -1,6 +1,4 @@
-
 [gd_scene load_steps=41 format=3 uid="uid://b4gjkiteju2ea"]
-
 
 [ext_resource type="Texture2D" uid="uid://4krpsc4cin1j" path="res://Scenes/Entities/EntityAssets/Ribbug Sheet.png" id="1_a34pl"]
 [ext_resource type="Script" path="res://Scenes/Entities/RibBug/rib_bug.gd" id="1_g8m6j"]

@@ -53,3 +53,8 @@ func rise_acid(delta):
 		await get_tree().create_timer(3).timeout
 		position.x = 5000
 		acid_active = false
+
+
+func _on_reach_head_body_entered(body):
+	$Song1Player.stop()
+	$Song2Player.stop()

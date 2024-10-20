@@ -1,6 +1,7 @@
-[gd_scene load_steps=19 format=4 uid="uid://cyxxrx1cqxsyc"]
+[gd_scene load_steps=20 format=4 uid="uid://cyxxrx1cqxsyc"]
 
 [ext_resource type="PackedScene" uid="uid://djgqihrehhe1h" path="res://Scenes/Levels/template_level.tscn" id="1_62e4s"]
+[ext_resource type="AudioStream" uid="uid://c2yyoxtfmtg6h" path="res://Scenes/Audio/Music/Area 2.ogg" id="2_bhl8v"]
 [ext_resource type="TileSet" uid="uid://d3uaft5ba4k5r" path="res://Scenes/Levels/LevelAssets/gore_tileset.tres" id="2_u2jus"]
 [ext_resource type="PackedScene" uid="uid://ddk74kjxma2c1" path="res://Scenes/Entities/Floor Maw/floor_maw.tscn" id="3_hkl1u"]
 [ext_resource type="PackedScene" uid="uid://b4gjkiteju2ea" path="res://Scenes/Entities/RibBug/rib_bug.tscn" id="4_pydcf"]
@@ -100,6 +101,7 @@ _data = {
 [node name="TemplateLevel" instance=ExtResource("1_62e4s")]
 previous_level = "Level Two/level_two.tscn"
 exit_a = "FinalBoss/final_boss.tscn"
+level_music = ExtResource("2_bhl8v")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Killzone" index="1"]
 position = Vector2(27, 453)
