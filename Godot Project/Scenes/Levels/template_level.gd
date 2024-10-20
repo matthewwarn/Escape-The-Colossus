@@ -39,7 +39,7 @@ func _ready() -> void:
 	
 	var killzone_hazards = get_tree().get_nodes_in_group("KillzoneHazard");
 	for hazard in killzone_hazards:
-		if hazard.is_connected("player_died", _on_player_died):
+		if !hazard.is_connected("player_died", _on_player_died):
 			hazard.player_died.connect(_on_player_died);
 
 # Connect all killzones to this method.

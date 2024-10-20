@@ -252,6 +252,3 @@ position = Vector2(-90, -289)
 [connection signal="player_died" from="AcidTiles/AcidTile4Long2/AcidTile4Long3" to="." method="_on_player_died"]
 [connection signal="player_died" from="AcidTiles/AcidTile4Long2/AcidTile4Long3/AcidTile4Long4" to="." method="_on_player_died"]
 [connection signal="player_died" from="AcidTiles/AcidTile4Long2/AcidTile4Long3/AcidTile4Long4/AcidTile4Long3" to="." method="_on_player_died"]
-[connection signal="player_died" from="FloorMaw" to="." method="_on_player_died"]
-[connection signal="player_died" from="FloorMaw2" to="." method="_on_player_died"]
-[connection signal="player_died" from="FloorMaw3" to="." method="_on_player_died"]
