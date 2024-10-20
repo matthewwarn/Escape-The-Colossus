@@ -10,3 +10,5 @@ var formatted_time: String
 
 var core_one_defeated: bool = false;
 var core_two_defeated: bool = false;
+
+var pause_available: bool = true;

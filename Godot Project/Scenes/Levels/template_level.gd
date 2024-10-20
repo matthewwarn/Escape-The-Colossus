@@ -29,6 +29,9 @@ func _ready() -> void:
 	camera.position_smoothing_speed = SMOOTHING_SPEED;
 	player.double_jump_toggle = Abilities.double_jump_enabled;
 	player.dash_toggle = Abilities.dash_enabled;
+	
+	Engine.time_scale = 1;
+	Global.pause_available = true;
 
 	if Global.checkpoint_position != Vector2(0, 0):
 		print("Spawning at checkpoint: " + str(Global.checkpoint_position))
@@ -69,7 +72,7 @@ func jump_to_end() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("fullscreen"):
 		SettingsManager.toggle_fullscreen();
-	if event.is_action_pressed("pause"):
+	if event.is_action_pressed("pause") && Global.pause_available:
 		pause_menu_popup.open();
 	if event.is_action_pressed("reset"):
 		level_reset_requested.emit();

@@ -7,9 +7,8 @@ extends Area2D
 @onready var clear_animation = $Info/AnimationPlayer
 
 
-@export var fade_speed: float = 0.5
-@export var time_scale: float = 0.4
-
+@export var fade_speed: float = 0.35
+var time_scale: float = 0.15
 
 var completion_time: float
 
@@ -22,6 +21,9 @@ func _ready():
 
 func _on_body_entered(body):
 	if body.name == "Player":
+		# Disable pausing
+		Global.pause_available = false
+		
 		# Record final completion time
 		completion_time = Global.speedrun_time
 		completion_time_label.text = "Completion Time: " + Global.formatted_time
@@ -35,11 +37,8 @@ func _on_body_entered(body):
 		# Start fade to white
 		await fade_to_white()
 		
-		time_scale = 1
-		
 		# Show info on screen after fade completes
 		show_info()
-		
 
 func fade_to_white():
 	while fade_rect.color.a < 1:
@@ -53,5 +52,8 @@ func fade_to_white():
 func show_info():
 	info.visible = true
 	
+	$Info/EndMenuButton.grab_focus()
+	
 	if !clear_animation.is_playing():
 		clear_animation.play("clear")
+	
