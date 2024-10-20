@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 var time = Global.speedrun_time
+var formatted_time: String
 
 func _physics_process(delta):
 	time = float(time) + delta
@@ -24,7 +25,7 @@ func update_ui():
 		formatted_seconds += "0"
 	
 	
-	var formatted_time = formatted_minutes + ":" + formatted_seconds
+	formatted_time = formatted_minutes + ":" + formatted_seconds
 	
 	Global.speedrun_time = time
 	
