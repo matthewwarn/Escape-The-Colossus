@@ -1,5 +1,7 @@
 extends Area2D
 
+@onready var audio_manager;
+
 @onready var fade_rect = $"../WhiteScreen/ColorRect"
 @onready var info = $Info
 @onready var completion_time_label = $Info/Label
@@ -18,6 +20,9 @@ func _ready():
 	
 	# Set final info to invisible
 	info.visible = false
+	
+	audio_manager = get_node("/root/GameManager/AudioManager");
+
 
 func _on_body_entered(body):
 	if body.name == "Player":
@@ -29,6 +34,7 @@ func _on_body_entered(body):
 		completion_time_label.text = "Completion Time: " + Global.formatted_time
 		
 		# Play Music
+		audio_manager.stop_music();
 		$Song3Player.play()
 		
 		# Slow time

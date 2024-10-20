@@ -17,6 +17,7 @@ func play_music(new_music: AudioStream):
 	
 	audio_player.play()
 
+
 func stop_music():
 	audio_player.stop()
 	current_music = null
