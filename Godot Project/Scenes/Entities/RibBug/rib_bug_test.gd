@@ -169,7 +169,7 @@ func attack():
 func deal_with_damage():
 	if can_take_damage_zone and Global.player_current_attack == true:
 		if can_take_damage == true:
-			health = health - 1
+			health = health - health
 			can_take_damage = false
 
 

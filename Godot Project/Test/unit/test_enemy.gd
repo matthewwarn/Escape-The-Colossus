@@ -14,7 +14,7 @@ func before_all():
 	_ribbug.can_take_damage = true
 	_ribbug.can_take_damage_zone = true
 	_player.facing = -1
-	_player.enemy_inattack_range = false
+	_player.enemy_inattack_range = true
 	_player.enemy_attack_cooldown = false
 
 func after_all():

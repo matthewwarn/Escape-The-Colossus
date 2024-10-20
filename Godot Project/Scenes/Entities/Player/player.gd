@@ -209,12 +209,9 @@ func play_animations():
 		animated_sprite.play("Death")
 
 func enemy_attack():	
-	if enemy_inattack_range and enemy_attack_cooldown == false:
-		update_hearts(health)
-		#$HurtSFX.play()
+	if enemy_inattack_range and enemy_attack_cooldown:
 		health = health - 1
 		enemy_attack_cooldown = true
-		#recieve_damage_cooldown.start()
 		print(health)
 			
 
