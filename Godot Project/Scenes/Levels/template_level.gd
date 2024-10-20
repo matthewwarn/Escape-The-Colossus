@@ -13,7 +13,6 @@ const SMOOTHING_SPEED: int = 15;
 @onready var end_locator: Node2D = $EndLocator
 @onready var camera: Camera2D = $Player/Camera2D
 
-
 ## Paths to adjacent game levels.
 ## Give paths relative to res://Scenes/Levels and include .tscn
 @export

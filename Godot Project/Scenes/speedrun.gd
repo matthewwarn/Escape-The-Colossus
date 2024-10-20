@@ -24,8 +24,8 @@ func update_ui():
 		formatted_seconds += "0"
 	
 	
-	var formatted_time = formatted_minutes + ":" + formatted_seconds
+	Global.formatted_time = formatted_minutes + ":" + formatted_seconds
 	
 	Global.speedrun_time = time
 	
-	$Label.text = formatted_time
+	$Label.text = Global.formatted_time
