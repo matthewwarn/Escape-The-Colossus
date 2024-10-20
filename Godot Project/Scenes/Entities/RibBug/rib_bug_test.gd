@@ -28,6 +28,7 @@ var can_chase: bool = true               #tracks if enemy can chase player
 @onready var jump_time = $Jump_time
 @onready var ray_cast_wall = $RayCastWall
 @onready var ray_cast_floor = $RayCastFloor
+@onready var hit_sfx = $HitSFX
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -168,9 +169,7 @@ func attack():
 func deal_with_damage():
 	if can_take_damage_zone and Global.player_current_attack == true:
 		if can_take_damage == true:
-			$HitSFX.play()
 			health = health - 1
-			take_damage_cooldown.start()
 			can_take_damage = false
 
 

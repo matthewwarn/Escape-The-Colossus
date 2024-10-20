@@ -211,12 +211,12 @@ func play_animations():
 func enemy_attack():	
 	if enemy_inattack_range and enemy_attack_cooldown == false:
 		update_hearts(health)
-		$HurtSFX.play()
+		#$HurtSFX.play()
 		health = health - 1
 		enemy_attack_cooldown = true
-		recieve_damage_cooldown.start()
+		#recieve_damage_cooldown.start()
 		print(health)
-		
+			
 
 #immunity cooldown
 func _on_recieve_damage_cooldown_timeout():
@@ -227,12 +227,11 @@ func attack():
 	var dir: int = facing
 	
 
-	if Input.is_action_just_pressed("attack") and enemy_attack_cooldown == true:
+	if Input.is_action_just_pressed("attack"):
 		emit_signal("attack_made")
 
 		Global.player_current_attack = true
 		attack_ip = true
-		$AttackSFX.play()
 		if dir == 1:
 			animated_sprite.flip_h = true
 			attack_hitbox.scale.x = -1
