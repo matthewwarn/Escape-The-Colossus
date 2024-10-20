@@ -164,6 +164,8 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_atuvm"]
 
 [node name="TemplateLevel" instance=ExtResource("1_so76t")]
+previous_level = "Level Three/_level_three.tscn"
+level_music = ExtResource("2_17g4g")
 
 [node name="Checkpoint" type="Area2D" parent="." index="1"]
 collision_layer = 2
@@ -668,7 +670,7 @@ rotation = -1.57079
 position = Vector2(23, 155)
 
 [node name="EndLocator" parent="." index="19"]
-position = Vector2(169, -12)
+position = Vector2(111, -4189)
 
 [node name="Enemies and Spikes" type="Node2D" parent="." index="20"]
 

@@ -76,6 +76,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		pause_menu_popup.open();
 	if event.is_action_pressed("reset"):
 		level_reset_requested.emit();
+	if OS.is_debug_build():
+		if event.is_action_pressed("skip_to_end"):
+			jump_to_end()
+		if event.is_action_pressed("skip_next"):
+			level_requested.emit(exit_a);
+		if event.is_action_pressed("skip_prev"):
+			level_requested.emit(previous_level);
 
 # Relay main menu request from pause menu.
 func _on_pause_menu_popup_main_menu_requested() -> void:
