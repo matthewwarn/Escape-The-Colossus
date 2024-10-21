@@ -67,6 +67,8 @@ func start_game() -> void:
 	Abilities.dash_enabled = false;
 	Abilities.double_jump_enabled = false;
 	Global.speedrun_time = 0.0;
+	Global.core_one_defeated = false;
+	Global.core_two_defeated = false;
 	save_game()
 
 ## Called when main menu resume game button pressed.

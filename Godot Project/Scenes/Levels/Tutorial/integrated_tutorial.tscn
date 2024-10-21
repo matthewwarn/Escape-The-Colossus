@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://c5j1qqa7tghs6"]
+[gd_scene load_steps=25 format=4 uid="uid://c5j1qqa7tghs6"]
 
 [ext_resource type="PackedScene" uid="uid://djgqihrehhe1h" path="res://Scenes/Levels/template_level.tscn" id="1_acwfr"]
 [ext_resource type="AudioStream" uid="uid://da84ipv4fccu5" path="res://Scenes/Audio/Music/Start and Area 1.ogg" id="2_4vad2"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://ddk74kjxma2c1" path="res://Scenes/Entities/Floor Maw/floor_maw.tscn" id="6_ay4ac"]
 [ext_resource type="PackedScene" uid="uid://d0i1p2gbb4mbj" path="res://Scenes/Levels/LevelComponents/AcidTiles/acid_tile.tscn" id="7_11s11"]
 [ext_resource type="PackedScene" uid="uid://b4gjkiteju2ea" path="res://Scenes/Entities/RibBug/rib_bug.tscn" id="7_lt7li"]
+[ext_resource type="FontFile" uid="uid://bva7qk58kqol5" path="res://Scenes/Levels/LevelAssets/DirtyHarold_Font_1_0/DirtyHarold.ttf" id="10_lbd3x"]
 [ext_resource type="Script" path="res://Scenes/Levels/Tutorial/managePopupMessages.gd" id="11_0rfn5"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_adhrb"]
@@ -157,6 +158,10 @@ _data = {
 "title appear and fade": SubResource("Animation_76ytg")
 }
 
+[sub_resource type="LabelSettings" id="LabelSettings_a5gg5"]
+font = ExtResource("10_lbd3x")
+font_size = 30
+
 [node name="TemplateLevel" instance=ExtResource("1_acwfr")]
 exit_a = "Hub/hub_level.tscn"
 level_music = ExtResource("2_4vad2")
@@ -283,3 +288,11 @@ one_shot = true
 [node name="Timer2" type="Timer" parent="CanvasLayer" index="4"]
 wait_time = 2.0
 one_shot = true
+
+[node name="Attack Instructions" type="Label" parent="." index="12"]
+offset_left = 1010.0
+offset_top = 175.0
+offset_right = 1216.0
+offset_bottom = 212.0
+text = "Press C to Attack!"
+label_settings = SubResource("LabelSettings_a5gg5")
