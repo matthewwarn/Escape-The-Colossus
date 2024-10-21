@@ -1,10 +1,9 @@
-[gd_scene load_steps=23 format=4 uid="uid://c5j1qqa7tghs6"]
+[gd_scene load_steps=22 format=4 uid="uid://c5j1qqa7tghs6"]
 
 [ext_resource type="PackedScene" uid="uid://djgqihrehhe1h" path="res://Scenes/Levels/template_level.tscn" id="1_acwfr"]
 [ext_resource type="AudioStream" uid="uid://da84ipv4fccu5" path="res://Scenes/Audio/Music/Start and Area 1.ogg" id="2_4vad2"]
 [ext_resource type="TileSet" uid="uid://d3uaft5ba4k5r" path="res://Scenes/Levels/LevelAssets/gore_tileset.tres" id="2_xj5iw"]
 [ext_resource type="FontFile" uid="uid://bdc4hvgih0upu" path="res://Scenes/Levels/LevelAssets/DirtyHarold_Font_1_0/DirtyHarold.otf" id="3_6ivar"]
-[ext_resource type="PackedScene" uid="uid://brjlyssh0oxh0" path="res://Scenes/checkpoint.tscn" id="4_cnxiy"]
 [ext_resource type="PackedScene" uid="uid://dmdvwelqe4h1u" path="res://Scenes/Entities/Spike Trap/spike_trap.tscn" id="5_pfnhm"]
 [ext_resource type="PackedScene" uid="uid://ddk74kjxma2c1" path="res://Scenes/Entities/Floor Maw/floor_maw.tscn" id="6_ay4ac"]
 [ext_resource type="PackedScene" uid="uid://b4gjkiteju2ea" path="res://Scenes/Entities/RibBug/rib_bug.tscn" id="7_lt7li"]
@@ -209,11 +208,7 @@ position = Vector2(240, 152)
 [node name="EndLocator" parent="." index="10"]
 position = Vector2(3665, -136)
 
-[node name="Checkpoint" parent="." index="11" instance=ExtResource("4_cnxiy")]
-position = Vector2(645, 112)
-collision_layer = 2
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." index="12"]
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="11"]
 script = ExtResource("11_0rfn5")
 
 [node name="Key instruction(arrow)" type="Label" parent="CanvasLayer" index="0"]
