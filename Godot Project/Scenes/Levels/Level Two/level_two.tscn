@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=4 uid="uid://7yknqrvkwm64"]
+[gd_scene load_steps=33 format=4 uid="uid://7yknqrvkwm64"]
 
 [ext_resource type="PackedScene" uid="uid://djgqihrehhe1h" path="res://Scenes/Levels/template_level.tscn" id="1_7v2t2"]
 [ext_resource type="TileSet" uid="uid://d3uaft5ba4k5r" path="res://Scenes/Levels/LevelAssets/gore_tileset.tres" id="2_ltos1"]
@@ -10,8 +10,6 @@
 [ext_resource type="Script" path="res://Scenes/Levels/Level Two/popup.gd" id="9_lwm6h"]
 [ext_resource type="PackedScene" uid="uid://b4gjkiteju2ea" path="res://Scenes/Entities/RibBug/rib_bug.tscn" id="9_yws7w"]
 [ext_resource type="Script" path="res://Scenes/Levels/Level Two/unlock_dash_zone.gd" id="10_d662h"]
-[ext_resource type="PackedScene" uid="uid://yk0yfglmn04d" path="res://Scenes/Particle System/jump_effect.tscn" id="11_qgwqo"]
-[ext_resource type="PackedScene" uid="uid://nfobq7nv6cye" path="res://Scenes/Particle System/powerup.tscn" id="12_187lu"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_847gl"]
 
@@ -522,11 +520,5 @@ metadata/_edit_use_anchors_ = true
 libraries = {
 "": SubResource("AnimationLibrary_n7eqv")
 }
-
-[node name="GPUParticles2D" parent="." index="14" instance=ExtResource("11_qgwqo")]
-position = Vector2(448, -258)
-
-[node name="GPUParticles2D2" parent="." index="15" instance=ExtResource("12_187lu")]
-position = Vector2(619, -275)
 
 [connection signal="body_entered" from="DashUnlockZone" to="DashUnlockZone" method="_on_body_entered"]

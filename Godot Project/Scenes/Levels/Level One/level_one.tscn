@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://bq106pqli3x4w"]
+[gd_scene load_steps=25 format=4 uid="uid://bq106pqli3x4w"]
 
 [ext_resource type="PackedScene" uid="uid://djgqihrehhe1h" path="res://Scenes/Levels/template_level.tscn" id="1_txbta"]
 [ext_resource type="Script" path="res://Scenes/Levels/Level One/double_jump_activation.gd" id="2_3b4qy"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://ddk74kjxma2c1" path="res://Scenes/Entities/Floor Maw/floor_maw.tscn" id="7_0jw5s"]
 [ext_resource type="FontFile" uid="uid://bdc4hvgih0upu" path="res://Scenes/Levels/LevelAssets/DirtyHarold_Font_1_0/DirtyHarold.otf" id="8_g2r0q"]
 [ext_resource type="Script" path="res://Scenes/Levels/Level One/animation_player.gd" id="12_745bn"]
-[ext_resource type="PackedScene" uid="uid://nfobq7nv6cye" path="res://Scenes/Particle System/powerup.tscn" id="12_badd8"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_42ohx"]
 
@@ -347,8 +346,5 @@ metadata/_edit_use_anchors_ = true
 libraries = {
 "": SubResource("AnimationLibrary_kwb7d")
 }
-
-[node name="Powerup" parent="." index="14" instance=ExtResource("12_badd8")]
-position = Vector2(-224, 249)
 
 [connection signal="body_entered" from="DoubleJumpActivation" to="DoubleJumpActivation" method="_on_body_entered"]

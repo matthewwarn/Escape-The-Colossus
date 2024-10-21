@@ -22,6 +22,7 @@ color_ramp = SubResource("GradientTexture1D_c7xyi")
 [sub_resource type="CanvasTexture" id="CanvasTexture_g3i6o"]
 
 [node name="Powerup" type="GPUParticles2D"]
+z_index = -1
 amount = 150
 process_material = SubResource("ParticleProcessMaterial_6j7ba")
 texture = SubResource("CanvasTexture_g3i6o")
