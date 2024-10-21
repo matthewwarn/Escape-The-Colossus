@@ -6,6 +6,7 @@ extends CharacterBody2D
 @onready var deal_damage_timer = $deal_damage_timer
 @onready var attack_hitbox = $attack_hitbox
 @onready var speedrun_timer: CanvasLayer = $"Speedrun Timer"
+@onready var jump_effect = $"Jump Effect"
 
 var full_heart_texture = preload("res://Scenes/Entities/Player/Health/Heart.png")
 var damaged_heart_texture = preload("res://Scenes/Entities/Player/Health/DamagedHeart.png")
@@ -130,6 +131,8 @@ func _physics_process(delta):
 			velocity.y = JUMP_VELOCITY
 			double_jump_available = false
 			$JumpSFX.play()
+			jump_effect.emitting = true
+			
 			
 		# If neither jump available, start jump buffer timer
 		else:

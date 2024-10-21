@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bffllo437822"]
+[gd_scene load_steps=34 format=3 uid="uid://bffllo437822"]
 
 [ext_resource type="Script" path="res://Scenes/Entities/Player/player.gd" id="1_msad5"]
 [ext_resource type="Texture2D" uid="uid://dmar34rhv6vti" path="res://Scenes/Entities/Player/Health/Heart.png" id="2_8ijun"]
@@ -8,6 +8,8 @@
 [ext_resource type="AudioStream" uid="uid://duv2lhqxfimi3" path="res://Scenes/Audio/SFX/hurt.wav" id="6_3542x"]
 [ext_resource type="AudioStream" uid="uid://bqq4darhkg5tk" path="res://Scenes/Audio/SFX/attack.wav" id="7_saf7l"]
 [ext_resource type="AudioStream" uid="uid://dlh2c82n7h0wd" path="res://Scenes/Audio/SFX/dash.wav" id="8_dqfvd"]
+[ext_resource type="PackedScene" uid="uid://nfobq7nv6cye" path="res://Scenes/Particle System/powerup.tscn" id="9_5u03y"]
+[ext_resource type="PackedScene" uid="uid://yk0yfglmn04d" path="res://Scenes/Particle System/jump_effect.tscn" id="10_cgxhw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ntkm0"]
 atlas = ExtResource("3_dw74v")
@@ -264,6 +266,17 @@ collision_mask = 3
 [node name="CollisionShape2D" type="CollisionShape2D" parent="attack_hitbox"]
 position = Vector2(-17, -14)
 shape = SubResource("CapsuleShape2D_afjy0")
+
+[node name="Powerup Effect" parent="." instance=ExtResource("9_5u03y")]
+position = Vector2(0, -3)
+emitting = false
+one_shot = true
+
+[node name="Jump Effect" parent="." instance=ExtResource("10_cgxhw")]
+z_index = -1
+position = Vector2(0, -3)
+emitting = false
+one_shot = true
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="timeout" from="recieve_damage_cooldown" to="." method="_on_recieve_damage_cooldown_timeout"]
