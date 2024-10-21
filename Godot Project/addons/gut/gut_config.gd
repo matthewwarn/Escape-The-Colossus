@@ -12,7 +12,7 @@ var default_options = {
 	# used by editor to handle enabled/disabled dirs.  All dirs configured go
 	# here and only the enabled dirs go into dirs
 	configured_dirs = [],
-	dirs = [],
+	dirs = ["res://test"],
 	disable_colors = false,
 	# double strategy can be the name of the enum value, the enum value or
 	# lowercase name with spaces:  0/SCRIPT_ONLY/script only

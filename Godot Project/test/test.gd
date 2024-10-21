@@ -85,4 +85,8 @@ func test_timer2_timeout():
 	# Simulate timer2 timeout
 	scene_instance._on_timer2_timeout()
 
-	# Check if the spac
+	# Check if the space fade animation is playing
+	assert_true(scene_instance.animation2.is_playing(), "Space fade animation should be playing")
+
+	# Check if the title animation is playing
+	assert_true(scene_instance.animation3.is_playing(), "Title appear and fade animation should be playing")
