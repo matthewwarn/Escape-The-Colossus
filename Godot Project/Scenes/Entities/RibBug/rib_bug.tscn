@@ -279,7 +279,6 @@ animation = &"Attack"
 autoplay = "Spawn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(-2, 1)
 rotation = 1.55683
 shape = SubResource("CapsuleShape2D_4ovni")
@@ -307,7 +306,6 @@ shape = SubResource("CapsuleShape2D_nn26i")
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="deal_damage_hit_box"]
-visible = false
 position = Vector2(0, -2)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_71dyf")
@@ -330,6 +328,7 @@ one_shot = true
 
 [node name="RayCast_jump" type="RayCast2D" parent="."]
 physics_interpolation_mode = 1
+visible = false
 position = Vector2(-16, -39)
 rotation = 1.5708
 target_position = Vector2(8, 0)
@@ -337,17 +336,19 @@ collide_with_areas = true
 collide_with_bodies = false
 
 [node name="RayCastWall" type="RayCast2D" parent="."]
-position = Vector2(0, 5)
-target_position = Vector2(-11, 0)
+visible = false
+position = Vector2(-1, 0)
+target_position = Vector2(-13, -1)
 collide_with_areas = true
-collide_with_bodies = false
 
 [node name="RayCastFloor" type="RayCast2D" parent="."]
+visible = false
 position = Vector2(-13, -1)
 target_position = Vector2(0, 7)
 collide_with_areas = true
 
 [node name="HitSFX" type="AudioStreamPlayer2D" parent="."]
+visible = false
 stream = ExtResource("3_guq6j")
 bus = &"SFX"
 

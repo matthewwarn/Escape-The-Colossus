@@ -3,7 +3,7 @@ extends CanvasLayer
 var time = Global.speedrun_time
 
 func _physics_process(delta):
-	time = float(time) + delta
+	time = float(Global.speedrun_time) + delta
 	
 	update_ui();
 
@@ -24,8 +24,8 @@ func update_ui():
 		formatted_seconds += "0"
 	
 	
-	var formatted_time = formatted_minutes + ":" + formatted_seconds
+	Global.formatted_time = formatted_minutes + ":" + formatted_seconds
 	
 	Global.speedrun_time = time
 	
-	$Label.text = formatted_time
+	$Label.text = Global.formatted_time

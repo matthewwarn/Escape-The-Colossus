@@ -11,20 +11,23 @@ var can_attack = true
 var is_alive = true
 var attack_ip = false
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	floormaw_enemy()
-	acttack()
+	attack()
 
 
-func _on_proximity_detector_body_entered(_body: Node2D) -> void:
-	animated_sprite.play(&"Spawn")
+func _on_proximity_detector_body_entered(body: Node2D) -> void:
+	if body.has_method("player"):
+		animated_sprite.play(&"Spawn")
 
 
 func _on_proximity_detector_body_exited(body: Node2D) -> void:
-	animated_sprite.play_backwards(&"Spawn");
+	if body.has_method("player"):
+		animated_sprite.play_backwards(&"Spawn");
+
 
 #to play attack animation
-func acttack():
+func attack():
 	var dir = facing
 	if player_inattack_zone and can_attack:
 		attack_ip = true
@@ -57,7 +60,8 @@ func _on_deal_damage_hitbox_body_entered(body):
 
 
 func _on_deal_damage_hitbox_body_exited(body):
-	player_inattack_zone = false
+	if body.has_method("player"):
+		player_inattack_zone = false
 
 
 func _on_attack_cooldown_timeout():

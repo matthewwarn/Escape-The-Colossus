@@ -13,7 +13,6 @@ const SMOOTHING_SPEED: int = 15;
 @onready var end_locator: Node2D = $EndLocator
 @onready var camera: Camera2D = $Player/Camera2D
 
-
 ## Paths to adjacent game levels.
 ## Give paths relative to res://Scenes/Levels and include .tscn
 @export
@@ -30,6 +29,9 @@ func _ready() -> void:
 	camera.position_smoothing_speed = SMOOTHING_SPEED;
 	player.double_jump_toggle = Abilities.double_jump_enabled;
 	player.dash_toggle = Abilities.dash_enabled;
+	
+	Engine.time_scale = 1;
+	Global.pause_available = true;
 
 	if Global.checkpoint_position != Vector2(0, 0):
 		print("Spawning at checkpoint: " + str(Global.checkpoint_position))
@@ -37,7 +39,7 @@ func _ready() -> void:
 	
 	var killzone_hazards = get_tree().get_nodes_in_group("KillzoneHazard");
 	for hazard in killzone_hazards:
-		if hazard.is_connected("player_died", _on_player_died):
+		if !hazard.is_connected("player_died", _on_player_died):
 			hazard.player_died.connect(_on_player_died);
 
 # Connect all killzones to this method.
@@ -70,10 +72,17 @@ func jump_to_end() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("fullscreen"):
 		SettingsManager.toggle_fullscreen();
-	if event.is_action_pressed("pause"):
+	if event.is_action_pressed("pause") && Global.pause_available:
 		pause_menu_popup.open();
 	if event.is_action_pressed("reset"):
 		level_reset_requested.emit();
+	if OS.is_debug_build():
+		if event.is_action_pressed("skip_to_end"):
+			jump_to_end()
+		if event.is_action_pressed("skip_next"):
+			level_requested.emit(exit_a);
+		if event.is_action_pressed("skip_prev"):
+			level_requested.emit(previous_level);
 
 # Relay main menu request from pause menu.
 func _on_pause_menu_popup_main_menu_requested() -> void:
