@@ -13,6 +13,7 @@ func _on_body_entered(_body):
 		animation.play("dash unlock appear")
 		animation2.play("press z appear")
 		Abilities.dash_enabled = true;
+		player.dash_toggle = true;
 		powerup_effect.emitting = true;
 		entered = true;
 	
