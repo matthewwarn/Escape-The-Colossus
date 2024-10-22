@@ -1,5 +1,11 @@
 extends Node2D
 
+## This class is inherited by all in-game levels
+## It includes important methods and attributes used to interface with the game manager,
+## player, and enemies.
+## Author - Skye
+
+
 # Signals connected to the game manager to control level loading.
 signal level_reset_requested;
 signal level_requested(level_path: String);
