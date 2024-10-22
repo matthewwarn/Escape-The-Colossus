@@ -1,9 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://bg4hns4dr4nit"]
+[gd_scene load_steps=3 format=3 uid="uid://bg4hns4dr4nit"]
 
 [ext_resource type="Script" path="res://scripts/AudioManager.gd" id="1_4gu37"]
+[ext_resource type="AudioStream" uid="uid://brsystwbq7bs0" path="res://Scenes/Audio/SFX/roar.wav" id="2_w7vtb"]
 
 [node name="AudioManager" type="Node2D"]
 script = ExtResource("1_4gu37")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 bus = &"Music"
+
+[node name="SfxPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_w7vtb")
+bus = &"SFX"

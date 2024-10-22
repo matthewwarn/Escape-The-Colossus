@@ -4,7 +4,7 @@ var camera_smoothing: bool = true;
 var speedrun_timer: bool = false;
 
 func is_fullscreen() -> bool:
-	return DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN;
+	return DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN;
 
 func toggle_fullscreen() -> void:
 	if is_fullscreen():
@@ -14,7 +14,7 @@ func toggle_fullscreen() -> void:
 
 func set_fullscreen(fullscreen_enabled: bool) -> void:
 	if (fullscreen_enabled):
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN);
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN);
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED);
 

@@ -25,6 +25,7 @@ script = ExtResource("1_mtb20")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_set = ExtResource("6_kfpnu")
+metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("7_tph31")]
 

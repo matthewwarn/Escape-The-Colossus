@@ -3,6 +3,7 @@ extends Node
 class_name AudioManager
 
 @onready var audio_player: AudioStreamPlayer = $AudioStreamPlayer
+@onready var sfx_player: AudioStreamPlayer = $SfxPlayer
 
 var current_music: AudioStream = null
 
@@ -21,3 +22,7 @@ func play_music(new_music: AudioStream):
 func stop_music():
 	audio_player.stop()
 	current_music = null
+
+
+func play_roar():
+	sfx_player.play();

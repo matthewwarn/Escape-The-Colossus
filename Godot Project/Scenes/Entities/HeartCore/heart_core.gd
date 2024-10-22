@@ -3,6 +3,7 @@ extends AnimatedSprite2D
 signal defeated;
 
 @onready var immunity_time: Timer = $ImmunityTime
+@onready var audio_manager = $"/root/GameManager/AudioManager"
 
 var player_in_range: bool = false;
 var health: int = 3;
@@ -29,7 +30,7 @@ func _process(_delta: float) -> void:
 
 func kill_self():
 	defeated.emit();
-	$RoarSFX.play()
+	audio_manager.play_roar();
 	Global.core_one_defeated = true;
 	print("Core defeated");
 	self.queue_free();
