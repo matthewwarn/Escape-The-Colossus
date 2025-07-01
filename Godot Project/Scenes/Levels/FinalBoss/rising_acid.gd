@@ -5,8 +5,12 @@ var direction = Vector2(0, -1)
 var heart_hits: int = 0;
 var acid_active = false;
 
+
 func _ready():
 	position.x = 5000
+	call_deferred("_play_intro")
+
+func _play_intro() -> void:
 	$Song1Player.play()
 
 func _process(delta):
@@ -16,8 +20,8 @@ func _process(delta):
 func _on_area_2d_heart_destroyed_signal():
 	#Switch Song
 	$Song1Player.stop()
-	$Song2Player.play()
 	
+	$Song2Player.play()
 	$AcidSFX.play()
 	
 	acid_active = true;
@@ -54,7 +58,5 @@ func rise_acid(delta):
 		position.x = 5000
 		acid_active = false
 
-
 func _on_reach_head_body_entered(body):
-	$Song1Player.stop()
 	$Song2Player.stop()
