@@ -14,7 +14,9 @@ config/name="EscapeTheColossus"
 config/version="0.1"
 run/main_scene="res://Scenes/game_manager.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0.437704, 0.161242, 0.241437, 1)
+boot_splash/show_image=false
+config/icon="res://etc.ico"
 
 [autoload]
 
@@ -25,6 +27,7 @@ Audio_Manager="*res://scripts/audio_manager.tscn"
 
 [display]
 
+window/size/mode=3
 window/stretch/mode="viewport"
 window/per_pixel_transparency/allowed=true
 
@@ -127,3 +130,5 @@ skip_prev={
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
+anti_aliasing/quality/msaa_2d=3
